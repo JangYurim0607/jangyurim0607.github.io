@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="재미있는 경험을 위해서라면 뭐든 하는 게임 개발자 겸 연구자, Yurim Jang의 포트폴리오" />
+  <title>Yurim Jang — Game & Research Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#25253a;
+      --muted:#71718a;
+      --line:rgba(57,57,84,.11);
+      --glass:rgba(255,255,255,.68);
+      --pink:#ffe5ee;
+      --yellow:#fff4c9;
+      --green:#e6f7df;
+      --blue:#e1f4ff;
+      --purple:#eee6ff;
+      --radius-xl:32px;
+      --radius-lg:24px;
+      --radius-md:18px;
+      --shadow:0 22px 60px rgba(85,71,115,.10);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"DM Sans","Noto Sans KR",sans-serif;
+      color:var(--ink);
+      background:#fff;
+      line-height:1.65;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    img{display:block;max-width:100%}
+
+    .home-bg{
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 9% 13%, rgba(255,190,212,.76), transparent 27%),
+        radial-gradient(circle at 86% 10%, rgba(255,236,162,.75), transparent 29%),
+        radial-gradient(circle at 75% 72%, rgba(188,238,209,.68), transparent 31%),
+        radial-gradient(circle at 20% 82%, rgba(186,226,255,.78), transparent 34%),
+        radial-gradient(circle at 53% 46%, rgba(222,202,255,.68), transparent 38%),
+        linear-gradient(135deg,#fff8fb 0%,#fffdf4 24%,#f6fff4 47%,#f3fbff 70%,#faf6ff 100%);
+      position:relative;
+      overflow:hidden;
+    }
+    .noise{
+      position:absolute; inset:0; pointer-events:none; opacity:.24;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+    }
+    .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto;position:relative}
+    nav{
+      position:sticky; top:12px; z-index:20;
+      width:min(1180px,calc(100% - 40px));
+      margin:0 auto;
+      transform:translateY(16px);
+      border:1px solid rgba(255,255,255,.7);
+      background:rgba(255,255,255,.67);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border-radius:999px;
+      box-shadow:0 10px 35px rgba(75,64,104,.07);
+      padding:8px 10px 8px 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+    }
+    .brand{font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+    .navlinks{display:flex;gap:4px;align-items:center;overflow:auto}
+    .navlinks a{
+      font-size:13px;font-weight:600;color:#57576f;
+      padding:9px 12px;border-radius:999px;white-space:nowrap;
+      transition:.2s ease;
+    }
+    .navlinks a:hover{background:#fff;color:#22223a}
+
+    .hero{
+      min-height:calc(100vh - 70px);
+      display:grid;grid-template-columns:1.18fr .82fr;align-items:center;gap:48px;
+      padding:100px 0 60px;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+      background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.76);
+      padding:8px 12px;border-radius:999px;
+    }
+    .hero h1{
+      font-size:clamp(46px,6.6vw,88px);
+      line-height:1.06;
+      letter-spacing:-.045em;
+      margin:24px 0 24px;
+      max-width:850px;
+      word-break:keep-all;
+    }
+    .hero h1 span{
+      background:linear-gradient(90deg,#ef7da6 4%,#dfa64d 26%,#69af82 47%,#5ca6d8 69%,#9875d9 92%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .hero-copy{
+      font-size:18px;color:#55556e;max-width:670px;margin:0 0 30px;
+    }
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:13px 18px;border-radius:999px;font-weight:700;font-size:14px;
+      border:1px solid rgba(55,55,75,.11);transition:.2s ease;
+    }
+    .btn.primary{background:#29293c;color:white;box-shadow:0 10px 25px rgba(41,41,60,.17)}
+    .btn.secondary{background:rgba(255,255,255,.65)}
+    .btn:hover{transform:translateY(-2px)}
+
+    .hero-card{
+      border-radius:40px;
+      padding:18px;
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(255,255,255,.85);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(16px);
+    }
+    .portrait-placeholder{
+      aspect-ratio:4/5;border-radius:28px;position:relative;overflow:hidden;
+      background:
+        radial-gradient(circle at 20% 20%,#ffd8e4,transparent 28%),
+        radial-gradient(circle at 80% 25%,#fff0ba,transparent 27%),
+        radial-gradient(circle at 70% 75%,#d5f2df,transparent 32%),
+        radial-gradient(circle at 20% 80%,#d8edff,transparent 34%),
+        linear-gradient(140deg,#f4eaff,#fff);
+      display:flex;align-items:center;justify-content:center;text-align:center;padding:32px;
+    }
+    .portrait-placeholder strong{display:block;font-size:24px;margin-bottom:4px}
+    .portrait-placeholder small{color:#6d6d84}
+    .mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+    .mini-stat{padding:13px;border-radius:20px;background:rgba(255,255,255,.72);text-align:center}
+    .mini-stat b{display:block;font-size:20px}
+    .mini-stat span{font-size:11px;color:var(--muted)}
+
+    .section{
+      padding:110px 0;
+      border-top:1px solid rgba(255,255,255,.4);
+      scroll-margin-top:80px;
+    }
+    .section.about{background:linear-gradient(180deg,#fff6f9,var(--pink))}
+    .section.research{background:linear-gradient(180deg,#fffdf5,var(--yellow))}
+    .section.games{background:linear-gradient(180deg,#f9fff7,var(--green))}
+    .section.papers{background:linear-gradient(180deg,#f8fcff,var(--blue))}
+    .section.showcase{background:linear-gradient(180deg,#fbf9ff,var(--purple))}
+    .section-head{
+      display:flex;justify-content:space-between;gap:30px;align-items:flex-end;margin-bottom:38px
+    }
+    .section-kicker{font-size:12px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#77768c}
+    .section h2{font-size:clamp(38px,5vw,66px);line-height:1;letter-spacing:-.05em;margin:10px 0 0}
+    .section-intro{max-width:520px;color:#66667e;margin:0}
+
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .glass-box{
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(255,255,255,.9);
+      border-radius:var(--radius-lg);
+      box-shadow:0 14px 40px rgba(100,70,90,.06);
+      padding:28px;
+    }
+    .glass-box h3{font-size:20px;margin:0 0 12px}
+    .tagrow{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{
+      display:inline-flex;padding:7px 10px;border:1px solid var(--line);
+      border-radius:999px;background:rgba(255,255,255,.66);font-size:12px;font-weight:600;
+    }
+
+    .filterbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+    .filter{
+      border:1px solid var(--line);background:rgba(255,255,255,.64);
+      border-radius:999px;padding:9px 13px;font-size:12px;font-weight:700;color:#66677d;cursor:pointer
+    }
+    .filter.active{background:#29293c;color:#fff}
+
+    .project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    .project-card{
+      background:rgba(255,255,255,.76);
+      border:1px solid rgba(255,255,255,.95);
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:0 14px 46px rgba(68,68,94,.07);
+      transition:.2s ease;
+    }
+    .project-card:hover{transform:translateY(-4px);box-shadow:0 22px 55px rgba(68,68,94,.1)}
+    .media{
+      aspect-ratio:16/9;
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05)),
+        linear-gradient(135deg,#d9ddf8,#d7f0ea);
+      display:flex;align-items:center;justify-content:center;
+      color:#66667d;font-size:13px;font-weight:600;position:relative;overflow:hidden;
+    }
+    .media img{width:100%;height:100%;object-fit:cover}
+    .media iframe{width:100%;height:100%;border:0}
+    .card-body{padding:22px}
+    .card-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .card-title{font-size:24px;line-height:1.18;letter-spacing:-.035em;margin:0}
+    .status{
+      flex:0 0 auto;
+      font-size:11px;font-weight:700;padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(0,0,0,.07);background:#fff;
+    }
+    .status.done{background:#e6f7df}
+    .status.beta{background:#e1f4ff}
+    .status.proto{background:#fff4c9}
+    .status.plan{background:#eee6ff}
+    .project-desc{font-size:14px;color:#66667d;margin:12px 0 15px}
+    .meta{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px;margin:14px 0 18px
+    }
+    .meta div{padding:11px 12px;border-radius:14px;background:rgba(250,250,252,.83)}
+    .meta small{display:block;color:#9292a4;font-size:10px;text-transform:uppercase;font-weight:700;letter-spacing:.08em}
+    .meta b{font-size:12px}
+    .progress-row{display:flex;align-items:center;gap:10px;margin-top:15px}
+    .progress{height:8px;background:rgba(54,54,70,.08);border-radius:999px;overflow:hidden;flex:1}
+    .progress > span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#ef98b7,#7ebcd9,#8dc49c)}
+    .progress-label{font-size:12px;font-weight:700;min-width:35px;text-align:right}
+    .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .chip-link{
+      display:inline-flex;gap:6px;align-items:center;padding:8px 11px;
+      background:#fff;border:1px solid var(--line);border-radius:999px;font-size:12px;font-weight:700;
+    }
+    .people{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+    .people-title{font-size:11px;color:#9292a4;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
+    .person{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:8px 0;
+    }
+    .person-main{display:flex;align-items:center;gap:10px}
+    .avatar{
+      width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#f6cada,#cde5f7);
+      display:grid;place-items:center;font-size:11px;font-weight:700
+    }
+    .person b{display:block;font-size:12px}
+    .person span{font-size:11px;color:var(--muted)}
+    .person a{font-size:11px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+    .paper-list{display:grid;gap:12px}
+    .paper{
+      background:rgba(255,255,255,.76);border:1px solid rgba(255,255,255,.92);
+      border-radius:20px;padding:20px 22px;display:grid;
+      grid-template-columns:110px 1fr auto;gap:18px;align-items:center;
+    }
+    .paper .year{font-size:28px;font-weight:700;letter-spacing:-.04em}
+    .paper h3{font-size:17px;line-height:1.4;margin:0 0 4px}
+    .paper p{font-size:12px;color:var(--muted);margin:0}
+    .paper a{font-size:12px;font-weight:700;padding:8px 10px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+
+    .timeline{display:grid;gap:14px}
+    .event{
+      background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.94);
+      padding:20px 22px;border-radius:20px;display:grid;grid-template-columns:120px 1fr auto;gap:18px;align-items:center
+    }
+    .event .date{font-size:12px;color:#77768b;font-weight:700}
+    .event h3{font-size:17px;margin:0 0 4px}
+    .event p{font-size:12px;color:var(--muted);margin:0}
+    .event a{font-size:12px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+    footer{
+      padding:70px 0;background:#29293c;color:#fff
+    }
+    .footer-grid{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}
+    footer h2{font-size:clamp(38px,6vw,78px);letter-spacing:-.055em;line-height:1;margin:0 0 18px}
+    footer p{max-width:540px;color:#c8c8d5}
+    .footer-links{display:flex;gap:10px;flex-wrap:wrap}
+    .footer-links a{border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:10px 13px;font-size:12px}
+
+    @media (max-width:860px){
+      nav{border-radius:24px;align-items:flex-start;flex-direction:column;padding:12px 14px}
+      .navlinks{width:100%;padding-bottom:1px}
+      .hero{grid-template-columns:1fr;padding-top:125px}
+      .hero-card{max-width:520px}
+      .section-head{display:block}
+      .section-intro{margin-top:18px}
+      .project-grid,.about-grid{grid-template-columns:1fr}
+      .paper,.event{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+    }
+
+    @media (max-width:520px){
+      .wrap{width:min(100% - 24px,1180px)}
+      nav{width:calc(100% - 24px)}
+      .hero h1{font-size:44px}
+      .hero-copy{font-size:16px}
+      .section{padding:82px 0}
+      .card-body{padding:18px}
+      .meta{grid-template-columns:1fr}
+      .mini-stats{grid-template-columns:1fr 1fr 1fr}
+    }
+  
+
+    /* ===== Collaboration plan block (inside project cards) ===== */
+    .plan-box{
+      margin-top:18px;padding:16px 17px;border-radius:18px;
+      background:rgba(255,255,255,.62);
+      border:1px dashed rgba(90,90,125,.22);
+    }
+    .plan-box h4{
+      margin:0 0 10px;font-size:13px;letter-spacing:-.01em;
+      display:flex;align-items:center;gap:7px;
+    }
+    .plan-box ul{margin:0;padding-left:17px}
+    .plan-box li{font-size:12.5px;color:#5f5f78;margin-bottom:5px}
+    .plan-box li:last-child{margin-bottom:0}
+    .plan-status{
+      margin-top:12px;font-size:11px;font-weight:700;color:#7a6a4e;
+      background:var(--yellow);border-radius:999px;padding:6px 10px;display:inline-block;
+    }
+
+    /* ===== Video slot ===== */
+    .media.video{background:#101020;color:#c9c9dd}
+    .media .video-hint{
+      display:flex;flex-direction:column;align-items:center;gap:6px;
+      font-size:12px;text-align:center;padding:0 24px;line-height:1.5;
+    }
+    .media .video-hint .play{
+      width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+      background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);font-size:15px;
+    }
+
+    /* ===== Work in progress paper ===== */
+    .wip{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:0;
+      border-radius:26px;overflow:hidden;margin-bottom:16px;
+      background:rgba(255,255,255,.8);
+      border:1px solid rgba(255,255,255,.95);
+      box-shadow:0 16px 46px rgba(60,80,110,.08);
+    }
+    .wip-main{padding:30px 32px}
+    .wip-side{padding:30px 32px;background:rgba(226,242,255,.55);border-left:1px solid rgba(90,110,140,.1)}
+    .wip-label{
+      display:inline-block;font-size:11px;font-weight:700;padding:6px 11px;border-radius:999px;
+      background:#29293c;color:#fff;margin-bottom:14px;
+    }
+    .wip-main h3{font-size:26px;line-height:1.2;letter-spacing:-.035em;margin:0 0 12px}
+    .wip-main p{font-size:14px;color:#5e5e78;margin:0 0 16px}
+    .wip-side h4{font-size:12px;margin:0 0 12px;color:#4d6076}
+    .wip-side ol{margin:0;padding-left:18px}
+    .wip-side li{font-size:12.5px;color:#54607a;margin-bottom:8px}
+    .wip-side li:last-child{margin-bottom:0}
+    .subhead{
+      font-size:15px;font-weight:700;margin:34px 0 14px;color:#4a4a62;
+      display:flex;align-items:center;gap:10px;
+    }
+    .subhead::after{content:"";flex:1;height:1px;background:rgba(80,80,120,.14)}
+    .subhead:first-child{margin-top:0}
+
+    @media (max-width:860px){
+      .wip{grid-template-columns:1fr}
+      .wip-side{border-left:0;border-top:1px solid rgba(90,110,140,.1)}
+    }
+
+    /* ===== Page-mode navigation ===== */
+    body.page-mode { min-height:100vh; }
+    body.page-mode header.home-bg { min-height:auto; overflow:visible; background:transparent; }
+    body.page-mode header.home-bg .noise,
+    body.page-mode header.home-bg .hero { display:none; }
+
+    body.home-mode .section,
+    body.home-mode footer { display:none; }
+
+    body.page-mode .section { display:none; min-height:100vh; padding-top:150px; }
+    body.page-mode .section.active-section { display:block; }
+    body.page-mode footer { display:block; }
+
+    body.theme-about { background:linear-gradient(145deg,#fff8fb 0%,#ffe9f0 42%,#ffdce8 100%); }
+    body.theme-research { background:linear-gradient(145deg,#fffdf7 0%,#fff6d9 45%,#ffefbd 100%); }
+    body.theme-games { background:linear-gradient(145deg,#fbfff9 0%,#ebf8e6 45%,#dcf2d5 100%); }
+    body.theme-papers { background:linear-gradient(145deg,#f9fdff 0%,#e8f6ff 45%,#d8efff 100%); }
+    body.theme-showcase { background:linear-gradient(145deg,#fdfbff 0%,#f1eaff 45%,#e6dbff 100%); }
+
+    body.page-mode .section.about,
+    body.page-mode .section.research,
+    body.page-mode .section.games,
+    body.page-mode .section.papers,
+    body.page-mode .section.showcase { background:transparent; border-top:0; }
+
+    body.page-mode nav {
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      top:16px;
+      margin:0;
+    }
+    body.home-mode nav {
+      position:sticky;
+      left:auto;
+      transform:translateY(16px);
+      top:12px;
+      margin:0 auto;
+    }
+    .navlinks a.active {
+      background:#29293c;
+      color:#fff;
+    }
+    .page-back {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:26px;
+      font-size:13px;
+      font-weight:700;
+      color:#5f5f75;
+      cursor:pointer;
+    }
+    body.page-mode .section-head { margin-bottom:42px; }
+
+
+    /* ===== 그림일기 (프로젝트 일지) ===== */
+    .diary-open{cursor:pointer;background:#fffaf0;border-color:rgba(190,150,90,.35)}
+
+    .diary-overlay{
+      position:fixed;inset:0;z-index:200;display:none;
+      background:rgba(38,34,52,.42);
+      backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+      padding:24px;overflow:auto;
+    }
+    .diary-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+    .diary-shell{
+      width:min(680px,100%);margin:auto;
+      display:flex;flex-direction:column;gap:16px;
+    }
+    .diary-bar{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      background:rgba(255,255,255,.9);border-radius:999px;padding:8px 8px 8px 18px;
+      box-shadow:0 14px 40px rgba(50,40,70,.18);
+    }
+    .diary-bar h3{margin:0;font-size:15px;letter-spacing:-.02em;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .diary-bar select{
+      font:inherit;font-size:12px;font-weight:600;border:1px solid var(--line);
+      background:#fff;border-radius:999px;padding:8px 10px;color:#4d4d63;max-width:190px;
+    }
+    .icon-btn{
+      width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+      background:#fff;cursor:pointer;display:grid;place-items:center;font-size:15px;line-height:1;
+    }
+    .icon-btn:hover{background:#f3f3f8}
+
+    .deck{
+      position:relative;height:560px;
+      perspective:1400px;touch-action:pan-y;
+    }
+    .sheet{
+      position:absolute;inset:0;
+      background:
+        repeating-linear-gradient(180deg,transparent 0 27px,rgba(120,110,90,.09) 27px 28px),
+        linear-gradient(160deg,#fffdf5,#fff9ec);
+      border:1px solid rgba(150,130,95,.25);
+      border-radius:8px;
+      box-shadow:0 16px 40px rgba(60,45,25,.16);
+      padding:22px 24px;
+      display:flex;flex-direction:column;gap:12px;
+      transition:transform .38s cubic-bezier(.22,.8,.3,1), opacity .3s ease;
+      will-change:transform;
+      overflow:hidden;
+    }
+    .sheet::before{
+      content:"";position:absolute;left:0;top:0;bottom:0;width:26px;
+      background:linear-gradient(90deg,rgba(190,120,120,.16),transparent);
+      border-right:1px solid rgba(200,110,110,.3);
+    }
+    .sheet.front{cursor:grab}
+    .sheet.front.dragging{cursor:grabbing;transition:none}
+    .sheet-inner{position:relative;padding-left:14px;display:flex;flex-direction:column;gap:12px;height:100%}
+
+    .sheet-head{
+      display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;
+      border:1px solid rgba(120,100,70,.3);border-radius:6px;overflow:hidden;
+      font-size:12px;font-weight:700;color:#5d5138;
+    }
+    .sheet-head .d{padding:8px 12px}
+    .sheet-head .w{padding:8px 12px;border-left:1px solid rgba(120,100,70,.3);font-size:15px}
+
+    .sheet-art{
+      flex:0 0 auto;height:180px;border:1px solid rgba(120,100,70,.3);border-radius:6px;
+      background:#fffef9;display:grid;place-items:center;overflow:hidden;
+    }
+    .sheet-art img{width:100%;height:100%;object-fit:contain}
+    .sheet-art .empty{font-size:34px;opacity:.5}
+
+    .sheet-areas{display:flex;flex-wrap:wrap;gap:6px}
+    .area-tag{
+      font-size:11px;font-weight:700;padding:5px 9px;border-radius:999px;
+      background:#fff;border:1px solid rgba(120,100,70,.28);color:#6a5c3e;
+    }
+    .area-tag[data-a="기획"]{background:#fff1f5}
+    .area-tag[data-a="개발"]{background:#eaf3ff}
+    .area-tag[data-a="아트"]{background:#fdf0ff}
+    .area-tag[data-a="사운드"]{background:#eefaf0}
+    .area-tag[data-a="연구"]{background:#fff6d9}
+    .area-tag[data-a="PR"]{background:#ffefe4}
+
+    .sheet-body{flex:1;overflow:auto;font-size:14px;color:#4a4236;line-height:28px}
+    .sheet-body .lab{
+      display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;
+      color:#8d7f5f;background:rgba(255,255,255,.8);border-radius:4px;padding:1px 6px;margin-right:6px;
+    }
+    .sheet-body p{margin:0 0 6px}
+    .sheet-body .feel{color:#6c6350;font-style:italic}
+
+    .sheet-tools{
+      position:absolute;right:14px;bottom:12px;display:flex;gap:6px;opacity:0;transition:.2s
+    }
+    .sheet.front:hover .sheet-tools{opacity:1}
+    .sheet-tools button{
+      font-size:11px;font-weight:700;border:1px solid rgba(120,100,70,.3);background:rgba(255,255,255,.9);
+      border-radius:999px;padding:5px 9px;cursor:pointer;color:#6a5c3e;
+    }
+
+    .deck-empty{
+      position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+      border:2px dashed rgba(255,255,255,.55);border-radius:10px;color:#fff;
+    }
+    .deck-empty b{display:block;font-size:17px;margin-bottom:6px}
+    .deck-empty span{font-size:13px;opacity:.8}
+
+    .deck-nav{
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      background:rgba(255,255,255,.9);border-radius:999px;padding:8px;
+      box-shadow:0 12px 34px rgba(50,40,70,.16);
+    }
+    .deck-count{font-size:12px;font-weight:700;color:#5b5b72;min-width:64px;text-align:center}
+    .deck-nav .btn{padding:10px 15px;font-size:13px}
+
+    /* 쓰기 폼 */
+    .diary-write{
+      background:linear-gradient(160deg,#fffdf5,#fff9ec);
+      border:1px solid rgba(150,130,95,.28);border-radius:14px;padding:24px;
+      box-shadow:0 18px 46px rgba(50,40,70,.2);
+    }
+    .diary-write h3{margin:0 0 18px;font-size:19px;letter-spacing:-.03em}
+    .field{margin-bottom:16px}
+    .field > label{display:block;font-size:11px;font-weight:700;color:#8a7c5c;margin-bottom:7px;letter-spacing:.04em}
+    .field input[type=date],.field select,.field input[type=text],.field textarea{
+      width:100%;font:inherit;font-size:14px;color:var(--ink);
+      border:1px solid rgba(120,100,70,.28);border-radius:8px;background:#fffef9;padding:10px 12px;
+    }
+    .field textarea{resize:vertical;min-height:70px;line-height:1.6}
+    .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid rgba(120,160,210,.5);outline-offset:1px}
+    .checkrow{display:flex;flex-wrap:wrap;gap:7px}
+    .checkrow label{
+      font-size:12px;font-weight:700;padding:8px 12px;border-radius:999px;cursor:pointer;
+      background:#fff;border:1px solid rgba(120,100,70,.25);color:#6a5c3e;user-select:none;
+    }
+    .checkrow input{position:absolute;opacity:0;width:0;height:0}
+    .checkrow label:has(input:checked),
+    .checkrow label.on{background:#29293c;border-color:#29293c;color:#fff}
+    .checkrow label:has(input:focus-visible){outline:2px solid rgba(120,160,210,.7);outline-offset:2px}
+
+    .pad-wrap{border:1px solid rgba(120,100,70,.28);border-radius:8px;background:#fffef9;overflow:hidden}
+    #pad{display:block;width:100%;height:190px;touch-action:none;cursor:crosshair}
+    .pad-tools{display:flex;align-items:center;gap:7px;padding:8px;border-top:1px solid rgba(120,100,70,.18);flex-wrap:wrap}
+    .swatch{width:22px;height:22px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15);cursor:pointer}
+    .swatch.on{box-shadow:0 0 0 2px #29293c}
+    .pad-tools button{
+      font-size:11px;font-weight:700;border:1px solid var(--line);background:#fff;
+      border-radius:999px;padding:6px 10px;cursor:pointer;
+    }
+    .write-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+    .diary-hint{font-size:11px;color:#8a7c5c;margin:14px 0 0;line-height:1.6}
+
+    @media (max-width:600px){
+      .diary-overlay{padding:12px}
+      .deck{height:520px}
+      .sheet{padding:16px 16px}
+      .sheet-art{height:140px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .sheet{transition:none}
+    }
+
+  </style>
+</head>
+<body class="home-mode">
+  <header id="home" class="home-bg">
+    <div class="noise"></div>
+    <nav>
+      <a class="brand" href="#home">YURIM JANG</a>
+      <div class="navlinks">
+        <a href="#about">소개</a>
+        <a href="#research">연구용 게임</a>
+        <a href="#games">오락 게임</a>
+        <a href="#papers">논문</a>
+        <a href="#showcase">전시·발표</a>
+        <a href="#diary" data-diary>일지</a>
+      </div>
+    </nav>
+
+    <div class="wrap hero">
+      <div>
+        <div class="eyebrow">Game Developer · Researcher · Planner</div>
+        <h1><span>재미를 위해서라면</span><br>뭐든 합니다.</h1>
+        <p class="hero-copy">
+          눈으로 하는 게임도, 손으로 하는 게임도, 그걸 증명하는 논문까지.
+          재미있는 경험 하나를 위해 기획하고, 만들고, 실험하고, 씁니다.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#research">연구용 게임 보기 ↘</a>
+          <a class="btn secondary" href="#papers">논문 보기</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="portrait-placeholder">
+          <div>
+            <strong>Profile Image</strong>
+            <small>여기에 프로필 사진 또는 대표 일러스트를 넣으세요</small>
+          </div>
+        </div>
+        <div class="mini-stats">
+          <div class="mini-stat"><b>2</b><span>연구용 게임</span></div>
+          <div class="mini-stat"><b>1</b><span>등재 논문</span></div>
+          <div class="mini-stat"><b>1</b><span>집필 중</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <section id="about" class="section about">
+    <div class="wrap">
+      <a class="page-back" href="#home">← 홈으로</a>
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">01 · About</div>
+          <h2>내 소개</h2>
+        </div>
+        <p class="section-intro">
+          소개 문구, 관심 연구 분야, 개발 역량, 사용 툴, 연락처와 주요 프로필 링크를 정리하는 영역입니다.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="glass-box">
+          <h3>Profile</h3>
+          <p>
+            재미있는 경험 하나를 만들기 위해 기획하고, 만들고, 실험하고, 논문까지 씁니다.
+            눈으로 하는 게임을 만들다 보니 안과 연구실 문까지 두드리게 됐습니다.
+          </p>
+          <div class="tagrow">
+            <span class="tag">Game Design</span>
+            <span class="tag">Game Research</span>
+            <span class="tag">Functional Games</span>
+            <span class="tag">UX Research</span>
+            <span class="tag">Interaction Design</span>
+          </div>
+        </div>
+
+        <div class="glass-box">
+          <h3>Tools & Skills</h3>
+          <p style="color:var(--muted);font-size:14px;margin-top:0">실제로 사용하는 툴과 역할에 맞춰 수정하세요.</p>
+          <div class="tagrow">
+            <span class="tag">Unity</span>
+            <span class="tag">Roblox Studio</span>
+            <span class="tag">Figma</span>
+            <span class="tag">Python</span>
+            <span class="tag">Data Analysis</span>
+            <span class="tag">Research Design</span>
+            <span class="tag">Project Management</span>
+          </div>
+          <div class="links">
+            <a class="chip-link" href="#" target="_blank">✉ Email</a>
+            <a class="chip-link" href="#" target="_blank">in LinkedIn</a>
+            <a class="chip-link" href="#" target="_blank">◎ Instagram</a>
+            <a class="chip-link" href="#" target="_blank">⌘ GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" class="section research">
+    <div class="wrap">
+      <a class="page-back" href="#home">← 홈으로</a>
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">02 · Research Games</div>
+          <h2>연구용 게임</h2>
+        </div>
+        <p class="section-intro">
+          연구 질문을 붙잡고 만든, 그래도 재미있어야 하는 게임들. 시선·머리·손 같은
+          몸의 입력을 게임 안으로 끌어들이는 작업이 중심입니다.
+        </p>
+      </div>
+
+      <div class="filterbar" data-target="research-grid">
+        <button class="filter active" data-filter="all">전체</button>
+        <button class="filter" data-filter="done">개발 완료</button>
+        <button class="filter" data-filter="beta">베타 테스트</button>
+        <button class="filter" data-filter="proto">프로토타입</button>
+        <button class="filter" data-filter="plan">기획 단계</button>
+      </div>
+
+      <div class="project-grid" id="research-grid">
+        <article class="project-card" data-status="done">
+          <!-- ▼▼ 영상 넣는 곳 ▼▼
+               저번에 PPT에 넣었던 그 영상 링크를 여기에 넣으면 됩니다.
+               아래 <div class="media video"> ... </div> 통째로 지우고 이걸로 교체하세요.
+
+               YouTube:  <div class="media"><iframe src="https://www.youtube.com/embed/영상ID" title="Eye can do it" allowfullscreen></iframe></div>
+               Vimeo:    <div class="media"><iframe src="https://player.vimeo.com/video/영상ID" title="Eye can do it" allowfullscreen></iframe></div>
+               mp4 파일: <div class="media"><video src="videos/eye-can-do-it.mp4" controls playsinline poster="images/eye-thumb.jpg" style="width:100%;height:100%;object-fit:cover"></video></div>
+          ▲▲ 영상 넣는 곳 ▲▲ -->
+          <div class="media video">
+            <div class="video-hint">
+              <span class="play">▶</span>
+              Eye can do it 플레이 영상<br>
+              <small style="opacity:.7">(PPT에 넣었던 영상 링크를 여기에 연결하세요)</small>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <h3 class="card-title">Eye can do it</h3>
+              <span class="status done">논문 등재</span>
+            </div>
+            <p class="project-desc">
+              손 대신 눈으로 플레이하는 게임입니다. 시선 추적으로 조준·선택·이동을 모두 처리해서,
+              컨트롤러를 쥐기 어려운 사람도 같은 게임을 같은 방식으로 즐길 수 있게 만들었습니다.
+              동시에 플레이 중 수집되는 시선 데이터가 그대로 실험 데이터가 되도록 설계했습니다.
+            </p>
+            <div class="tagrow">
+              <span class="tag">Eye Tracking</span>
+              <span class="tag">Serious Game</span>
+              <span class="tag">Accessibility</span>
+              <span class="tag">Unity</span>
+            </div>
+            <div class="meta">
+              <div><small>Role</small><b>기획 · 개발 · 연구</b></div>
+              <div><small>Status</small><b>개발 완료 · 논문 등재</b></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress"><span style="width:100%"></span></div>
+              <div class="progress-label">100%</div>
+            </div>
+            <div class="links">
+              <a class="chip-link" href="#" target="_blank">▶ 플레이 영상</a>
+              <a class="chip-link" href="#papers">▣ 등재 논문</a>
+              <a class="chip-link" href="#" target="_blank">↗ 데모</a>
+            </div>
+
+            <div class="plan-box">
+              <h4>👁 안과 공동연구 (진행 예정)</h4>
+              <ul>
+                <li>협력 기관 · 담당 교수님 — 여기에 병원/학과명을 넣으세요</li>
+                <li>게임 플레이 중 기록되는 시선 데이터로 안과 임상 지표와의 상관관계 확인</li>
+                <li>검사실의 딱딱한 시선 검사 대신, 게임으로 검사 시간을 견딜 수 있게 만드는 것이 목표</li>
+                <li>소아·고령 환자 대상 파일럿 → IRB 승인 → 본 실험 순으로 진행 예정</li>
+              </ul>
+              <span class="plan-status">협의 중 · 프로토콜 설계 단계</span>
+            </div>
+
+            <div class="people">
+              <div class="people-title">Collaborators</div>
+              <div class="person">
+                <div class="person-main">
+                  <div class="avatar">MD</div>
+                  <div><b>공동연구자 이름</b><span>안과 · 임상 자문</span></div>
+                </div>
+                <a href="#" target="_blank">Profile ↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-status="proto">
+          <div class="media">
+            <span>헤드 · 핸드 · 아이 트래킹 데모 영상 / 스크린샷</span>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <h3 class="card-title">Head · Hand · Eye Tracking Playground</h3>
+              <span class="status proto">PROTOTYPE</span>
+            </div>
+            <p class="project-desc">
+              머리 움직임, 손 제스처, 시선을 한 화면에서 동시에 입력으로 받는 테스트베드입니다.
+              같은 과제를 세 가지 입력으로 번갈아 시켜보면서 어떤 몸짓이 어떤 상호작용에 잘 맞는지,
+              세 개를 섞었을 때 오히려 방해가 되는 지점은 어디인지 확인합니다.
+            </p>
+            <div class="tagrow">
+              <span class="tag">Head Tracking</span>
+              <span class="tag">Hand Tracking</span>
+              <span class="tag">Eye Tracking</span>
+              <span class="tag">Multimodal</span>
+              <span class="tag">Unity</span>
+            </div>
+            <div class="meta">
+              <div><small>Role</small><b>기획 · 개발</b></div>
+              <div><small>쓰임</small><b>연구용 입력 테스트베드</b></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress"><span style="width:70%"></span></div>
+              <div class="progress-label">70%</div>
+            </div>
+            <div class="links">
+              <a class="chip-link" href="#" target="_blank">▶ 데모 영상</a>
+              <a class="chip-link" href="#" target="_blank">⌘ Repository</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="games" class="section games">
+    <div class="wrap">
+      <a class="page-back" href="#home">← 홈으로</a>
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">03 · Entertainment Games</div>
+          <h2>오락 게임</h2>
+        </div>
+        <p class="section-intro">
+          재미와 플레이 경험을 중심으로 제작한 게임, 게임잼 결과물, 실험적 플레이 프로토타입을 소개합니다.
+        </p>
+      </div>
+
+      <div class="filterbar" data-target="games-grid">
+        <button class="filter active" data-filter="all">전체</button>
+        <button class="filter" data-filter="done">개발 완료</button>
+        <button class="filter" data-filter="beta">베타 테스트</button>
+        <button class="filter" data-filter="proto">프로토타입</button>
+        <button class="filter" data-filter="plan">기획 단계</button>
+      </div>
+
+      <div class="project-grid" id="games-grid">
+        <article class="project-card" data-status="done">
+          <div class="media"><span>Gameplay Trailer / Screenshot</span></div>
+          <div class="card-body">
+            <div class="card-top">
+              <h3 class="card-title">Entertainment Game A</h3>
+              <span class="status done">COMPLETED</span>
+            </div>
+            <p class="project-desc">
+              장르, 플레이 핵심, 제작 배경과 내가 맡은 역할을 간결하게 보여주는 설명 영역입니다.
+            </p>
+            <div class="tagrow">
+              <span class="tag">Adventure</span>
+              <span class="tag">Roblox</span>
+              <span class="tag">4 Players</span>
+            </div>
+            <div class="meta">
+              <div><small>Role</small><b>Game Planner</b></div>
+              <div><small>Team</small><b>4 people</b></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress"><span style="width:100%"></span></div>
+              <div class="progress-label">100%</div>
+            </div>
+            <div class="links">
+              <a class="chip-link" href="#" target="_blank">▶ Trailer</a>
+              <a class="chip-link" href="#" target="_blank">↗ Play Game</a>
+            </div>
+            <div class="people">
+              <div class="people-title">Collaborators</div>
+              <div class="person">
+                <div class="person-main"><div class="avatar">PD</div><div><b>Player One</b><span>Programmer</span></div></div>
+                <a href="#" target="_blank">Profile ↗</a>
+              </div>
+              <div class="person">
+                <div class="person-main"><div class="avatar">AR</div><div><b>Player Two</b><span>3D Artist</span></div></div>
+                <a href="#" target="_blank">Instagram ↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-status="plan">
+          <div class="media"><span>Concept Art / Moodboard</span></div>
+          <div class="card-body">
+            <div class="card-top">
+              <h3 class="card-title">Entertainment Game B</h3>
+              <span class="status plan">PLANNING</span>
+            </div>
+            <p class="project-desc">기획 단계 프로젝트는 컨셉, 타깃 플랫폼, 핵심 재미, 예상 제작 범위를 중심으로 정리합니다.</p>
+            <div class="tagrow"><span class="tag">Concept</span><span class="tag">Narrative</span></div>
+            <div class="meta">
+              <div><small>Role</small><b>Creative Director</b></div>
+              <div><small>Period</small><b>Upcoming</b></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress"><span style="width:18%"></span></div>
+              <div class="progress-label">18%</div>
+            </div>
+            <div class="links"><a class="chip-link" href="#" target="_blank">↗ Concept Note</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="papers" class="section papers">
+    <div class="wrap">
+      <a class="page-back" href="#home">← 홈으로</a>
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">04 · Publications</div>
+          <h2>논문</h2>
+        </div>
+        <p class="section-intro">
+          게임에서 확인한 걸 글로 남기는 쪽. 쓰는 중인 논문과 이미 나온 논문을 나눠 두었습니다.
+        </p>
+      </div>
+
+      <div class="subhead">쓰는 중</div>
+
+      <article class="wip">
+        <div class="wip-main">
+          <span class="wip-label">집필 중 · 2026</span>
+          <h3>비선형 게임에서 플레이어는 무엇을 기준으로 다음 길을 고르는가</h3>
+          <p>
+            정해진 순서 없이 진행되는 비선형 게임에서, 플레이어가 실제로 어떤 경로를 택하고
+            그 선택이 경험의 만족도와 어떻게 연결되는지를 다룹니다.
+            플레이 로그와 선택 지점을 함께 분석해, 설계자가 의도한 자유도와
+            플레이어가 체감하는 자유도 사이의 간극을 확인하는 것이 핵심 질문입니다.
+          </p>
+          <div class="tagrow">
+            <span class="tag">Nonlinear Game Design</span>
+            <span class="tag">Player Agency</span>
+            <span class="tag">Playtest Log Analysis</span>
+          </div>
+          <div class="progress-row">
+            <div class="progress"><span style="width:45%"></span></div>
+            <div class="progress-label">45%</div>
+          </div>
+        </div>
+        <div class="wip-side">
+          <h4>진행 상황</h4>
+          <ol>
+            <li>선행 연구 정리 · 연구 질문 확정 — 완료</li>
+            <li>분석 대상 게임 선정 및 선택 지점 코딩 — 진행 중</li>
+            <li>플레이테스트 및 로그 수집 — 예정</li>
+            <li>결과 분석 · 초고 작성 — 예정</li>
+            <li>투고 목표 학회 / 저널 — 여기에 입력</li>
+          </ol>
+        </div>
+      </article>
+
+      <div class="subhead">등재 · 게재</div>
+
+      <div class="paper-list">
+        <article class="paper">
+          <div class="year">2026</div>
+          <div>
+            <h3>Eye can do it — 시선 추적 기반 게임 (정확한 논문 제목으로 교체)</h3>
+            <p>저자명 · 학회 / 저널명 · 등재 · DOI 링크를 연결하세요</p>
+          </div>
+          <a href="#" target="_blank">Paper ↗</a>
+        </article>
+        <article class="paper">
+          <div class="year">2026</div>
+          <div>
+            <h3>Another Paper Title</h3>
+            <p>Research area · Venue · Work-in-Progress / Poster / Oral</p>
+          </div>
+          <a href="#" target="_blank">Details ↗</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="showcase" class="section showcase">
+    <div class="wrap">
+      <a class="page-back" href="#home">← 홈으로</a>
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">05 · Exhibitions & Talks</div>
+          <h2>전시 및 발표</h2>
+        </div>
+        <p class="section-intro">
+          학회 발표, 전시, 쇼케이스, 데모, 게임잼, 초청 강연 등을 시간순으로 정리합니다.
+        </p>
+      </div>
+
+      <div class="timeline">
+        <article class="event">
+          <div class="date">OCT · 2026</div>
+          <div><h3>Conference Presentation / Poster</h3><p>Paris, France · 발표 제목과 행사 정보를 입력하세요.</p></div>
+          <a href="#" target="_blank">View ↗</a>
+        </article>
+        <article class="event">
+          <div class="date">SEP · 2026</div>
+          <div><h3>Game Showcase / Demo</h3><p>San Jose, CA · 행사 소개, 전시 작품, 역할을 입력하세요.</p></div>
+          <a href="#" target="_blank">Gallery ↗</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <h2>Let’s make<br>something playable.</h2>
+        <p>협업, 연구, 전시, 발표 또는 게임 프로젝트 관련 문의를 위한 연락 영역입니다.</p>
+        <div class="footer-links">
+          <a href="mailto:your@email.com">your@email.com</a>
+          <a href="#" target="_blank">Instagram ↗</a>
+          <a href="#" target="_blank">LinkedIn ↗</a>
+        </div>
+      </div>
+      <small>© 2026 Yurim Jang. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <!-- ===== 그림일기 오버레이 ===== -->
+  <div class="diary-overlay" id="diaryOverlay" role="dialog" aria-modal="true" aria-label="프로젝트 일지">
+    <div class="diary-shell">
+      <div class="diary-bar">
+        <h3 id="diaryTitle">일지</h3>
+        <select id="diaryProject" aria-label="프로젝트 선택"></select>
+        <button class="icon-btn" id="diaryClose" title="닫기" aria-label="닫기">✕</button>
+      </div>
+
+      <div id="diaryDeckView">
+        <div class="deck" id="deck"></div>
+        <div class="deck-nav">
+          <button class="icon-btn" id="prevSheet" title="이전 장" aria-label="이전 장">‹</button>
+          <span class="deck-count" id="deckCount">0 / 0</span>
+          <button class="icon-btn" id="nextSheet" title="다음 장" aria-label="다음 장">›</button>
+          <button class="btn primary" id="newEntry">＋ 오늘 일지 쓰기</button>
+          <button class="icon-btn" id="exportLogs" title="일지 내보내기" aria-label="일지 내보내기">⤓</button>
+        </div>
+      </div>
+
+      <div class="diary-write" id="diaryWrite" style="display:none">
+        <h3 id="writeTitle">새 일지</h3>
+
+        <div class="field">
+          <label for="fDate">날짜 — 지난 날짜도 자유롭게 고를 수 있어요</label>
+          <input type="date" id="fDate">
+        </div>
+
+        <div class="field">
+          <label for="fProject">프로젝트</label>
+          <select id="fProject"></select>
+        </div>
+
+        <div class="field">
+          <label>영역 — 여러 개 고를 수 있어요</label>
+          <div class="checkrow" id="fAreas"></div>
+        </div>
+
+        <div class="field">
+          <label>날씨</label>
+          <div class="checkrow" id="fWeather"></div>
+        </div>
+
+        <div class="field">
+          <label for="fDid">한 일</label>
+          <input type="text" id="fDid" maxlength="120" placeholder="예: 시선 보정 UI 다시 짬">
+        </div>
+
+        <div class="field">
+          <label for="fFeel">그날의 감상</label>
+          <textarea id="fFeel" maxlength="400" placeholder="예: 세 번째 갈아엎는 중인데 이번 건 좀 마음에 든다."></textarea>
+        </div>
+
+        <div class="field">
+          <label>그림 — 안 그려도 괜찮아요</label>
+          <div class="pad-wrap">
+            <canvas id="pad" width="1000" height="560"></canvas>
+            <div class="pad-tools" id="padTools">
+              <span class="swatch on" data-c="#3a3a52" style="background:#3a3a52"></span>
+              <span class="swatch" data-c="#e2718f" style="background:#e2718f"></span>
+              <span class="swatch" data-c="#e8a13c" style="background:#e8a13c"></span>
+              <span class="swatch" data-c="#4f9d6a" style="background:#4f9d6a"></span>
+              <span class="swatch" data-c="#4a8fc7" style="background:#4a8fc7"></span>
+              <button type="button" id="padErase">지우개</button>
+              <button type="button" id="padClear">전체 지우기</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="write-actions">
+          <button class="btn secondary" id="cancelEntry">취소</button>
+          <button class="btn primary" id="saveEntry">일지 붙이기</button>
+        </div>
+
+        <p class="diary-hint">
+          일지는 이 브라우저에 저장됩니다. 사이트에 그대로 올리고 싶으면 ⤓ 버튼으로 파일을 받아
+          index.html 안의 <code>SEED_LOGS</code> 자리에 붙여 넣으면 됩니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const body = document.body;
+    const sections = [...document.querySelectorAll('.section')];
+    const navItems = [...document.querySelectorAll('.navlinks a')];
+
+    function showHome(pushHash = true){
+      body.className = 'home-mode';
+      sections.forEach(s => s.classList.remove('active-section'));
+      navItems.forEach(a => a.classList.remove('active'));
+      window.scrollTo({top:0, behavior:'smooth'});
+      if(pushHash && location.hash !== '#home') history.pushState(null,'','#home');
+    }
+
+    function showSection(id, pushHash = true){
+      const target = document.getElementById(id);
+      if(!target) return showHome(pushHash);
+
+      body.className = `page-mode theme-${id}`;
+      sections.forEach(s => s.classList.toggle('active-section', s.id === id));
+      navItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+      window.scrollTo({top:0, behavior:'smooth'});
+      if(pushHash && location.hash !== `#${id}`) history.pushState(null,'',`#${id}`);
+    }
+
+    document.querySelector('.brand').addEventListener('click', e=>{
+      e.preventDefault();
+      showHome();
+    });
+
+    navItems.forEach(a=>{
+      a.addEventListener('click',e=>{
+        e.preventDefault();
+        if(a.hasAttribute('data-diary')){ window.openDiary && window.openDiary('전체'); return; }
+        showSection(a.getAttribute('href').slice(1));
+      });
+    });
+
+    document.querySelectorAll('.page-back').forEach(a=>{
+      a.addEventListener('click',e=>{
+        e.preventDefault();
+        showHome();
+      });
+    });
+
+    window.addEventListener('popstate', ()=>{
+      const id = location.hash.replace('#','');
+      if(!id || id === 'home') showHome(false);
+      else showSection(id, false);
+    });
+
+    document.querySelectorAll('.filterbar').forEach(bar=>{
+      const target=document.getElementById(bar.dataset.target);
+      const cards=[...target.querySelectorAll('.project-card')];
+      bar.querySelectorAll('.filter').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          bar.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          const f=btn.dataset.filter;
+          cards.forEach(card=>{
+            card.style.display=(f==='all'||card.dataset.status===f)?'block':'none';
+          });
+        });
+      });
+    });
+
+    document.querySelectorAll('a[href="#"]').forEach(a=>{
+      a.addEventListener('click',e=>e.preventDefault());
+    });
+
+    // Open directly to a section when a hash URL is shared.
+    const initial = location.hash.replace('#','');
+    if(initial && initial !== 'home') showSection(initial, false);
+    else showHome(false);
+  </script>
+
+  <script>
+  /* ===================================================================
+     프로젝트 일지 (그림일기)
+     -------------------------------------------------------------------
+     SEED_LOGS: 사이트에 항상 보이게 할 일지. 방문자에게도 보입니다.
+     내 브라우저에서 쓴 일지는 ⤓ 버튼으로 받아 아래 배열에 붙여 넣으세요.
+     =================================================================== */
+  const SEED_LOGS = [
+    // 예시 — 지우고 본인 일지를 넣으세요
+    {
+      id: "seed-1",
+      project: "Eye can do it",
+      date: "2026-03-14",
+      weather: "🌤",
+      areas: ["개발", "연구"],
+      did: "시선 보정 절차를 3단계에서 1단계로 줄임",
+      feel: "테스터가 처음으로 설명 없이 바로 시작했다. 이거였구나 싶었다.",
+      art: ""
+    }
+  ];
+
+  (function(){
+    const AREAS = ["기획","개발","아트","사운드","연구","PR"];
+    const WEATHERS = ["☀️","🌤","☁️","🌧","⛄"];
+    const KEY = "yj-project-logs-v1";
+
+    /* ---- 저장소: Claude 미리보기 / 브라우저 / 메모리 순으로 사용 ---- */
+    let memory = null;
+    const store = {
+      async load(){
+        if (window.storage) {
+          try { const r = await window.storage.get(KEY); return r && r.value ? JSON.parse(r.value) : []; }
+          catch(e){ /* 키가 없으면 여기로 옵니다 */ return []; }
+        }
+        try { const raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : []; }
+        catch(e){ return memory || []; }
+      },
+      async save(list){
+        const raw = JSON.stringify(list);
+        if (window.storage) { try { await window.storage.set(KEY, raw); return true; } catch(e){} }
+        try { localStorage.setItem(KEY, raw); return true; } catch(e){ memory = list; return false; }
+      }
+    };
+
+    /* ---- 요소 ---- */
+    const overlay   = document.getElementById('diaryOverlay');
+    const deckEl    = document.getElementById('deck');
+    const deckView  = document.getElementById('diaryDeckView');
+    const writeView = document.getElementById('diaryWrite');
+    const titleEl   = document.getElementById('diaryTitle');
+    const projSel   = document.getElementById('diaryProject');
+    const countEl   = document.getElementById('deckCount');
+    const fProject  = document.getElementById('fProject');
+    const fAreas    = document.getElementById('fAreas');
+    const fWeather  = document.getElementById('fWeather');
+    const fDate     = document.getElementById('fDate');
+    const fDid      = document.getElementById('fDid');
+    const fFeel     = document.getElementById('fFeel');
+    const writeTitle= document.getElementById('writeTitle');
+
+    let logs = [];      // 저장된 일지
+    let view = [];      // 현재 보고 있는 목록
+    let cursor = 0;     // 맨 위 장
+    let filter = "전체";
+    let editingId = null;
+
+    /* ---- 프로젝트 목록은 카드에서 자동으로 가져옵니다 ---- */
+    function projectNames(){
+      return [...document.querySelectorAll('.project-card .card-title')].map(t => t.textContent.trim());
+    }
+
+    function fillSelects(){
+      const names = projectNames();
+      projSel.innerHTML = ['전체', ...names].map(n => `<option>${n}</option>`).join('');
+      fProject.innerHTML = names.map(n => `<option>${n}</option>`).join('');
+    }
+
+    fAreas.innerHTML = AREAS.map(a =>
+      `<label><input type="checkbox" value="${a}">${a}</label>`).join('');
+    fWeather.innerHTML = WEATHERS.map((w,i) =>
+      `<label class="${i===1?'on':''}"><input type="radio" name="wx" value="${w}" ${i===1?'checked':''}>${w}</label>`).join('');
+
+    // :has() 미지원 브라우저용 표시
+    [fAreas, fWeather].forEach(box => box.addEventListener('change', () => {
+      box.querySelectorAll('label').forEach(l => l.classList.toggle('on', l.querySelector('input').checked));
+    }));
+
+    /* ---- 각 프로젝트 카드에 일지 버튼 달기 ---- */
+    document.querySelectorAll('.project-card').forEach(card => {
+      const name = card.querySelector('.card-title').textContent.trim();
+      let links = card.querySelector('.links');
+      if(!links){
+        links = document.createElement('div');
+        links.className = 'links';
+        card.querySelector('.card-body').appendChild(links);
+      }
+      const b = document.createElement('button');
+      b.className = 'chip-link diary-open';
+      b.type = 'button';
+      b.textContent = '📔 일지';
+      b.addEventListener('click', () => open(name));
+      links.appendChild(b);
+    });
+
+    /* ---- 열기 / 닫기 ---- */
+    async function open(project){
+      filter = project || '전체';
+      projSel.value = filter;
+      logs = await store.load();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      showDeck();
+      render();
+    }
+    function close(){
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function showDeck(){ deckView.style.display=''; writeView.style.display='none'; }
+    function showWrite(){ deckView.style.display='none'; writeView.style.display=''; }
+
+    document.getElementById('diaryClose').addEventListener('click', close);
+    overlay.addEventListener('click', e => { if(e.target === overlay) close(); });
+    projSel.addEventListener('change', () => { filter = projSel.value; cursor = 0; render(); });
+
+    /* ---- 렌더 ---- */
+    function all(){
+      const seen = new Set();
+      return [...logs, ...SEED_LOGS].filter(l => {
+        if(seen.has(l.id)) return false; seen.add(l.id); return true;
+      });
+    }
+    function esc(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+    function weekday(d){ return ['일','월','화','수','목','금','토'][new Date(d+'T00:00').getDay()]; }
+
+    function render(){
+      titleEl.textContent = filter === '전체' ? '프로젝트 일지' : filter + ' 일지';
+      view = all()
+        .filter(l => filter === '전체' || l.project === filter)
+        .sort((a,b) => b.date.localeCompare(a.date));   // 최근 것이 맨 위
+      if(cursor >= view.length) cursor = Math.max(0, view.length - 1);
+
+      deckEl.innerHTML = '';
+      if(!view.length){
+        deckEl.innerHTML = `<div class="deck-empty"><div><b>아직 붙인 일지가 없어요</b>
+          <span>아래 버튼으로 첫 장을 써 보세요</span></div></div>`;
+        countEl.textContent = '0 / 0';
+        return;
+      }
+
+      view.forEach((l, i) => {
+        const d = i - cursor;                 // 0이 맨 앞
+        if(d < -1 || d > 4) return;
+        const el = document.createElement('article');
+        el.className = 'sheet' + (d === 0 ? ' front' : '');
+        el.style.zIndex = 100 - Math.abs(d);
+        if(d < 0){
+          el.style.transform = 'translateX(-118%) rotate(-11deg)';
+          el.style.opacity = '0';
+        } else {
+          const tilt = ((i * 37) % 5 - 2) * 0.6;
+          el.style.transform =
+            `translateY(${d*11}px) translateX(${d*5}px) scale(${1 - d*0.035}) rotate(${d===0?0:tilt}deg)`;
+          el.style.opacity = d > 3 ? '0' : '1';
+        }
+        el.innerHTML = `
+          <div class="sheet-inner">
+            <div class="sheet-head">
+              <div class="d">${esc(l.date)} ${weekday(l.date)}요일 · ${esc(l.project)}</div>
+              <div class="w">${esc(l.weather || '🌤')}</div>
+            </div>
+            <div class="sheet-art">
+              ${l.art ? `<img src="${l.art}" alt="그날의 그림">` : '<span class="empty">✎</span>'}
+            </div>
+            <div class="sheet-areas">
+              ${(l.areas||[]).map(a => `<span class="area-tag" data-a="${esc(a)}">${esc(a)}</span>`).join('')}
+            </div>
+            <div class="sheet-body">
+              <p><span class="lab">한 일</span>${esc(l.did)}</p>
+              <p class="feel"><span class="lab">감상</span>${esc(l.feel)}</p>
+            </div>
+            ${l.id.startsWith('seed-') ? '' :
+              `<div class="sheet-tools">
+                 <button data-edit="${l.id}">고치기</button>
+                 <button data-del="${l.id}">떼어내기</button>
+               </div>`}
+          </div>`;
+        deckEl.appendChild(el);
+      });
+
+      countEl.textContent = `${cursor + 1} / ${view.length}`;
+      bindFront();
+    }
+
+    /* ---- 넘기기 ---- */
+    function go(n){
+      if(!view.length) return;
+      cursor = Math.min(Math.max(0, cursor + n), view.length - 1);
+      render();
+    }
+    document.getElementById('nextSheet').addEventListener('click', () => go(1));
+    document.getElementById('prevSheet').addEventListener('click', () => go(-1));
+    document.addEventListener('keydown', e => {
+      if(!overlay.classList.contains('open')) return;
+      if(e.key === 'Escape') close();
+      if(writeView.style.display !== 'none') return;
+      if(e.key === 'ArrowRight') go(1);
+      if(e.key === 'ArrowLeft') go(-1);
+    });
+
+    function bindFront(){
+      const front = deckEl.querySelector('.sheet.front');
+      if(!front) return;
+
+      front.querySelectorAll('[data-del]').forEach(b =>
+        b.addEventListener('click', async e => {
+          e.stopPropagation();
+          if(!confirm('이 장을 떼어낼까요?')) return;
+          logs = logs.filter(l => l.id !== b.dataset.del);
+          await store.save(logs);
+          render();
+        }));
+      front.querySelectorAll('[data-edit]').forEach(b =>
+        b.addEventListener('click', e => {
+          e.stopPropagation();
+          openForm(logs.find(l => l.id === b.dataset.edit));
+        }));
+
+      // 손으로 넘기기
+      let x0 = null;
+      front.addEventListener('pointerdown', e => {
+        if(e.target.closest('button')) return;
+        x0 = e.clientX;
+        front.classList.add('dragging');
+        front.setPointerCapture(e.pointerId);
+      });
+      front.addEventListener('pointermove', e => {
+        if(x0 === null) return;
+        const dx = e.clientX - x0;
+        front.style.transform = `translateX(${dx}px) rotate(${dx / 26}deg)`;
+      });
+      const end = e => {
+        if(x0 === null) return;
+        const dx = e.clientX - x0;
+        x0 = null;
+        front.classList.remove('dragging');
+        if(dx < -70) go(1);
+        else if(dx > 70) go(-1);
+        else render();
+      };
+      front.addEventListener('pointerup', end);
+      front.addEventListener('pointercancel', () => { x0 = null; front.classList.remove('dragging'); render(); });
+    }
+
+    /* ---- 그림판 ---- */
+    const pad = document.getElementById('pad');
+    const ctx = pad.getContext('2d');
+    let color = '#3a3a52', erasing = false, drawing = false, dirty = false;
+
+    function clearPad(){
+      ctx.fillStyle = '#fffef9';
+      ctx.fillRect(0,0,pad.width,pad.height);
+      dirty = false;
+    }
+    clearPad();
+    ctx.lineCap = ctx.lineJoin = 'round';
+
+    function padPos(e){
+      const r = pad.getBoundingClientRect();
+      return { x:(e.clientX - r.left) * pad.width / r.width, y:(e.clientY - r.top) * pad.height / r.height };
+    }
+    pad.addEventListener('pointerdown', e => {
+      drawing = true; dirty = true;
+      pad.setPointerCapture(e.pointerId);
+      const p = padPos(e);
+      ctx.beginPath(); ctx.moveTo(p.x, p.y);
+      ctx.strokeStyle = erasing ? '#fffef9' : color;
+      ctx.lineWidth = erasing ? 34 : 4;
+      ctx.lineTo(p.x + .1, p.y + .1); ctx.stroke();
+    });
+    pad.addEventListener('pointermove', e => {
+      if(!drawing) return;
+      const p = padPos(e);
+      ctx.lineTo(p.x, p.y); ctx.stroke();
+    });
+    ['pointerup','pointercancel','pointerleave'].forEach(ev =>
+      pad.addEventListener(ev, () => { drawing = false; }));
+
+    document.getElementById('padTools').addEventListener('click', e => {
+      const sw = e.target.closest('.swatch');
+      if(sw){
+        color = sw.dataset.c; erasing = false;
+        document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('on', s === sw));
+      }
+    });
+    document.getElementById('padErase').addEventListener('click', () => { erasing = true; });
+    document.getElementById('padClear').addEventListener('click', clearPad);
+
+    /* ---- 쓰기 ---- */
+    function openForm(entry){
+      editingId = entry ? entry.id : null;
+      writeTitle.textContent = entry ? '일지 고치기' : '새 일지';
+      fillSelects();
+      fDate.value = entry ? entry.date : new Date().toISOString().slice(0,10);
+      fProject.value = entry ? entry.project : (filter === '전체' ? fProject.options[0]?.value : filter);
+      fDid.value = entry ? entry.did : '';
+      fFeel.value = entry ? entry.feel : '';
+      fAreas.querySelectorAll('input').forEach(i =>
+        i.checked = entry ? (entry.areas || []).includes(i.value) : false);
+      const wx = entry ? entry.weather : '🌤';
+      fWeather.querySelectorAll('input').forEach(i => i.checked = (i.value === wx));
+      [fAreas, fWeather].forEach(box => box.querySelectorAll('label').forEach(l =>
+        l.classList.toggle('on', l.querySelector('input').checked)));
+      clearPad();
+      if(entry && entry.art){
+        const img = new Image();
+        img.onload = () => { ctx.drawImage(img, 0, 0, pad.width, pad.height); dirty = true; };
+        img.src = entry.art;
+      }
+      showWrite();
+      writeView.scrollIntoView({block:'nearest'});
+    }
+
+    document.getElementById('newEntry').addEventListener('click', () => openForm(null));
+    document.getElementById('cancelEntry').addEventListener('click', () => { showDeck(); render(); });
+
+    document.getElementById('saveEntry').addEventListener('click', async () => {
+      const did = fDid.value.trim();
+      if(!did){ fDid.focus(); alert('한 일을 한 줄만 적어 주세요.'); return; }
+      const areas = [...fAreas.querySelectorAll('input:checked')].map(i => i.value);
+      const entry = {
+        id: editingId || 'log-' + Date.now().toString(36),
+        project: fProject.value,
+        date: fDate.value || new Date().toISOString().slice(0,10),
+        weather: fWeather.querySelector('input:checked').value,
+        areas,
+        did,
+        feel: fFeel.value.trim(),
+        art: dirty ? pad.toDataURL('image/webp', 0.7) : (editingId ? (logs.find(l=>l.id===editingId)||{}).art || '' : '')
+      };
+      logs = [entry, ...logs.filter(l => l.id !== entry.id)];
+      const ok = await store.save(logs);
+      if(!ok) alert('이 환경에서는 저장이 안 돼요. ⤓ 버튼으로 내보내 두세요.');
+      filter = entry.project;
+      projSel.value = filter;
+      cursor = 0;
+      showDeck();
+      render();
+    });
+
+    /* ---- 내보내기 ---- */
+    document.getElementById('exportLogs').addEventListener('click', () => {
+      if(!logs.length){ alert('내보낼 일지가 없어요.'); return; }
+      const text = 'const SEED_LOGS = ' + JSON.stringify(logs, null, 2) + ';';
+      const url = URL.createObjectURL(new Blob([text], {type:'text/plain'}));
+      const a = document.createElement('a');
+      a.href = url; a.download = 'project-logs.txt'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    fillSelects();
+    window.openDiary = open;
+  })();
+  </script>
+
+</body>
+</html>

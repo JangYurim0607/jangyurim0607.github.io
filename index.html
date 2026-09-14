@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="재미있는 경험을 위해서라면 뭐든 하는 게임 개발자 겸 연구자, Yurim Jang의 포트폴리오" />
+  <meta name="description" content="시간 가는 줄 모르는 게임을 만들고, 왜 그런지 연구합니다. 게임 개발자 겸 연구자 Yurim Jang의 포트폴리오" />
   <title>Yurim Jang — Game & Research Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -576,6 +576,41 @@
       .sheet{transition:none}
     }
 
+
+    /* ===== 편집 모드 ===== */
+    body.editing [data-editable]{
+      outline:1px dashed rgba(120,120,180,.45);
+      outline-offset:3px;border-radius:3px;cursor:text;
+    }
+    body.editing [data-editable]:hover{outline-color:rgba(90,120,220,.9);background:rgba(120,160,255,.07)}
+    body.editing [data-editable]:focus{outline:2px solid #4a7fe0;background:rgba(120,160,255,.1)}
+    body.editing a[data-editable]::after{
+      content:"🔗";font-size:10px;margin-left:4px;opacity:.55;
+    }
+    body.editing{padding-bottom:74px}
+
+    .edit-bar{
+      position:fixed;left:50%;bottom:16px;transform:translateX(-50%);
+      z-index:300;display:none;align-items:center;gap:10px;
+      background:rgba(28,28,42,.96);color:#fff;
+      border-radius:999px;padding:9px 10px 9px 18px;
+      box-shadow:0 16px 44px rgba(20,20,40,.4);
+      font-size:13px;max-width:calc(100% - 24px);
+    }
+    body.editing .edit-bar{display:flex}
+    .edit-bar b{font-weight:700;white-space:nowrap}
+    .edit-bar .msg{color:#b9b9cf;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .edit-bar button{
+      border:0;border-radius:999px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;
+      background:rgba(255,255,255,.15);color:#fff;white-space:nowrap;
+    }
+    .edit-bar button.go{background:#5b8cf0}
+    .edit-bar button:disabled{opacity:.5;cursor:default}
+    @media (max-width:600px){
+      .edit-bar{gap:7px;padding:8px 8px 8px 13px;font-size:12px}
+      .edit-bar .msg{display:none}
+    }
+
   </style>
 </head>
 <body class="home-mode">
@@ -595,11 +630,10 @@
 
     <div class="wrap hero">
       <div>
-        <div class="eyebrow">Game Developer · Researcher · Planner</div>
-        <h1><span>재미를 위해서라면</span><br>뭐든 합니다.</h1>
+        <div class="eyebrow">장유림 포트폴리오 · 게임 개발과 연구</div>
+        <h1><span>당신의 시간을</span><br>훔치겠습니다.</h1>
         <p class="hero-copy">
-          눈으로 하는 게임도, 손으로 하는 게임도, 그걸 증명하는 논문까지.
-          재미있는 경험 하나를 위해 기획하고, 만들고, 실험하고, 씁니다.
+          제 시간도 같이 도둑맞고 있습니다.
         </p>
         <div class="cta-row">
           <a class="btn primary" href="#research">연구용 게임 보기 ↘</a>
@@ -745,14 +779,13 @@
             </div>
 
             <div class="plan-box">
-              <h4>👁 안과 공동연구 (진행 예정)</h4>
+              <h4>👁 안과와 해보고 싶은 것</h4>
               <ul>
-                <li>협력 기관 · 담당 교수님 — 여기에 병원/학과명을 넣으세요</li>
-                <li>게임 플레이 중 기록되는 시선 데이터로 안과 임상 지표와의 상관관계 확인</li>
-                <li>검사실의 딱딱한 시선 검사 대신, 게임으로 검사 시간을 견딜 수 있게 만드는 것이 목표</li>
-                <li>소아·고령 환자 대상 파일럿 → IRB 승인 → 본 실험 순으로 진행 예정</li>
+                <li>아직 확정된 공동연구가 아니라, 가능성을 살펴보는 단계입니다</li>
+                <li>플레이 중 쌓이는 시선 데이터가 안과에서 쓰는 지표와 연결될 수 있을지 궁금합니다</li>
+                <li>검사실의 딱딱한 시선 검사 대신, 게임으로 그 시간을 견디게 할 수 있다면 좋겠습니다</li>
               </ul>
-              <span class="plan-status">협의 중 · 프로토콜 설계 단계</span>
+              <span class="plan-status">아이디어 단계 · 협력 기관 미정</span>
             </div>
 
             <div class="people">
@@ -1024,6 +1057,7 @@
           <button class="icon-btn" id="nextSheet" title="다음 장" aria-label="다음 장">›</button>
           <button class="btn primary" id="newEntry">＋ 오늘 일지 쓰기</button>
           <button class="icon-btn" id="exportLogs" title="일지 내보내기" aria-label="일지 내보내기">⤓</button>
+          <button class="icon-btn" id="publishLogsBtn" title="일지를 사이트에 올리기" aria-label="일지를 사이트에 올리기">☁</button>
         </div>
       </div>
 
@@ -1524,8 +1558,233 @@
       URL.revokeObjectURL(url);
     });
 
+    document.getElementById('publishLogsBtn').addEventListener('click', async () => {
+      if(!logs.length){ alert('올릴 일지가 없어요.'); return; }
+      if(!window.publishLogs){ alert('편집 기능을 찾지 못했어요.'); return; }
+      if(!confirm(logs.length + '개의 일지를 사이트에 올릴까요? 방문자에게도 보이게 됩니다.')) return;
+      try{
+        await window.publishLogs(logs);
+        alert('올렸습니다. 1분 뒤 사이트에 반영됩니다.');
+      }catch(e){
+        alert('올리지 못했습니다.\n\n' + e.message);
+      }
+    });
+
     fillSelects();
     window.openDiary = open;
+  })();
+  </script>
+
+
+  <div class="edit-bar" id="editBar">
+    <b>편집 모드</b>
+    <span class="msg" id="editMsg">글자를 눌러 고치세요</span>
+    <button id="editSave" class="go">저장</button>
+    <button id="editToken">토큰</button>
+    <button id="editExit">끝내기</button>
+  </div>
+
+  <script>
+  /* ===================================================================
+     편집 모드 — 주소 뒤에 ?edit 를 붙이면 켜집니다.
+     글자를 직접 고치고 저장을 누르면 GitHub의 index.html에 반영됩니다.
+     =================================================================== */
+  (function(){
+    const TOKEN_KEY = "yj-gh-token";
+    const BRANCH = "main";
+    const FILE = "index.html";
+
+    // 저장할 GitHub 저장소 — 주소가 바뀌어도(vercel.app 등) 여기를 보고 저장합니다
+    const OWNER = "JangYurim0607";
+    const REPO  = "jangyurim0607.github.io";
+
+    const EDITABLE = [
+      '.eyebrow','.hero h1','.hero-copy','.btn','.navlinks a','.brand',
+      '.portrait-placeholder strong','.portrait-placeholder small','.mini-stat b','.mini-stat span',
+      '.section-kicker','.section h2','.section-intro',
+      '.glass-box h3','.glass-box p','.tag','.chip-link',
+      '.card-title','.status','.project-desc','.meta small','.meta b','.progress-label',
+      '.plan-box h4','.plan-box li','.plan-status',
+      '.people-title','.person b','.person span',
+      '.subhead','.wip-label','.wip-main h3','.wip-main p','.wip-side h4','.wip-side li',
+      '.paper .year','.paper h3','.paper p','.paper a',
+      '.event .date','.event h3','.event p','.event a',
+      'footer h2','footer p','.footer-links a',
+      '.media span','.video-hint'
+    ].join(',');
+
+    const bar = document.getElementById('editBar');
+    const msg = document.getElementById('editMsg');
+    const btnSave = document.getElementById('editSave');
+    const changed = new Map();   // path -> innerHTML
+    let on = false;
+
+    /* 요소의 위치를 문자열로 만들어 원본 파일에서 같은 자리를 찾습니다 */
+    function pathOf(el){
+      const parts = [];
+      while(el && el.nodeType === 1 && el !== document.body){
+        const p = el.parentElement;
+        if(!p) break;
+        parts.unshift(el.tagName.toLowerCase() + ':nth-child(' + ([...p.children].indexOf(el) + 1) + ')');
+        el = p;
+      }
+      return 'body > ' + parts.join(' > ');
+    }
+
+    function say(t){ msg.textContent = t; }
+
+    function start(){
+      on = true;
+      document.body.classList.add('editing');
+      document.querySelectorAll(EDITABLE).forEach(el => {
+        if(el.closest('.edit-bar') || el.closest('.diary-overlay')) return;
+        el.setAttribute('data-editable','');
+        el.setAttribute('contenteditable','true');
+        el.addEventListener('input', () => {
+          changed.set(pathOf(el), el.innerHTML);
+          say(changed.size + '곳 고침 — 저장 안 됨');
+        });
+        // 편집 중에는 링크를 따라가지 않고 주소를 바꿉니다
+        if(el.tagName === 'A'){
+          el.addEventListener('click', e => {
+            e.preventDefault();
+            if(!e.metaKey && !e.ctrlKey) return;     // cmd+클릭일 때만 주소 편집
+            const url = prompt('이 링크가 열 주소를 넣으세요', el.getAttribute('href') || '');
+            if(url === null) return;
+            el.setAttribute('href', url);
+            changed.set(pathOf(el.parentElement), el.parentElement.innerHTML);
+            say('링크 주소 바꿈 — 저장 안 됨');
+          });
+        }
+      });
+      say('글자를 눌러 고치세요 · 링크 주소는 ⌘+클릭');
+    }
+
+    function stop(){
+      on = false;
+      document.body.classList.remove('editing');
+      document.querySelectorAll('[data-editable]').forEach(el => {
+        el.removeAttribute('contenteditable');
+        el.removeAttribute('data-editable');
+      });
+    }
+
+    /* ---- 토큰 ---- */
+    function getToken(force){
+      let t = localStorage.getItem(TOKEN_KEY);
+      if(t && !force) return t;
+      t = prompt(
+        'GitHub 토큰을 넣어주세요.\n\n' +
+        'github.com → Settings → Developer settings →\n' +
+        'Personal access tokens → Fine-grained tokens 에서\n' +
+        '이 저장소(' + REPO + ')에 Contents: Read and write 권한으로 만드세요.\n\n' +
+        '이 브라우저에만 저장되며 다른 곳으로 나가지 않습니다.',
+        ''
+      );
+      if(t){ localStorage.setItem(TOKEN_KEY, t.trim()); return t.trim(); }
+      return null;
+    }
+
+    /* ---- base64 (한글 안전) ---- */
+    function toB64(str){
+      const bytes = new TextEncoder().encode(str);
+      let out = '';
+      for(let i = 0; i < bytes.length; i += 0x8000){
+        out += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      }
+      return btoa(out);
+    }
+    function fromB64(b64){
+      const bin = atob(b64.replace(/\s/g, ''));
+      const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+      return new TextDecoder().decode(bytes);
+    }
+
+    async function gh(path, opts){
+      const token = getToken();
+      if(!token) throw new Error('토큰이 없습니다');
+      const r = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + path, {
+        ...opts,
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/vnd.github+json',
+          ...(opts && opts.headers)
+        }
+      });
+      if(!r.ok){
+        const t = await r.text();
+        throw new Error(r.status + ' ' + (r.status === 401 || r.status === 403 ? '토큰이 잘못됐거나 권한이 없습니다' : t.slice(0,120)));
+      }
+      return r.json();
+    }
+
+    /* 원본 파일을 받아 바뀐 부분만 갈아끼우고 다시 올립니다 */
+    async function commit(mutate, message){
+      const cur = await gh('/contents/' + FILE + '?ref=' + BRANCH);
+      let src = fromB64(cur.content);
+      src = mutate(src);
+      await gh('/contents/' + FILE, {
+        method: 'PUT',
+        body: JSON.stringify({
+          message: message,
+          content: toB64(src),
+          sha: cur.sha,
+          branch: BRANCH
+        })
+      });
+    }
+
+    async function save(){
+      if(!changed.size){ say('바뀐 게 없습니다'); return; }
+      btnSave.disabled = true;
+      say('저장하는 중…');
+      try{
+        const n = changed.size;
+        await commit(src => {
+          const doc = new DOMParser().parseFromString(src, 'text/html');
+          let hit = 0;
+          changed.forEach((html, path) => {
+            const t = doc.querySelector(path);
+            if(t){ t.innerHTML = html; hit++; }
+          });
+          if(!hit) throw new Error('원본에서 고칠 자리를 못 찾았습니다');
+          return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+        }, '내용 수정 ' + n + '곳');
+        changed.clear();
+        say('저장 완료 · 1분 뒤 반영됩니다');
+      }catch(e){
+        say('실패: ' + e.message);
+        alert('저장하지 못했습니다.\n\n' + e.message);
+      }
+      btnSave.disabled = false;
+    }
+
+    btnSave.addEventListener('click', save);
+    document.getElementById('editExit').addEventListener('click', () => {
+      if(changed.size && !confirm('저장 안 된 수정이 ' + changed.size + '곳 있습니다. 그냥 나갈까요?')) return;
+      stop();
+      location.href = location.pathname;
+    });
+    document.getElementById('editToken').addEventListener('click', () => {
+      getToken(true); say('토큰을 새로 저장했습니다');
+    });
+    window.addEventListener('beforeunload', e => {
+      if(on && changed.size){ e.preventDefault(); e.returnValue = ''; }
+    });
+
+    /* 일지를 사이트에 올리는 기능 — 편집 토큰을 그대로 씁니다 */
+    window.publishLogs = async function(logs){
+      await commit(src => {
+        const head = 'const SEED_LOGS = [';
+        const i = src.indexOf(head);
+        const j = src.indexOf('\n  ];', i);
+        if(i < 0 || j < 0) throw new Error('일지 자리를 찾지 못했습니다');
+        const body = logs.map(l => '    ' + JSON.stringify(l)).join(',\n');
+        return src.slice(0, i + head.length) + '\n' + body + src.slice(j);
+      }, '일지 ' + logs.length + '개 올림');
+    };
+
+    if(new URLSearchParams(location.search).has('edit')) start();
   })();
   </script>
 

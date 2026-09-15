@@ -7,7 +7,7 @@
   <title>Yurim Jang — Game & Research Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Gowun+Batang:wght@400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{
       --ink:#25253a;
@@ -692,6 +692,193 @@
       .admin-overlay{padding:10px}
       .admin-form .two{grid-template-columns:1fr}
     }
+
+    /* ===================================================================
+       테마 — 파스텔 판타지 + 괴도
+       아래 규칙이 위의 기본 스타일을 덮어씁니다.
+       =================================================================== */
+    :root{
+      --ink:#241f3d;
+      --muted:#726b95;
+      --line:rgba(70,55,120,.13);
+      --glass:rgba(255,255,255,.7);
+      --moon:#fff6dc;
+      --gold:#c2ab86;
+      --lilac:#ded1ff;
+      --rose:#ffd9e8;
+      --mint:#d6f5ea;
+      --sky:#d8ecff;
+      --shadow:0 24px 64px rgba(84,64,140,.14);
+    }
+
+    body{ font-family:"DM Sans","Noto Sans KR",sans-serif; }
+
+    /* 달빛이 도는 새벽 하늘 */
+    .home-bg{
+      background:
+        radial-gradient(circle at 82% 12%, rgba(255,248,232,.7), rgba(255,248,232,0) 15%),
+        radial-gradient(circle at 82% 12%, rgba(255,240,208,.24), transparent 32%),
+        radial-gradient(circle at 12% 18%, rgba(255,224,238,.42), transparent 30%),
+        radial-gradient(circle at 70% 78%, rgba(224,246,238,.36), transparent 32%),
+        radial-gradient(circle at 18% 84%, rgba(226,240,255,.46), transparent 34%),
+        radial-gradient(circle at 46% 44%, rgba(230,221,255,.42), transparent 42%),
+        linear-gradient(150deg,#f7f3ff 0%,#fdf6fb 26%,#f4f9ff 52%,#f9f5ff 74%,#fdf8f2 100%);
+    }
+    /* 별가루 */
+    .home-bg::before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background-image:
+        radial-gradient(1.6px 1.6px at 12% 22%, rgba(255,255,255,.95), transparent),
+        radial-gradient(1.3px 1.3px at 28% 64%, rgba(255,246,220,.9), transparent),
+        radial-gradient(1.8px 1.8px at 47% 16%, rgba(255,255,255,.85), transparent),
+        radial-gradient(1.2px 1.2px at 61% 52%, rgba(255,255,255,.8), transparent),
+        radial-gradient(1.7px 1.7px at 74% 30%, rgba(255,246,220,.85), transparent),
+        radial-gradient(1.3px 1.3px at 88% 62%, rgba(255,255,255,.9), transparent),
+        radial-gradient(1.5px 1.5px at 36% 86%, rgba(255,255,255,.8), transparent),
+        radial-gradient(1.4px 1.4px at 92% 18%, rgba(255,255,255,.9), transparent);
+      opacity:.5;animation:twinkle 9s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle{ from{opacity:.3} to{opacity:.62} }
+
+    nav{
+      border:1px solid rgba(255,255,255,.85);
+      background:rgba(255,255,255,.72);
+      box-shadow:0 12px 40px rgba(84,64,140,.12);
+    }
+    .brand{
+      font-family:"Cinzel","DM Sans",serif;
+      font-weight:600;letter-spacing:.12em;font-size:15px;
+    }
+    .brand::before{ content:"\2726 "; color:rgba(160,140,110,.6); }
+    .navlinks a:hover{ background:#fff;color:var(--ink) }
+    .navlinks a.active{ background:var(--ink);color:#fff }
+
+    .eyebrow{
+      background:rgba(255,255,255,.75);
+      border:1px solid rgba(160,140,110,.26);
+      color:#6f6688;letter-spacing:.12em;
+    }
+    .eyebrow::before{ content:"\2666";color:rgba(160,140,110,.55);font-size:9px }
+
+    .hero h1{
+      font-family:"Gowun Batang","Cinzel",serif;
+      font-weight:700;
+      letter-spacing:-.02em;
+      line-height:1.18;
+    }
+    .hero h1 span{
+      background:linear-gradient(100deg,#9f8bc4 0%,#c491ab 36%,#a9968f 62%,#8aa6c4 88%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .hero-copy{ color:#5d5480;font-size:17px }
+
+    .btn.primary{
+      background:linear-gradient(135deg,#3b3560,#514775);
+      box-shadow:0 10px 26px rgba(60,50,105,.2);
+      border-color:rgba(194,171,134,.42);
+    }
+    .btn.secondary{ background:rgba(255,255,255,.78);border-color:rgba(150,135,165,.26) }
+    .btn:hover{ transform:translateY(-2px) }
+
+    .hero-card{
+      background:rgba(255,255,255,.66);
+      border:1px solid rgba(255,255,255,.9);
+      box-shadow:0 26px 70px rgba(84,64,140,.16);
+    }
+    .portrait-placeholder{
+      background:
+        radial-gradient(circle at 70% 24%, rgba(255,246,220,.9), transparent 46%),
+        linear-gradient(150deg,var(--lilac),var(--rose) 48%,var(--sky));
+    }
+    .mini-stat b{ font-family:"Cinzel",serif }
+
+    /* 카드 = 예고장 */
+    .project-card,.glass-box,.paper,.event,.wip{
+      border:1px solid rgba(255,255,255,.92);
+      box-shadow:0 20px 54px rgba(84,64,140,.12);
+    }
+    .project-card{ position:relative;overflow:visible }
+    .project-card::before{
+      content:"\2666";position:absolute;top:11px;left:13px;
+      font-size:9px;color:rgba(160,140,110,.38);pointer-events:none;
+    }
+    .project-card:hover{ transform:translateY(-6px) rotate(-.4deg) }
+    .card-title{ font-family:"Gowun Batang",serif;letter-spacing:-.01em }
+
+    .section h2{ font-family:"Gowun Batang","Cinzel",serif;font-weight:700 }
+    .section-kicker{
+      font-family:"Cinzel",serif;letter-spacing:.2em;color:#8b7ab5;
+    }
+    .subhead,.wip-main h3{ font-family:"Gowun Batang",serif }
+    .wip-label{ background:linear-gradient(135deg,#3b3560,#514775) }
+
+    .tag{
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(140,110,200,.2);
+      color:#5f5487;
+    }
+    .chip-link{
+      background:rgba(255,255,255,.9);
+      border:1px solid rgba(150,135,165,.3);
+      color:#5f5680;
+    }
+    .chip-link:hover{ background:#fbf7ef;border-color:rgba(160,140,110,.5) }
+
+    .status.done{ background:var(--mint);color:#2f6b57 }
+    .status.beta{ background:var(--moon);color:#7a6326 }
+    .status.proto{ background:var(--lilac);color:#54408c }
+    .status.planning{ background:var(--rose);color:#8c4064 }
+
+    .progress{ background:rgba(120,100,180,.16) }
+    .progress span{ background:linear-gradient(90deg,#a794cc,#c99bb4 48%,#bfae91) }
+
+    .paper .year,.event .date{ font-family:"Cinzel",serif;color:#8b7ab5 }
+    .paper h3,.event h3{ font-family:"Gowun Batang",serif }
+
+    .plan-box{
+      background:rgba(255,255,255,.72);
+      border:1px dashed rgba(140,125,160,.3);
+    }
+    .plan-status{ background:var(--moon);color:#7a6326 }
+
+    /* 섹션 배경도 같은 하늘결로 */
+    body.theme-about   .section.active-section,
+    body.theme-research .section.active-section,
+    body.theme-games   .section.active-section,
+    body.theme-papers  .section.active-section,
+    body.theme-showcase .section.active-section{
+      background:
+        radial-gradient(circle at 84% 8%, rgba(255,248,232,.5), transparent 24%),
+        radial-gradient(circle at 10% 20%, rgba(255,226,240,.3), transparent 30%),
+        radial-gradient(circle at 74% 74%, rgba(226,246,240,.26), transparent 32%),
+        linear-gradient(160deg,#faf7ff 0%,#fdf7fc 40%,#f6faff 100%);
+    }
+
+    footer{ background:linear-gradient(160deg,#3a3358,#4a4174 62%,#574b80) }
+    footer h2{ font-family:"Gowun Batang",serif }
+    .footer-links a:hover{ color:var(--gold) }
+
+    /* 일지는 달빛 아래 종이 */
+    .sheet{
+      background:
+        repeating-linear-gradient(180deg,transparent 0 27px,rgba(120,105,160,.09) 27px 28px),
+        linear-gradient(160deg,#fffdf7,#fdf6ff);
+      border:1px solid rgba(150,125,200,.26);
+    }
+    .sheet-head{ border-color:rgba(130,105,180,.32);color:#5a4b7d }
+    .sheet-head .w{ border-color:rgba(130,105,180,.32) }
+
+    .admin-fab{
+      background:linear-gradient(135deg,#3b3560,#514775);
+      border:1px solid rgba(194,171,134,.4);
+    }
+    .admin-top{ background:linear-gradient(135deg,#3b3560,#514775) }
+    .admin-tabs button.on{ background:#3b3560;border-color:#3b3560 }
+
+    @media (prefers-reduced-motion:reduce){
+      .home-bg::before{ animation:none }
+    }
+
   </style>
 </head>
 <body class="home-mode">

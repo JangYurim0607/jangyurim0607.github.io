@@ -611,6 +611,87 @@
       .edit-bar .msg{display:none}
     }
 
+
+    /* ===== 상태 표시 ===== */
+    .state-msg{
+      grid-column:1/-1;padding:40px 24px;text-align:center;
+      border-radius:20px;background:rgba(255,255,255,.55);
+      border:1px dashed rgba(90,90,125,.25);color:#6a6a84;font-size:14px;
+    }
+    .state-msg b{display:block;font-size:15px;color:#3d3d55;margin-bottom:6px}
+    .state-msg.err{background:rgba(255,232,232,.75);border-color:rgba(200,90,90,.35);color:#8a4a4a}
+
+    /* ===== 관리자 ===== */
+    .admin-fab{
+      position:fixed;right:18px;bottom:18px;z-index:150;
+      width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;
+      background:#29293c;color:#fff;font-size:17px;
+      box-shadow:0 12px 30px rgba(30,30,50,.3);
+    }
+    .admin-overlay{
+      position:fixed;inset:0;z-index:400;display:none;
+      background:rgba(30,28,44,.5);backdrop-filter:blur(10px);
+      padding:22px;overflow:auto;
+    }
+    .admin-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+    .admin-shell{
+      width:min(860px,100%);margin:auto;background:#fbfbfe;border-radius:24px;
+      box-shadow:0 24px 70px rgba(30,30,60,.3);overflow:hidden;
+    }
+    .admin-top{
+      display:flex;align-items:center;gap:12px;padding:16px 20px;
+      background:#29293c;color:#fff;
+    }
+    .admin-top h3{margin:0;font-size:15px;flex:1}
+    .admin-top .who{font-size:11px;color:#b9b9cf;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+    .admin-top button{
+      border:0;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:700;
+      cursor:pointer;background:rgba(255,255,255,.16);color:#fff;
+    }
+    .admin-tabs{display:flex;gap:6px;padding:14px 20px 0;flex-wrap:wrap}
+    .admin-tabs button{
+      border:1px solid var(--line);background:#fff;border-radius:999px;
+      padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;color:#55556e;
+    }
+    .admin-tabs button.on{background:#29293c;border-color:#29293c;color:#fff}
+    .admin-body{padding:18px 20px 24px}
+
+    .row-item{
+      display:flex;align-items:center;gap:10px;padding:12px 14px;
+      background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:8px;
+    }
+    .row-item .rt{flex:1;min-width:0}
+    .row-item b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .row-item small{color:var(--muted);font-size:11.5px}
+    .row-item button{
+      border:1px solid var(--line);background:#fff;border-radius:999px;
+      padding:7px 11px;font-size:11.5px;font-weight:700;cursor:pointer;color:#55556e;
+    }
+    .row-item button.del{color:#b45252;border-color:rgba(180,82,82,.3)}
+
+    .admin-form .field{margin-bottom:14px}
+    .admin-form label{display:block;font-size:11px;font-weight:700;color:#7c7c96;margin-bottom:6px;letter-spacing:.03em}
+    .admin-form input,.admin-form select,.admin-form textarea{
+      width:100%;font:inherit;font-size:14px;color:var(--ink);background:#fff;
+      border:1px solid var(--line);border-radius:10px;padding:10px 12px;
+    }
+    .admin-form textarea{min-height:72px;resize:vertical;line-height:1.6}
+    .admin-form .hint{font-size:11px;color:var(--muted);margin-top:5px}
+    .admin-form .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .admin-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+    .admin-msg{font-size:12.5px;padding:10px 12px;border-radius:10px;margin-bottom:14px}
+    .admin-msg.ok{background:#e7f7ec;color:#3a6b48}
+    .admin-msg.no{background:#fdeaea;color:#8c4444}
+    .thumb{max-height:90px;border-radius:8px;margin-top:8px;display:block}
+
+    .login-box{padding:34px 26px;max-width:380px;margin:0 auto}
+    .login-box h4{margin:0 0 6px;font-size:19px;letter-spacing:-.03em}
+    .login-box p{font-size:13px;color:var(--muted);margin:0 0 20px}
+
+    @media (max-width:600px){
+      .admin-overlay{padding:10px}
+      .admin-form .two{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body class="home-mode">
@@ -630,11 +711,9 @@
 
     <div class="wrap hero">
       <div>
-        <div class="eyebrow">장유림 포트폴리오 · 게임 개발과 연구</div>
-        <h1><span>당신의 시간을</span><br>훔치겠습니다.</h1>
-        <p class="hero-copy">
-          제 시간도 같이 도둑맞고 있습니다.
-        </p>
+        <div class="eyebrow" id="pEyebrow">장유림 포트폴리오 · 게임 개발과 연구</div>
+        <h1 id="pHeadline"><span>당신의 시간을</span><br>훔치겠습니다.</h1>
+        <p class="hero-copy" id="pSubline">제 시간도 같이 도둑맞고 있습니다.</p>
         <div class="cta-row">
           <a class="btn primary" href="#research">연구용 게임 보기 ↘</a>
           <a class="btn secondary" href="#papers">논문 보기</a>
@@ -642,17 +721,13 @@
       </div>
 
       <aside class="hero-card">
-        <div class="portrait-placeholder">
+        <div class="portrait-placeholder" id="pPhoto">
           <div>
             <strong>Profile Image</strong>
-            <small>여기에 프로필 사진 또는 대표 일러스트를 넣으세요</small>
+            <small>관리자 화면에서 프로필 사진을 올릴 수 있습니다</small>
           </div>
         </div>
-        <div class="mini-stats">
-          <div class="mini-stat"><b>2</b><span>연구용 게임</span></div>
-          <div class="mini-stat"><b>1</b><span>등재 논문</span></div>
-          <div class="mini-stat"><b>1</b><span>집필 중</span></div>
-        </div>
+        <div class="mini-stats" id="pStats"></div>
       </aside>
     </div>
   </header>
@@ -666,44 +741,21 @@
           <h2>내 소개</h2>
         </div>
         <p class="section-intro">
-          소개 문구, 관심 연구 분야, 개발 역량, 사용 툴, 연락처와 주요 프로필 링크를 정리하는 영역입니다.
+          하는 일과 쓰는 도구, 그리고 연락할 수 있는 곳을 모아둔 페이지입니다.
         </p>
       </div>
 
       <div class="about-grid">
         <div class="glass-box">
           <h3>Profile</h3>
-          <p>
-            재미있는 경험 하나를 만들기 위해 기획하고, 만들고, 실험하고, 논문까지 씁니다.
-            눈으로 하는 게임을 만들다 보니 안과 연구실 문까지 두드리게 됐습니다.
-          </p>
-          <div class="tagrow">
-            <span class="tag">Game Design</span>
-            <span class="tag">Game Research</span>
-            <span class="tag">Functional Games</span>
-            <span class="tag">UX Research</span>
-            <span class="tag">Interaction Design</span>
-          </div>
+          <p id="pBio">불러오는 중…</p>
+          <div class="tagrow" id="pSkills"></div>
         </div>
 
         <div class="glass-box">
-          <h3>Tools & Skills</h3>
-          <p style="color:var(--muted);font-size:14px;margin-top:0">실제로 사용하는 툴과 역할에 맞춰 수정하세요.</p>
-          <div class="tagrow">
-            <span class="tag">Unity</span>
-            <span class="tag">Roblox Studio</span>
-            <span class="tag">Figma</span>
-            <span class="tag">Python</span>
-            <span class="tag">Data Analysis</span>
-            <span class="tag">Research Design</span>
-            <span class="tag">Project Management</span>
-          </div>
-          <div class="links">
-            <a class="chip-link" href="#" target="_blank">✉ Email</a>
-            <a class="chip-link" href="#" target="_blank">in LinkedIn</a>
-            <a class="chip-link" href="#" target="_blank">◎ Instagram</a>
-            <a class="chip-link" href="#" target="_blank">⌘ GitHub</a>
-          </div>
+          <h3>Tools &amp; Skills</h3>
+          <div class="tagrow" id="pTools"></div>
+          <div class="links" id="pLinks"></div>
         </div>
       </div>
     </div>
@@ -728,115 +780,10 @@
         <button class="filter" data-filter="done">개발 완료</button>
         <button class="filter" data-filter="beta">베타 테스트</button>
         <button class="filter" data-filter="proto">프로토타입</button>
-        <button class="filter" data-filter="plan">기획 단계</button>
+        <button class="filter" data-filter="planning">기획 단계</button>
       </div>
 
-      <div class="project-grid" id="research-grid">
-        <article class="project-card" data-status="done">
-          <!-- ▼▼ 영상 넣는 곳 ▼▼
-               저번에 PPT에 넣었던 그 영상 링크를 여기에 넣으면 됩니다.
-               아래 <div class="media video"> ... </div> 통째로 지우고 이걸로 교체하세요.
-
-               YouTube:  <div class="media"><iframe src="https://www.youtube.com/embed/영상ID" title="Eye can do it" allowfullscreen></iframe></div>
-               Vimeo:    <div class="media"><iframe src="https://player.vimeo.com/video/영상ID" title="Eye can do it" allowfullscreen></iframe></div>
-               mp4 파일: <div class="media"><video src="videos/eye-can-do-it.mp4" controls playsinline poster="images/eye-thumb.jpg" style="width:100%;height:100%;object-fit:cover"></video></div>
-          ▲▲ 영상 넣는 곳 ▲▲ -->
-          <div class="media video">
-            <div class="video-hint">
-              <span class="play">▶</span>
-              Eye can do it 플레이 영상<br>
-              <small style="opacity:.7">(PPT에 넣었던 영상 링크를 여기에 연결하세요)</small>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="card-top">
-              <h3 class="card-title">Eye can do it</h3>
-              <span class="status done">논문 등재</span>
-            </div>
-            <p class="project-desc">
-              손 대신 눈으로 플레이하는 게임입니다. 시선 추적으로 조준·선택·이동을 모두 처리해서,
-              컨트롤러를 쥐기 어려운 사람도 같은 게임을 같은 방식으로 즐길 수 있게 만들었습니다.
-              동시에 플레이 중 수집되는 시선 데이터가 그대로 실험 데이터가 되도록 설계했습니다.
-            </p>
-            <div class="tagrow">
-              <span class="tag">Eye Tracking</span>
-              <span class="tag">Serious Game</span>
-              <span class="tag">Accessibility</span>
-              <span class="tag">Unity</span>
-            </div>
-            <div class="meta">
-              <div><small>Role</small><b>기획 · 개발 · 연구</b></div>
-              <div><small>Status</small><b>개발 완료 · 논문 등재</b></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress"><span style="width:100%"></span></div>
-              <div class="progress-label">100%</div>
-            </div>
-            <div class="links">
-              <a class="chip-link" href="#" target="_blank">▶ 플레이 영상</a>
-              <a class="chip-link" href="#papers">▣ 등재 논문</a>
-              <a class="chip-link" href="#" target="_blank">↗ 데모</a>
-            </div>
-
-            <div class="plan-box">
-              <h4>👁 안과와 해보고 싶은 것</h4>
-              <ul>
-                <li>아직 확정된 공동연구가 아니라, 가능성을 살펴보는 단계입니다</li>
-                <li>플레이 중 쌓이는 시선 데이터가 안과에서 쓰는 지표와 연결될 수 있을지 궁금합니다</li>
-                <li>검사실의 딱딱한 시선 검사 대신, 게임으로 그 시간을 견디게 할 수 있다면 좋겠습니다</li>
-              </ul>
-              <span class="plan-status">아이디어 단계 · 협력 기관 미정</span>
-            </div>
-
-            <div class="people">
-              <div class="people-title">Collaborators</div>
-              <div class="person">
-                <div class="person-main">
-                  <div class="avatar">MD</div>
-                  <div><b>공동연구자 이름</b><span>안과 · 임상 자문</span></div>
-                </div>
-                <a href="#" target="_blank">Profile ↗</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card" data-status="proto">
-          <div class="media">
-            <span>헤드 · 핸드 · 아이 트래킹 데모 영상 / 스크린샷</span>
-          </div>
-          <div class="card-body">
-            <div class="card-top">
-              <h3 class="card-title">Head · Hand · Eye Tracking Playground</h3>
-              <span class="status proto">PROTOTYPE</span>
-            </div>
-            <p class="project-desc">
-              머리 움직임, 손 제스처, 시선을 한 화면에서 동시에 입력으로 받는 테스트베드입니다.
-              같은 과제를 세 가지 입력으로 번갈아 시켜보면서 어떤 몸짓이 어떤 상호작용에 잘 맞는지,
-              세 개를 섞었을 때 오히려 방해가 되는 지점은 어디인지 확인합니다.
-            </p>
-            <div class="tagrow">
-              <span class="tag">Head Tracking</span>
-              <span class="tag">Hand Tracking</span>
-              <span class="tag">Eye Tracking</span>
-              <span class="tag">Multimodal</span>
-              <span class="tag">Unity</span>
-            </div>
-            <div class="meta">
-              <div><small>Role</small><b>기획 · 개발</b></div>
-              <div><small>쓰임</small><b>연구용 입력 테스트베드</b></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress"><span style="width:70%"></span></div>
-              <div class="progress-label">70%</div>
-            </div>
-            <div class="links">
-              <a class="chip-link" href="#" target="_blank">▶ 데모 영상</a>
-              <a class="chip-link" href="#" target="_blank">⌘ Repository</a>
-            </div>
-          </div>
-        </article>
-      </div>
+      <div class="project-grid" id="research-grid"></div>
     </div>
   </section>
 
@@ -849,7 +796,7 @@
           <h2>오락 게임</h2>
         </div>
         <p class="section-intro">
-          재미와 플레이 경험을 중심으로 제작한 게임, 게임잼 결과물, 실험적 플레이 프로토타입을 소개합니다.
+          재미와 플레이 경험을 중심으로 만든 게임, 게임잼 결과물, 실험적인 프로토타입입니다.
         </p>
       </div>
 
@@ -858,72 +805,10 @@
         <button class="filter" data-filter="done">개발 완료</button>
         <button class="filter" data-filter="beta">베타 테스트</button>
         <button class="filter" data-filter="proto">프로토타입</button>
-        <button class="filter" data-filter="plan">기획 단계</button>
+        <button class="filter" data-filter="planning">기획 단계</button>
       </div>
 
-      <div class="project-grid" id="games-grid">
-        <article class="project-card" data-status="done">
-          <div class="media"><span>Gameplay Trailer / Screenshot</span></div>
-          <div class="card-body">
-            <div class="card-top">
-              <h3 class="card-title">Entertainment Game A</h3>
-              <span class="status done">COMPLETED</span>
-            </div>
-            <p class="project-desc">
-              장르, 플레이 핵심, 제작 배경과 내가 맡은 역할을 간결하게 보여주는 설명 영역입니다.
-            </p>
-            <div class="tagrow">
-              <span class="tag">Adventure</span>
-              <span class="tag">Roblox</span>
-              <span class="tag">4 Players</span>
-            </div>
-            <div class="meta">
-              <div><small>Role</small><b>Game Planner</b></div>
-              <div><small>Team</small><b>4 people</b></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress"><span style="width:100%"></span></div>
-              <div class="progress-label">100%</div>
-            </div>
-            <div class="links">
-              <a class="chip-link" href="#" target="_blank">▶ Trailer</a>
-              <a class="chip-link" href="#" target="_blank">↗ Play Game</a>
-            </div>
-            <div class="people">
-              <div class="people-title">Collaborators</div>
-              <div class="person">
-                <div class="person-main"><div class="avatar">PD</div><div><b>Player One</b><span>Programmer</span></div></div>
-                <a href="#" target="_blank">Profile ↗</a>
-              </div>
-              <div class="person">
-                <div class="person-main"><div class="avatar">AR</div><div><b>Player Two</b><span>3D Artist</span></div></div>
-                <a href="#" target="_blank">Instagram ↗</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card" data-status="plan">
-          <div class="media"><span>Concept Art / Moodboard</span></div>
-          <div class="card-body">
-            <div class="card-top">
-              <h3 class="card-title">Entertainment Game B</h3>
-              <span class="status plan">PLANNING</span>
-            </div>
-            <p class="project-desc">기획 단계 프로젝트는 컨셉, 타깃 플랫폼, 핵심 재미, 예상 제작 범위를 중심으로 정리합니다.</p>
-            <div class="tagrow"><span class="tag">Concept</span><span class="tag">Narrative</span></div>
-            <div class="meta">
-              <div><small>Role</small><b>Creative Director</b></div>
-              <div><small>Period</small><b>Upcoming</b></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress"><span style="width:18%"></span></div>
-              <div class="progress-label">18%</div>
-            </div>
-            <div class="links"><a class="chip-link" href="#" target="_blank">↗ Concept Note</a></div>
-          </div>
-        </article>
-      </div>
+      <div class="project-grid" id="games-grid"></div>
     </div>
   </section>
 
@@ -940,60 +825,8 @@
         </p>
       </div>
 
-      <div class="subhead">쓰는 중</div>
-
-      <article class="wip">
-        <div class="wip-main">
-          <span class="wip-label">집필 중 · 2026</span>
-          <h3>비선형 게임에서 플레이어는 무엇을 기준으로 다음 길을 고르는가</h3>
-          <p>
-            정해진 순서 없이 진행되는 비선형 게임에서, 플레이어가 실제로 어떤 경로를 택하고
-            그 선택이 경험의 만족도와 어떻게 연결되는지를 다룹니다.
-            플레이 로그와 선택 지점을 함께 분석해, 설계자가 의도한 자유도와
-            플레이어가 체감하는 자유도 사이의 간극을 확인하는 것이 핵심 질문입니다.
-          </p>
-          <div class="tagrow">
-            <span class="tag">Nonlinear Game Design</span>
-            <span class="tag">Player Agency</span>
-            <span class="tag">Playtest Log Analysis</span>
-          </div>
-          <div class="progress-row">
-            <div class="progress"><span style="width:45%"></span></div>
-            <div class="progress-label">45%</div>
-          </div>
-        </div>
-        <div class="wip-side">
-          <h4>진행 상황</h4>
-          <ol>
-            <li>선행 연구 정리 · 연구 질문 확정 — 완료</li>
-            <li>분석 대상 게임 선정 및 선택 지점 코딩 — 진행 중</li>
-            <li>플레이테스트 및 로그 수집 — 예정</li>
-            <li>결과 분석 · 초고 작성 — 예정</li>
-            <li>투고 목표 학회 / 저널 — 여기에 입력</li>
-          </ol>
-        </div>
-      </article>
-
-      <div class="subhead">등재 · 게재</div>
-
-      <div class="paper-list">
-        <article class="paper">
-          <div class="year">2026</div>
-          <div>
-            <h3>Eye can do it — 시선 추적 기반 게임 (정확한 논문 제목으로 교체)</h3>
-            <p>저자명 · 학회 / 저널명 · 등재 · DOI 링크를 연결하세요</p>
-          </div>
-          <a href="#" target="_blank">Paper ↗</a>
-        </article>
-        <article class="paper">
-          <div class="year">2026</div>
-          <div>
-            <h3>Another Paper Title</h3>
-            <p>Research area · Venue · Work-in-Progress / Poster / Oral</p>
-          </div>
-          <a href="#" target="_blank">Details ↗</a>
-        </article>
-      </div>
+      <div id="papers-wip"></div>
+      <div id="papers-pub"></div>
     </div>
   </section>
 
@@ -1002,45 +835,32 @@
       <a class="page-back" href="#home">← 홈으로</a>
       <div class="section-head">
         <div>
-          <div class="section-kicker">05 · Exhibitions & Talks</div>
+          <div class="section-kicker">05 · Exhibitions &amp; Talks</div>
           <h2>전시 및 발표</h2>
         </div>
         <p class="section-intro">
-          학회 발표, 전시, 쇼케이스, 데모, 게임잼, 초청 강연 등을 시간순으로 정리합니다.
+          학회 발표, 전시, 쇼케이스, 데모, 게임잼, 초청 강연을 시간순으로 정리합니다.
         </p>
       </div>
 
-      <div class="timeline">
-        <article class="event">
-          <div class="date">OCT · 2026</div>
-          <div><h3>Conference Presentation / Poster</h3><p>Paris, France · 발표 제목과 행사 정보를 입력하세요.</p></div>
-          <a href="#" target="_blank">View ↗</a>
-        </article>
-        <article class="event">
-          <div class="date">SEP · 2026</div>
-          <div><h3>Game Showcase / Demo</h3><p>San Jose, CA · 행사 소개, 전시 작품, 역할을 입력하세요.</p></div>
-          <a href="#" target="_blank">Gallery ↗</a>
-        </article>
-      </div>
+      <div class="timeline" id="events-list"></div>
     </div>
   </section>
 
   <footer>
     <div class="wrap footer-grid">
       <div>
-        <h2>Let’s make<br>something playable.</h2>
-        <p>협업, 연구, 전시, 발표 또는 게임 프로젝트 관련 문의를 위한 연락 영역입니다.</p>
-        <div class="footer-links">
-          <a href="mailto:your@email.com">your@email.com</a>
-          <a href="#" target="_blank">Instagram ↗</a>
-          <a href="#" target="_blank">LinkedIn ↗</a>
-        </div>
+        <h2>Let's make<br>something playable.</h2>
+        <p>협업, 연구, 전시, 발표 또는 게임 프로젝트 관련 문의는 아래로 보내주세요.</p>
       </div>
-      <small>© 2026 Yurim Jang. All rights reserved.</small>
+      <div class="footer-links" id="fLinks"></div>
     </div>
+    <div class="wrap copyright">© 2026 Yurim Jang. All rights reserved.</div>
   </footer>
 
-  <!-- ===== 그림일기 오버레이 ===== -->
+  <button class="admin-fab" id="adminFab" title="관리자" aria-label="관리자 페이지 열기">⚙</button>
+
+  <!-- ===== 그림일기 ===== -->
   <div class="diary-overlay" id="diaryOverlay" role="dialog" aria-modal="true" aria-label="프로젝트 일지">
     <div class="diary-shell">
       <div class="diary-bar">
@@ -1055,45 +875,36 @@
           <button class="icon-btn" id="prevSheet" title="이전 장" aria-label="이전 장">‹</button>
           <span class="deck-count" id="deckCount">0 / 0</span>
           <button class="icon-btn" id="nextSheet" title="다음 장" aria-label="다음 장">›</button>
-          <button class="btn primary" id="newEntry">＋ 오늘 일지 쓰기</button>
-          <button class="icon-btn" id="exportLogs" title="일지 내보내기" aria-label="일지 내보내기">⤓</button>
-          <button class="icon-btn" id="publishLogsBtn" title="일지를 사이트에 올리기" aria-label="일지를 사이트에 올리기">☁</button>
+          <button class="btn primary" id="newEntry">＋ 일지 쓰기</button>
         </div>
       </div>
 
       <div class="diary-write" id="diaryWrite" style="display:none">
         <h3 id="writeTitle">새 일지</h3>
-
         <div class="field">
           <label for="fDate">날짜 — 지난 날짜도 자유롭게 고를 수 있어요</label>
           <input type="date" id="fDate">
         </div>
-
         <div class="field">
           <label for="fProject">프로젝트</label>
           <select id="fProject"></select>
         </div>
-
         <div class="field">
           <label>영역 — 여러 개 고를 수 있어요</label>
           <div class="checkrow" id="fAreas"></div>
         </div>
-
         <div class="field">
           <label>날씨</label>
           <div class="checkrow" id="fWeather"></div>
         </div>
-
         <div class="field">
           <label for="fDid">한 일</label>
           <input type="text" id="fDid" maxlength="120" placeholder="예: 시선 보정 UI 다시 짬">
         </div>
-
         <div class="field">
           <label for="fFeel">그날의 감상</label>
           <textarea id="fFeel" maxlength="400" placeholder="예: 세 번째 갈아엎는 중인데 이번 건 좀 마음에 든다."></textarea>
         </div>
-
         <div class="field">
           <label>그림 — 안 그려도 괜찮아요</label>
           <div class="pad-wrap">
@@ -1109,51 +920,95 @@
             </div>
           </div>
         </div>
-
         <div class="write-actions">
           <button class="btn secondary" id="cancelEntry">취소</button>
           <button class="btn primary" id="saveEntry">일지 붙이기</button>
         </div>
-
-        <p class="diary-hint">
-          일지는 이 브라우저에 저장됩니다. 사이트에 그대로 올리고 싶으면 ⤓ 버튼으로 파일을 받아
-          index.html 안의 <code>SEED_LOGS</code> 자리에 붙여 넣으면 됩니다.
-        </p>
+        <p class="diary-hint" id="diaryHint">일지는 Supabase에 저장되어 방문자에게도 보입니다.</p>
       </div>
     </div>
   </div>
 
+  <!-- ===== 관리자 ===== -->
+  <div class="admin-overlay" id="adminOverlay" role="dialog" aria-modal="true" aria-label="관리자">
+    <div class="admin-shell">
+      <div class="admin-top">
+        <h3>관리자</h3>
+        <span class="who" id="adminWho"></span>
+        <button id="adminLogout" style="display:none">로그아웃</button>
+        <button id="adminClose">닫기</button>
+      </div>
+
+      <div id="adminLogin" class="login-box">
+        <h4>로그인</h4>
+        <p>등록된 관리자 계정만 내용을 고칠 수 있습니다.</p>
+        <div class="admin-form">
+          <div id="loginMsg"></div>
+          <div class="field">
+            <label for="lgEmail">이메일</label>
+            <input type="email" id="lgEmail" autocomplete="username">
+          </div>
+          <div class="field">
+            <label for="lgPw">비밀번호</label>
+            <input type="password" id="lgPw" autocomplete="current-password">
+          </div>
+          <div class="admin-actions">
+            <button class="btn primary" id="lgGo">로그인</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="adminPanel" style="display:none">
+        <div class="admin-tabs" id="adminTabs"></div>
+        <div class="admin-body" id="adminBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script>
+  /* ===================================================================
+     Supabase 연결
+     =================================================================== */
+  const SUPABASE_URL = "https://abglfgleitcxorclfhck.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_s-pEnjuvOc6gJoUkee8Csg_afwbLitt";
+  const STORAGE_BUCKET = "portfolio-media";
+
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  const store = { profile:null, projects:[], papers:[], events:[], logs:[], session:null };
+  </script>
+
+  <script>
+  /* ===================================================================
+     페이지 이동
+     =================================================================== */
+  (function(){
     const body = document.body;
     const sections = [...document.querySelectorAll('.section')];
     const navItems = [...document.querySelectorAll('.navlinks a')];
 
-    function showHome(pushHash = true){
+    window.showHome = function(pushHash = true){
       body.className = 'home-mode';
       sections.forEach(s => s.classList.remove('active-section'));
       navItems.forEach(a => a.classList.remove('active'));
       window.scrollTo({top:0, behavior:'smooth'});
       if(pushHash && location.hash !== '#home') history.pushState(null,'','#home');
-    }
+    };
 
-    function showSection(id, pushHash = true){
+    window.showSection = function(id, pushHash = true){
       const target = document.getElementById(id);
       if(!target) return showHome(pushHash);
-
       body.className = `page-mode theme-${id}`;
       sections.forEach(s => s.classList.toggle('active-section', s.id === id));
       navItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
       window.scrollTo({top:0, behavior:'smooth'});
       if(pushHash && location.hash !== `#${id}`) history.pushState(null,'',`#${id}`);
-    }
+    };
 
-    document.querySelector('.brand').addEventListener('click', e=>{
-      e.preventDefault();
-      showHome();
-    });
+    document.querySelector('.brand').addEventListener('click', e=>{ e.preventDefault(); showHome(); });
 
     navItems.forEach(a=>{
-      a.addEventListener('click',e=>{
+      a.addEventListener('click', e=>{
         e.preventDefault();
         if(a.hasAttribute('data-diary')){ window.openDiary && window.openDiary('전체'); return; }
         showSection(a.getAttribute('href').slice(1));
@@ -1161,88 +1016,540 @@
     });
 
     document.querySelectorAll('.page-back').forEach(a=>{
-      a.addEventListener('click',e=>{
-        e.preventDefault();
-        showHome();
-      });
+      a.addEventListener('click', e=>{ e.preventDefault(); showHome(); });
     });
 
     window.addEventListener('popstate', ()=>{
       const id = location.hash.replace('#','');
       if(!id || id === 'home') showHome(false);
+      else if(id === 'admin') { showHome(false); window.openAdmin && window.openAdmin(); }
       else showSection(id, false);
     });
 
+    // 필터는 카드가 그려진 뒤에도 동작하도록 위임 방식으로 처리합니다
     document.querySelectorAll('.filterbar').forEach(bar=>{
-      const target=document.getElementById(bar.dataset.target);
-      const cards=[...target.querySelectorAll('.project-card')];
-      bar.querySelectorAll('.filter').forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          bar.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
-          btn.classList.add('active');
-          const f=btn.dataset.filter;
-          cards.forEach(card=>{
-            card.style.display=(f==='all'||card.dataset.status===f)?'block':'none';
+      bar.addEventListener('click', e=>{
+        const btn = e.target.closest('.filter');
+        if(!btn) return;
+        bar.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.getElementById(bar.dataset.target)
+          .querySelectorAll('.project-card')
+          .forEach(card=>{
+            card.style.display = (f === 'all' || card.dataset.status === f) ? 'block' : 'none';
           });
-        });
       });
     });
 
-    document.querySelectorAll('a[href="#"]').forEach(a=>{
-      a.addEventListener('click',e=>e.preventDefault());
-    });
-
-    // Open directly to a section when a hash URL is shared.
     const initial = location.hash.replace('#','');
-    if(initial && initial !== 'home') showSection(initial, false);
+    if(initial && initial !== 'home' && initial !== 'admin') showSection(initial, false);
     else showHome(false);
+  })();
   </script>
 
   <script>
   /* ===================================================================
-     프로젝트 일지 (그림일기)
-     -------------------------------------------------------------------
-     SEED_LOGS: 사이트에 항상 보이게 할 일지. 방문자에게도 보입니다.
-     내 브라우저에서 쓴 일지는 ⤓ 버튼으로 받아 아래 배열에 붙여 넣으세요.
+     Supabase에서 내용을 불러와 화면에 그립니다
      =================================================================== */
-  const SEED_LOGS = [
-    // 예시 — 지우고 본인 일지를 넣으세요
-    {
-      id: "seed-1",
-      project: "Eye can do it",
-      date: "2026-03-14",
-      weather: "🌤",
-      areas: ["개발", "연구"],
-      did: "시선 보정 절차를 3단계에서 1단계로 줄임",
-      feel: "테스터가 처음으로 설명 없이 바로 시작했다. 이거였구나 싶었다.",
-      art: ""
-    }
-  ];
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const arr = v => Array.isArray(v) ? v : [];
 
+  function stateBox(el, kind, title, sub){
+    el.innerHTML = `<div class="state-msg ${kind === 'err' ? 'err' : ''}"><b>${esc(title)}</b><span>${esc(sub||'')}</span></div>`;
+  }
+
+  function mediaBlock(p){
+    if(p.youtube_url){
+      const id = (p.youtube_url.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([\w-]{11})/) || [])[1];
+      if(id) return `<div class="media"><iframe src="https://www.youtube.com/embed/${id}" title="${esc(p.title)}" allowfullscreen></iframe></div>`;
+    }
+    if(p.video_url) return `<div class="media"><video src="${esc(p.video_url)}" controls playsinline style="width:100%;height:100%;object-fit:cover"></video></div>`;
+    if(p.cover_url) return `<div class="media"><img src="${esc(p.cover_url)}" alt="${esc(p.title)}" style="width:100%;height:100%;object-fit:cover" onerror="this.remove()"></div>`;
+    return `<div class="media"><span>이미지 또는 영상이 아직 없습니다</span></div>`;
+  }
+
+  function projectCard(p){
+    const links = arr(p.links).map(l =>
+      `<a class="chip-link" href="${esc(l.url||'#')}" target="_blank" rel="noopener">${esc(l.label||'링크')}</a>`).join('');
+    const notes = arr(p.notes);
+    const notesBlock = notes.length ? `
+      <div class="plan-box">
+        ${p.notes_title ? `<h4>${esc(p.notes_title)}</h4>` : ''}
+        <ul>${notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
+        ${p.notes_badge ? `<span class="plan-status">${esc(p.notes_badge)}</span>` : ''}
+      </div>` : '';
+
+    return `
+      <article class="project-card" data-status="${esc(p.status)}">
+        ${mediaBlock(p)}
+        <div class="card-body">
+          <div class="card-top">
+            <h3 class="card-title">${esc(p.title)}</h3>
+            <span class="status ${esc(p.status)}">${esc(p.status_label || p.status)}</span>
+          </div>
+          ${p.description ? `<p class="project-desc">${esc(p.description)}</p>` : ''}
+          <div class="tagrow">${arr(p.tags).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+          <div class="meta">
+            <div><small>Role</small><b>${esc(p.role||'—')}</b></div>
+            <div><small>${esc(p.meta_label||'Status')}</small><b>${esc(p.meta_value||'—')}</b></div>
+          </div>
+          <div class="progress-row">
+            <div class="progress"><span style="width:${Number(p.progress)||0}%"></span></div>
+            <div class="progress-label">${Number(p.progress)||0}%</div>
+          </div>
+          ${links ? `<div class="links">${links}</div>` : '<div class="links"></div>'}
+          ${notesBlock}
+        </div>
+      </article>`;
+  }
+
+  function renderProjects(){
+    [['research','research-grid'],['entertainment','games-grid']].forEach(([kind,id])=>{
+      const el = document.getElementById(id);
+      const list = store.projects.filter(p => p.kind === kind);
+      if(!list.length){
+        stateBox(el, 'empty', '아직 등록된 게임이 없습니다', '관리자 화면에서 추가할 수 있습니다');
+        return;
+      }
+      el.innerHTML = list.map(projectCard).join('');
+    });
+    if(window.attachDiaryButtons) window.attachDiaryButtons();
+  }
+
+  function renderPapers(){
+    const wipEl = document.getElementById('papers-wip');
+    const pubEl = document.getElementById('papers-pub');
+    const wip = store.papers.filter(p => p.state === 'wip');
+    const pub = store.papers.filter(p => p.state === 'published');
+
+    wipEl.innerHTML = wip.length ? `<div class="subhead">쓰는 중</div>` + wip.map(p=>`
+      <article class="wip">
+        <div class="wip-main">
+          <span class="wip-label">집필 중${p.year ? ' · ' + esc(p.year) : ''}</span>
+          <h3>${esc(p.title)}</h3>
+          ${p.abstract ? `<p>${esc(p.abstract)}</p>` : ''}
+          <div class="tagrow">${arr(p.tags).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+          <div class="progress-row">
+            <div class="progress"><span style="width:${Number(p.progress)||0}%"></span></div>
+            <div class="progress-label">${Number(p.progress)||0}%</div>
+          </div>
+        </div>
+        <div class="wip-side">
+          <h4>진행 상황</h4>
+          <ol>${arr(p.steps).map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
+        </div>
+      </article>`).join('') : '';
+
+    pubEl.innerHTML = pub.length
+      ? `<div class="subhead">등재 · 게재</div><div class="paper-list">` + pub.map(p=>`
+          <article class="paper">
+            <div class="year">${esc(p.year)}</div>
+            <div><h3>${esc(p.title)}</h3><p>${esc(p.authors_venue)}</p></div>
+            ${p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">Paper ↗</a>` : '<span></span>'}
+          </article>`).join('') + `</div>`
+      : (wip.length ? '' : `<div class="paper-list"><div class="state-msg"><b>아직 등록된 논문이 없습니다</b><span>관리자 화면에서 추가할 수 있습니다</span></div></div>`);
+  }
+
+  function renderEvents(){
+    const el = document.getElementById('events-list');
+    if(!store.events.length){
+      stateBox(el, 'empty', '아직 등록된 전시·발표가 없습니다', '관리자 화면에서 추가할 수 있습니다');
+      return;
+    }
+    el.innerHTML = store.events.map(e=>`
+      <article class="event">
+        <div class="date">${esc(e.date_label)}</div>
+        <div><h3>${esc(e.title)}</h3><p>${esc(e.description)}</p></div>
+        ${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">View ↗</a>` : '<span></span>'}
+      </article>`).join('');
+  }
+
+  function renderProfile(){
+    const p = store.profile;
+    if(!p) return;
+    document.getElementById('pEyebrow').textContent = p.eyebrow || '';
+    document.title = (p.headline ? p.headline.replace(/\s+/g,' ') + ' — ' : '') + 'Yurim Jang';
+
+    const head = (p.headline || '').split('\n');
+    document.getElementById('pHeadline').innerHTML = head.length > 1
+      ? `<span>${esc(head[0])}</span><br>${esc(head.slice(1).join(' '))}`
+      : esc(p.headline || '');
+    document.getElementById('pSubline').textContent = p.subline || '';
+    document.getElementById('pBio').textContent = p.bio || '';
+
+    document.getElementById('pSkills').innerHTML = arr(p.skills).map(s=>`<span class="tag">${esc(s)}</span>`).join('');
+    document.getElementById('pTools').innerHTML  = arr(p.tools ).map(s=>`<span class="tag">${esc(s)}</span>`).join('');
+
+    const links = arr(p.links);
+    document.getElementById('pLinks').innerHTML = links.map(l=>
+      `<a class="chip-link" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
+    document.getElementById('fLinks').innerHTML =
+      (p.email ? `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>` : '') +
+      links.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join('');
+
+    if(p.photo_url){
+      document.getElementById('pPhoto').innerHTML =
+        `<img src="${esc(p.photo_url)}" alt="프로필 사진" style="width:100%;height:100%;object-fit:cover;border-radius:22px">`;
+    }
+
+    const research = store.projects.filter(x=>x.kind==='research').length;
+    const pub = store.papers.filter(x=>x.state==='published').length;
+    const wip = store.papers.filter(x=>x.state==='wip').length;
+    document.getElementById('pStats').innerHTML = `
+      <div class="mini-stat"><b>${research}</b><span>연구용 게임</span></div>
+      <div class="mini-stat"><b>${pub}</b><span>등재 논문</span></div>
+      <div class="mini-stat"><b>${wip}</b><span>집필 중</span></div>`;
+  }
+
+  async function loadAll(){
+    ['research-grid','games-grid','events-list'].forEach(id =>
+      stateBox(document.getElementById(id), 'load', '불러오는 중…', ''));
+
+    try{
+      const [pf, pj, pp, ev, lg] = await Promise.all([
+        sb.from('profile').select('*').eq('id',1).maybeSingle(),
+        sb.from('projects').select('*').order('sort_order').order('created_at'),
+        sb.from('papers').select('*').order('sort_order').order('created_at'),
+        sb.from('events').select('*').order('sort_order').order('created_at'),
+        sb.from('logs').select('*').order('log_date', {ascending:false})
+      ]);
+      const err = [pf,pj,pp,ev,lg].find(r => r.error);
+      if(err) throw err.error;
+
+      store.profile  = pf.data;
+      store.projects = pj.data || [];
+      store.papers   = pp.data || [];
+      store.events   = ev.data || [];
+      store.logs     = lg.data || [];
+
+      renderProfile(); renderProjects(); renderPapers(); renderEvents();
+      if(window.refreshDiary) window.refreshDiary();
+    }catch(e){
+      ['research-grid','games-grid','events-list'].forEach(id =>
+        stateBox(document.getElementById(id), 'err', '내용을 불러오지 못했습니다',
+          '데이터베이스 연결을 확인해 주세요 · ' + (e.message || '')));
+      document.getElementById('pBio').textContent = '내용을 불러오지 못했습니다.';
+      console.error(e);
+    }
+  }
+  </script>
+
+  <script>
+  /* ===================================================================
+     관리자 페이지 — 로그인 / 업로드 / 수정 / 삭제
+     =================================================================== */
+  (function(){
+    const SCHEMA = {
+      profile: { label:'소개', single:true, fields:[
+        {k:'eyebrow',  t:'text',     label:'맨 윗줄'},
+        {k:'headline', t:'textarea', label:'큰 제목', hint:'줄바꿈하면 두 줄로 나옵니다'},
+        {k:'subline',  t:'text',     label:'제목 아래 한 줄'},
+        {k:'bio',      t:'textarea', label:'소개 글'},
+        {k:'skills',   t:'list',     label:'관심 분야', hint:'쉼표로 구분'},
+        {k:'tools',    t:'list',     label:'사용 툴',   hint:'쉼표로 구분'},
+        {k:'email',    t:'text',     label:'공개 이메일'},
+        {k:'links',    t:'links',    label:'링크', hint:'한 줄에 하나씩 · 이름|주소'},
+        {k:'photo_url',t:'file',     label:'프로필 사진', accept:'image/*'}
+      ]},
+      projects: { label:'게임', title:'title', fields:[
+        {k:'kind',        t:'select', label:'구분', opts:[['research','연구용 게임'],['entertainment','오락 게임']]},
+        {k:'title',       t:'text',   label:'제목', req:true},
+        {k:'status',      t:'select', label:'상태', opts:[['done','개발 완료'],['beta','베타 테스트'],['proto','프로토타입'],['planning','기획 단계']]},
+        {k:'status_label',t:'text',   label:'카드에 쓸 상태 문구', hint:'비우면 상태값이 그대로 나옵니다'},
+        {k:'description', t:'textarea', label:'설명'},
+        {k:'tags',        t:'list',   label:'태그', hint:'쉼표로 구분'},
+        {k:'role',        t:'text',   label:'역할'},
+        {k:'meta_label',  t:'text',   label:'추가 항목 이름', hint:'예: Status, Team, 쓰임'},
+        {k:'meta_value',  t:'text',   label:'추가 항목 값'},
+        {k:'progress',    t:'number', label:'진행률 (0~100)'},
+        {k:'cover_url',   t:'file',   label:'대표 이미지', accept:'image/*'},
+        {k:'youtube_url', t:'text',   label:'유튜브 링크', hint:'영상이 있으면 이미지보다 먼저 나옵니다'},
+        {k:'video_url',   t:'file',   label:'영상 파일 (mp4)', accept:'video/mp4'},
+        {k:'links',       t:'links',  label:'링크', hint:'한 줄에 하나씩 · 이름|주소'},
+        {k:'notes_title', t:'text',   label:'덧붙임 제목', hint:'예: 👁 안과와 해보고 싶은 것'},
+        {k:'notes',       t:'lines',  label:'덧붙임 내용', hint:'한 줄에 하나씩'},
+        {k:'notes_badge', t:'text',   label:'덧붙임 배지'},
+        {k:'sort_order',  t:'number', label:'정렬 순서', hint:'작을수록 먼저'}
+      ]},
+      papers: { label:'논문', title:'title', fields:[
+        {k:'state',        t:'select', label:'구분', opts:[['wip','쓰는 중'],['published','등재 · 게재']]},
+        {k:'year',         t:'text',   label:'연도'},
+        {k:'title',        t:'text',   label:'제목', req:true},
+        {k:'authors_venue',t:'text',   label:'저자 · 학회 · 상태'},
+        {k:'abstract',     t:'textarea', label:'설명', hint:'쓰는 중인 논문에만 나옵니다'},
+        {k:'tags',         t:'list',   label:'태그', hint:'쉼표로 구분'},
+        {k:'progress',     t:'number', label:'진행률 (0~100)'},
+        {k:'steps',        t:'lines',  label:'진행 상황', hint:'한 줄에 하나씩'},
+        {k:'url',          t:'text',   label:'논문 주소 / DOI'},
+        {k:'sort_order',   t:'number', label:'정렬 순서'}
+      ]},
+      events: { label:'전시·발표', title:'title', fields:[
+        {k:'date_label', t:'text', label:'날짜 표시', hint:'예: OCT · 2026'},
+        {k:'title',      t:'text', label:'제목', req:true},
+        {k:'description',t:'textarea', label:'설명'},
+        {k:'url',        t:'text', label:'링크'},
+        {k:'sort_order', t:'number', label:'정렬 순서'}
+      ]},
+      logs: { label:'일지', title:'did', fields:[
+        {k:'log_date', t:'date',  label:'날짜'},
+        {k:'project',  t:'text',  label:'프로젝트'},
+        {k:'weather',  t:'text',  label:'날씨'},
+        {k:'areas',    t:'list',  label:'영역', hint:'쉼표로 구분'},
+        {k:'did',      t:'text',  label:'한 일'},
+        {k:'feel',     t:'textarea', label:'감상'},
+        {k:'art_url',  t:'file',  label:'그림', accept:'image/*'}
+      ]}
+    };
+
+    const overlay = document.getElementById('adminOverlay');
+    const loginEl = document.getElementById('adminLogin');
+    const panelEl = document.getElementById('adminPanel');
+    const tabsEl  = document.getElementById('adminTabs');
+    const bodyEl  = document.getElementById('adminBody');
+    const whoEl   = document.getElementById('adminWho');
+    const logoutB = document.getElementById('adminLogout');
+    let tab = 'profile';
+
+    /* ---- 열고 닫기 ---- */
+    window.openAdmin = async function(){
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      const { data } = await sb.auth.getSession();
+      store.session = data.session;
+      paint();
+    };
+    function close(){
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      if(location.hash === '#admin') history.replaceState(null,'','#home');
+    }
+    document.getElementById('adminFab').addEventListener('click', openAdmin);
+    document.getElementById('adminClose').addEventListener('click', close);
+    overlay.addEventListener('click', e=>{ if(e.target === overlay) close(); });
+    if(location.hash === '#admin') setTimeout(openAdmin, 300);
+
+    /* ---- 로그인 ---- */
+    function msg(el, kind, text){ el.innerHTML = `<div class="admin-msg ${kind}">${esc(text)}</div>`; }
+
+    document.getElementById('lgGo').addEventListener('click', async ()=>{
+      const email = document.getElementById('lgEmail').value.trim();
+      const password = document.getElementById('lgPw').value;
+      const box = document.getElementById('loginMsg');
+      if(!email || !password){ msg(box,'no','이메일과 비밀번호를 넣어주세요.'); return; }
+      msg(box,'ok','확인하는 중…');
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      if(error){ msg(box,'no','로그인하지 못했습니다 · ' + error.message); return; }
+      store.session = data.session;
+      document.getElementById('lgPw').value = '';
+      box.innerHTML = '';
+      paint();
+    });
+    document.getElementById('lgPw').addEventListener('keydown', e=>{
+      if(e.key === 'Enter') document.getElementById('lgGo').click();
+    });
+
+    logoutB.addEventListener('click', async ()=>{
+      await sb.auth.signOut();
+      store.session = null;
+      paint();
+    });
+
+    function paint(){
+      const on = !!store.session;
+      loginEl.style.display = on ? 'none' : '';
+      panelEl.style.display = on ? '' : 'none';
+      logoutB.style.display = on ? '' : 'none';
+      whoEl.textContent = on ? store.session.user.email : '';
+      if(on) renderTabs();
+    }
+
+    function renderTabs(){
+      tabsEl.innerHTML = Object.entries(SCHEMA).map(([k,v])=>
+        `<button data-tab="${k}" class="${k===tab?'on':''}">${v.label}</button>`).join('');
+      tabsEl.querySelectorAll('button').forEach(b=>{
+        b.addEventListener('click', ()=>{ tab = b.dataset.tab; renderTabs(); renderList(); });
+      });
+      renderList();
+    }
+
+    /* ---- 목록 ---- */
+    function rowsOf(t){
+      return t === 'profile' ? (store.profile ? [store.profile] : [])
+           : t === 'projects' ? store.projects
+           : t === 'papers'   ? store.papers
+           : t === 'events'   ? store.events
+           : store.logs;
+    }
+
+    function renderList(){
+      const cfg = SCHEMA[tab];
+      const rows = rowsOf(tab);
+      if(cfg.single){ renderForm(rows[0] || {}); return; }
+
+      bodyEl.innerHTML =
+        `<div class="admin-actions" style="justify-content:flex-start;margin:0 0 14px">
+           <button class="btn primary" id="addNew">＋ 새로 추가</button>
+         </div>` +
+        (rows.length ? rows.map(r=>`
+          <div class="row-item">
+            <div class="rt">
+              <b>${esc(r[cfg.title] || '(제목 없음)')}</b>
+              <small>${esc(r.kind || r.state || r.log_date || r.date_label || '')}</small>
+            </div>
+            <button data-edit="${r.id}">수정</button>
+            <button class="del" data-del="${r.id}">삭제</button>
+          </div>`).join('')
+        : `<div class="state-msg"><b>아직 없습니다</b><span>위 버튼으로 추가해 보세요</span></div>`);
+
+      document.getElementById('addNew').addEventListener('click', ()=> renderForm({}));
+      bodyEl.querySelectorAll('[data-edit]').forEach(b=>
+        b.addEventListener('click', ()=> renderForm(rows.find(r=>String(r.id)===b.dataset.edit))));
+      bodyEl.querySelectorAll('[data-del]').forEach(b=>
+        b.addEventListener('click', ()=> remove(b.dataset.del)));
+    }
+
+    /* ---- 폼 ---- */
+    function valueFor(f, row){
+      const v = row[f.k];
+      if(f.t === 'list')  return arr(v).join(', ');
+      if(f.t === 'lines') return arr(v).join('\n');
+      if(f.t === 'links') return arr(v).map(l=>`${l.label}|${l.url}`).join('\n');
+      return v ?? '';
+    }
+
+    function renderForm(row){
+      const cfg = SCHEMA[tab];
+      const isNew = !row.id && !cfg.single;
+      bodyEl.innerHTML = `
+        <div class="admin-form">
+          <div id="formMsg"></div>
+          ${cfg.fields.map(f=>{
+            const v = valueFor(f, row);
+            if(f.t === 'file') return `
+              <div class="field">
+                <label>${esc(f.label)}</label>
+                <input type="file" data-file="${f.k}" accept="${f.accept||''}">
+                ${v ? `<img class="thumb" src="${esc(v)}" onerror="this.remove()">
+                       <div class="hint">이미 올린 파일이 있습니다. 새로 고르면 교체됩니다.</div>` : ''}
+                <input type="hidden" data-k="${f.k}" value="${esc(v)}">
+              </div>`;
+            if(f.t === 'select') return `
+              <div class="field">
+                <label>${esc(f.label)}</label>
+                <select data-k="${f.k}">
+                  ${f.opts.map(([val,lab])=>`<option value="${val}" ${val===v?'selected':''}>${esc(lab)}</option>`).join('')}
+                </select>
+              </div>`;
+            const multi = (f.t === 'textarea' || f.t === 'lines' || f.t === 'links');
+            const type = f.t === 'number' ? 'number' : f.t === 'date' ? 'date' : 'text';
+            return `
+              <div class="field">
+                <label>${esc(f.label)}${f.req?' *':''}</label>
+                ${multi
+                  ? `<textarea data-k="${f.k}" data-t="${f.t}">${esc(v)}</textarea>`
+                  : `<input type="${type}" data-k="${f.k}" data-t="${f.t}" value="${esc(v)}">`}
+                ${f.hint ? `<div class="hint">${esc(f.hint)}</div>` : ''}
+              </div>`;
+          }).join('')}
+          <div class="admin-actions">
+            ${cfg.single ? '' : '<button class="btn secondary" id="formBack">목록으로</button>'}
+            <button class="btn primary" id="formSave">${isNew ? '추가' : '저장'}</button>
+          </div>
+        </div>`;
+
+      if(!cfg.single) document.getElementById('formBack').addEventListener('click', renderList);
+      document.getElementById('formSave').addEventListener('click', ()=> save(row));
+    }
+
+    function collect(){
+      const cfg = SCHEMA[tab];
+      const out = {};
+      cfg.fields.forEach(f=>{
+        const el = bodyEl.querySelector(`[data-k="${f.k}"]`);
+        if(!el) return;
+        const raw = el.value.trim();
+        if(f.t === 'list')       out[f.k] = raw ? raw.split(',').map(s=>s.trim()).filter(Boolean) : [];
+        else if(f.t === 'lines') out[f.k] = raw ? raw.split('\n').map(s=>s.trim()).filter(Boolean) : [];
+        else if(f.t === 'links') out[f.k] = raw ? raw.split('\n').map(s=>{
+                                     const [label, ...rest] = s.split('|');
+                                     return { label:(label||'').trim(), url:rest.join('|').trim() };
+                                   }).filter(l=>l.label || l.url) : [];
+        else if(f.t === 'number') out[f.k] = Number(raw) || 0;
+        else if(f.t === 'date')   out[f.k] = raw || new Date().toISOString().slice(0,10);
+        else out[f.k] = raw;
+      });
+      return out;
+    }
+
+    async function uploadFiles(){
+      const uploaded = [];
+      for(const input of bodyEl.querySelectorAll('[data-file]')){
+        const file = input.files && input.files[0];
+        if(!file) continue;
+        const ext = (file.name.split('.').pop() || 'bin').toLowerCase();
+        const path = `${tab}/${Date.now()}-${Math.random().toString(36).slice(2,7)}.${ext}`;
+        const { error } = await sb.storage.from(STORAGE_BUCKET).upload(path, file, { upsert:false });
+        if(error) throw new Error('파일을 올리지 못했습니다 · ' + error.message);
+        const { data } = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+        bodyEl.querySelector(`[data-k="${input.dataset.file}"]`).value = data.publicUrl;
+        uploaded.push(path);
+      }
+      return uploaded;
+    }
+
+    async function save(row){
+      const cfg = SCHEMA[tab];
+      const box = document.getElementById('formMsg');
+      const btn = document.getElementById('formSave');
+      btn.disabled = true;
+      msg(box,'ok','저장하는 중…');
+      let uploaded = [];
+      try{
+        uploaded = await uploadFiles();
+        const payload = collect();
+
+        const missing = cfg.fields.find(f=>f.req && !payload[f.k]);
+        if(missing) throw new Error(missing.label + ' 항목을 채워주세요');
+
+        let res;
+        if(cfg.single)        res = await sb.from(tab).update(payload).eq('id',1);
+        else if(row && row.id) res = await sb.from(tab).update(payload).eq('id', row.id);
+        else                   res = await sb.from(tab).insert(payload);
+        if(res.error) throw res.error;
+
+        await loadAll();
+        msg(box,'ok','저장했습니다');
+        if(!cfg.single) renderList();
+        else renderForm(store.profile || {});
+      }catch(e){
+        // 저장에 실패하면 방금 올린 파일은 지웁니다
+        if(uploaded.length) await sb.storage.from(STORAGE_BUCKET).remove(uploaded);
+        msg(box,'no','저장하지 못했습니다 · ' + (e.message || ''));
+      }
+      btn.disabled = false;
+    }
+
+    async function remove(id){
+      if(!confirm('정말 지울까요? 되돌릴 수 없습니다.')) return;
+      const { error } = await sb.from(tab).delete().eq('id', id);
+      if(error){ alert('지우지 못했습니다 · ' + error.message); return; }
+      await loadAll();
+      renderList();
+    }
+
+    sb.auth.onAuthStateChange((_e, session)=>{ store.session = session; if(overlay.classList.contains('open')) paint(); });
+  })();
+  </script>
+
+  <script>
+  /* ===================================================================
+     그림일기 — Supabase에 저장되어 방문자에게도 보입니다
+     =================================================================== */
   (function(){
     const AREAS = ["기획","개발","아트","사운드","연구","PR"];
     const WEATHERS = ["☀️","🌤","☁️","🌧","⛄"];
-    const KEY = "yj-project-logs-v1";
 
-    /* ---- 저장소: Claude 미리보기 / 브라우저 / 메모리 순으로 사용 ---- */
-    let memory = null;
-    const store = {
-      async load(){
-        if (window.storage) {
-          try { const r = await window.storage.get(KEY); return r && r.value ? JSON.parse(r.value) : []; }
-          catch(e){ /* 키가 없으면 여기로 옵니다 */ return []; }
-        }
-        try { const raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : []; }
-        catch(e){ return memory || []; }
-      },
-      async save(list){
-        const raw = JSON.stringify(list);
-        if (window.storage) { try { await window.storage.set(KEY, raw); return true; } catch(e){} }
-        try { localStorage.setItem(KEY, raw); return true; } catch(e){ memory = list; return false; }
-      }
-    };
-
-    /* ---- 요소 ---- */
     const overlay   = document.getElementById('diaryOverlay');
     const deckEl    = document.getElementById('deck');
     const deckView  = document.getElementById('diaryDeckView');
@@ -1256,537 +1563,264 @@
     const fDate     = document.getElementById('fDate');
     const fDid      = document.getElementById('fDid');
     const fFeel     = document.getElementById('fFeel');
-    const writeTitle= document.getElementById('writeTitle');
+    const hintEl    = document.getElementById('diaryHint');
+    const newBtn    = document.getElementById('newEntry');
 
-    let logs = [];      // 저장된 일지
-    let view = [];      // 현재 보고 있는 목록
-    let cursor = 0;     // 맨 위 장
-    let filter = "전체";
-    let editingId = null;
+    let view = [], cursor = 0, filter = '전체', editing = null;
 
-    /* ---- 프로젝트 목록은 카드에서 자동으로 가져옵니다 ---- */
-    function projectNames(){
-      return [...document.querySelectorAll('.project-card .card-title')].map(t => t.textContent.trim());
-    }
-
-    function fillSelects(){
-      const names = projectNames();
-      projSel.innerHTML = ['전체', ...names].map(n => `<option>${n}</option>`).join('');
-      fProject.innerHTML = names.map(n => `<option>${n}</option>`).join('');
-    }
-
-    fAreas.innerHTML = AREAS.map(a =>
-      `<label><input type="checkbox" value="${a}">${a}</label>`).join('');
-    fWeather.innerHTML = WEATHERS.map((w,i) =>
+    fAreas.innerHTML = AREAS.map(a=>`<label><input type="checkbox" value="${a}">${a}</label>`).join('');
+    fWeather.innerHTML = WEATHERS.map((w,i)=>
       `<label class="${i===1?'on':''}"><input type="radio" name="wx" value="${w}" ${i===1?'checked':''}>${w}</label>`).join('');
-
-    // :has() 미지원 브라우저용 표시
-    [fAreas, fWeather].forEach(box => box.addEventListener('change', () => {
-      box.querySelectorAll('label').forEach(l => l.classList.toggle('on', l.querySelector('input').checked));
+    [fAreas,fWeather].forEach(box => box.addEventListener('change', ()=>{
+      box.querySelectorAll('label').forEach(l=>l.classList.toggle('on', l.querySelector('input').checked));
     }));
 
-    /* ---- 각 프로젝트 카드에 일지 버튼 달기 ---- */
-    document.querySelectorAll('.project-card').forEach(card => {
-      const name = card.querySelector('.card-title').textContent.trim();
-      let links = card.querySelector('.links');
-      if(!links){
-        links = document.createElement('div');
-        links.className = 'links';
-        card.querySelector('.card-body').appendChild(links);
-      }
-      const b = document.createElement('button');
-      b.className = 'chip-link diary-open';
-      b.type = 'button';
-      b.textContent = '📔 일지';
-      b.addEventListener('click', () => open(name));
-      links.appendChild(b);
-    });
-
-    /* ---- 열기 / 닫기 ---- */
-    async function open(project){
-      filter = project || '전체';
+    function projectNames(){ return store.projects.map(p=>p.title); }
+    function fillSelects(){
+      const names = projectNames();
+      projSel.innerHTML = ['전체', ...names].map(n=>`<option>${esc(n)}</option>`).join('');
+      fProject.innerHTML = (names.length ? names : ['(프로젝트 없음)']).map(n=>`<option>${esc(n)}</option>`).join('');
       projSel.value = filter;
-      logs = await store.load();
+    }
+
+    /* 프로젝트 카드마다 일지 버튼 */
+    window.attachDiaryButtons = function(){
+      document.querySelectorAll('.project-card').forEach(card=>{
+        if(card.querySelector('.diary-open')) return;
+        const name = card.querySelector('.card-title').textContent.trim();
+        const links = card.querySelector('.links');
+        if(!links) return;
+        const b = document.createElement('button');
+        b.className = 'chip-link diary-open';
+        b.type = 'button';
+        b.textContent = '📔 일지';
+        b.addEventListener('click', ()=> open(name));
+        links.appendChild(b);
+      });
+    };
+
+    function open(project){
+      filter = project || '전체';
+      fillSelects();
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
-      showDeck();
-      render();
+      showDeck(); render();
     }
-    function close(){
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-    }
+    window.openDiary = open;
+    window.refreshDiary = ()=>{ if(overlay.classList.contains('open')) { fillSelects(); render(); } };
+
+    function close(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
     function showDeck(){ deckView.style.display=''; writeView.style.display='none'; }
     function showWrite(){ deckView.style.display='none'; writeView.style.display=''; }
 
     document.getElementById('diaryClose').addEventListener('click', close);
-    overlay.addEventListener('click', e => { if(e.target === overlay) close(); });
-    projSel.addEventListener('change', () => { filter = projSel.value; cursor = 0; render(); });
+    overlay.addEventListener('click', e=>{ if(e.target === overlay) close(); });
+    projSel.addEventListener('change', ()=>{ filter = projSel.value; cursor = 0; render(); });
 
-    /* ---- 렌더 ---- */
-    function all(){
-      const seen = new Set();
-      return [...logs, ...SEED_LOGS].filter(l => {
-        if(seen.has(l.id)) return false; seen.add(l.id); return true;
-      });
-    }
-    function esc(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-    function weekday(d){ return ['일','월','화','수','목','금','토'][new Date(d+'T00:00').getDay()]; }
+    const weekday = d => ['일','월','화','수','목','금','토'][new Date(d+'T00:00').getDay()];
 
     function render(){
       titleEl.textContent = filter === '전체' ? '프로젝트 일지' : filter + ' 일지';
-      view = all()
-        .filter(l => filter === '전체' || l.project === filter)
-        .sort((a,b) => b.date.localeCompare(a.date));   // 최근 것이 맨 위
+      newBtn.style.display = store.session ? '' : 'none';
+      hintEl.textContent = '일지는 Supabase에 저장되어 방문자에게도 보입니다.';
+
+      view = store.logs.filter(l => filter === '전체' || l.project === filter);
       if(cursor >= view.length) cursor = Math.max(0, view.length - 1);
 
       deckEl.innerHTML = '';
       if(!view.length){
         deckEl.innerHTML = `<div class="deck-empty"><div><b>아직 붙인 일지가 없어요</b>
-          <span>아래 버튼으로 첫 장을 써 보세요</span></div></div>`;
+          <span>${store.session ? '아래 버튼으로 첫 장을 써 보세요' : '관리자가 로그인하면 쓸 수 있습니다'}</span></div></div>`;
         countEl.textContent = '0 / 0';
         return;
       }
 
-      view.forEach((l, i) => {
-        const d = i - cursor;                 // 0이 맨 앞
+      view.forEach((l,i)=>{
+        const d = i - cursor;
         if(d < -1 || d > 4) return;
         const el = document.createElement('article');
         el.className = 'sheet' + (d === 0 ? ' front' : '');
         el.style.zIndex = 100 - Math.abs(d);
-        if(d < 0){
-          el.style.transform = 'translateX(-118%) rotate(-11deg)';
-          el.style.opacity = '0';
-        } else {
-          const tilt = ((i * 37) % 5 - 2) * 0.6;
-          el.style.transform =
-            `translateY(${d*11}px) translateX(${d*5}px) scale(${1 - d*0.035}) rotate(${d===0?0:tilt}deg)`;
+        if(d < 0){ el.style.transform = 'translateX(-118%) rotate(-11deg)'; el.style.opacity = '0'; }
+        else{
+          const tilt = ((i*37)%5 - 2) * 0.6;
+          el.style.transform = `translateY(${d*11}px) translateX(${d*5}px) scale(${1-d*0.035}) rotate(${d===0?0:tilt}deg)`;
           el.style.opacity = d > 3 ? '0' : '1';
         }
         el.innerHTML = `
           <div class="sheet-inner">
             <div class="sheet-head">
-              <div class="d">${esc(l.date)} ${weekday(l.date)}요일 · ${esc(l.project)}</div>
+              <div class="d">${esc(l.log_date)} ${weekday(l.log_date)}요일 · ${esc(l.project)}</div>
               <div class="w">${esc(l.weather || '🌤')}</div>
             </div>
             <div class="sheet-art">
-              ${l.art ? `<img src="${l.art}" alt="그날의 그림">` : '<span class="empty">✎</span>'}
+              ${l.art_url ? `<img src="${esc(l.art_url)}" alt="그날의 그림" onerror="this.remove()">` : '<span class="empty">✎</span>'}
             </div>
-            <div class="sheet-areas">
-              ${(l.areas||[]).map(a => `<span class="area-tag" data-a="${esc(a)}">${esc(a)}</span>`).join('')}
-            </div>
+            <div class="sheet-areas">${arr(l.areas).map(a=>`<span class="area-tag" data-a="${esc(a)}">${esc(a)}</span>`).join('')}</div>
             <div class="sheet-body">
               <p><span class="lab">한 일</span>${esc(l.did)}</p>
               <p class="feel"><span class="lab">감상</span>${esc(l.feel)}</p>
             </div>
-            ${l.id.startsWith('seed-') ? '' :
-              `<div class="sheet-tools">
-                 <button data-edit="${l.id}">고치기</button>
-                 <button data-del="${l.id}">떼어내기</button>
-               </div>`}
+            ${store.session ? `<div class="sheet-tools">
+              <button data-edit="${l.id}">고치기</button>
+              <button data-del="${l.id}">떼어내기</button></div>` : ''}
           </div>`;
         deckEl.appendChild(el);
       });
-
-      countEl.textContent = `${cursor + 1} / ${view.length}`;
+      countEl.textContent = `${cursor+1} / ${view.length}`;
       bindFront();
     }
 
-    /* ---- 넘기기 ---- */
-    function go(n){
-      if(!view.length) return;
-      cursor = Math.min(Math.max(0, cursor + n), view.length - 1);
-      render();
-    }
-    document.getElementById('nextSheet').addEventListener('click', () => go(1));
-    document.getElementById('prevSheet').addEventListener('click', () => go(-1));
-    document.addEventListener('keydown', e => {
+    function go(n){ if(!view.length) return; cursor = Math.min(Math.max(0,cursor+n), view.length-1); render(); }
+    document.getElementById('nextSheet').addEventListener('click', ()=>go(1));
+    document.getElementById('prevSheet').addEventListener('click', ()=>go(-1));
+    document.addEventListener('keydown', e=>{
       if(!overlay.classList.contains('open')) return;
       if(e.key === 'Escape') close();
       if(writeView.style.display !== 'none') return;
       if(e.key === 'ArrowRight') go(1);
-      if(e.key === 'ArrowLeft') go(-1);
+      if(e.key === 'ArrowLeft')  go(-1);
     });
 
     function bindFront(){
       const front = deckEl.querySelector('.sheet.front');
       if(!front) return;
+      front.querySelectorAll('[data-del]').forEach(b=> b.addEventListener('click', async e=>{
+        e.stopPropagation();
+        if(!confirm('이 장을 떼어낼까요?')) return;
+        const { error } = await sb.from('logs').delete().eq('id', b.dataset.del);
+        if(error){ alert('지우지 못했습니다 · ' + error.message); return; }
+        await loadAll(); render();
+      }));
+      front.querySelectorAll('[data-edit]').forEach(b=> b.addEventListener('click', e=>{
+        e.stopPropagation();
+        openForm(store.logs.find(l=>String(l.id)===b.dataset.edit));
+      }));
 
-      front.querySelectorAll('[data-del]').forEach(b =>
-        b.addEventListener('click', async e => {
-          e.stopPropagation();
-          if(!confirm('이 장을 떼어낼까요?')) return;
-          logs = logs.filter(l => l.id !== b.dataset.del);
-          await store.save(logs);
-          render();
-        }));
-      front.querySelectorAll('[data-edit]').forEach(b =>
-        b.addEventListener('click', e => {
-          e.stopPropagation();
-          openForm(logs.find(l => l.id === b.dataset.edit));
-        }));
-
-      // 손으로 넘기기
       let x0 = null;
-      front.addEventListener('pointerdown', e => {
+      front.addEventListener('pointerdown', e=>{
         if(e.target.closest('button')) return;
-        x0 = e.clientX;
-        front.classList.add('dragging');
-        front.setPointerCapture(e.pointerId);
+        x0 = e.clientX; front.classList.add('dragging'); front.setPointerCapture(e.pointerId);
       });
-      front.addEventListener('pointermove', e => {
+      front.addEventListener('pointermove', e=>{
         if(x0 === null) return;
         const dx = e.clientX - x0;
-        front.style.transform = `translateX(${dx}px) rotate(${dx / 26}deg)`;
+        front.style.transform = `translateX(${dx}px) rotate(${dx/26}deg)`;
       });
-      const end = e => {
+      const end = e=>{
         if(x0 === null) return;
-        const dx = e.clientX - x0;
-        x0 = null;
+        const dx = e.clientX - x0; x0 = null;
         front.classList.remove('dragging');
-        if(dx < -70) go(1);
-        else if(dx > 70) go(-1);
-        else render();
+        if(dx < -70) go(1); else if(dx > 70) go(-1); else render();
       };
       front.addEventListener('pointerup', end);
-      front.addEventListener('pointercancel', () => { x0 = null; front.classList.remove('dragging'); render(); });
+      front.addEventListener('pointercancel', ()=>{ x0=null; front.classList.remove('dragging'); render(); });
     }
 
     /* ---- 그림판 ---- */
     const pad = document.getElementById('pad');
     const ctx = pad.getContext('2d');
     let color = '#3a3a52', erasing = false, drawing = false, dirty = false;
-
-    function clearPad(){
-      ctx.fillStyle = '#fffef9';
-      ctx.fillRect(0,0,pad.width,pad.height);
-      dirty = false;
-    }
-    clearPad();
-    ctx.lineCap = ctx.lineJoin = 'round';
-
-    function padPos(e){
-      const r = pad.getBoundingClientRect();
-      return { x:(e.clientX - r.left) * pad.width / r.width, y:(e.clientY - r.top) * pad.height / r.height };
-    }
-    pad.addEventListener('pointerdown', e => {
-      drawing = true; dirty = true;
-      pad.setPointerCapture(e.pointerId);
+    function clearPad(){ ctx.fillStyle = '#fffef9'; ctx.fillRect(0,0,pad.width,pad.height); dirty = false; }
+    clearPad(); ctx.lineCap = ctx.lineJoin = 'round';
+    const padPos = e => { const r = pad.getBoundingClientRect();
+      return { x:(e.clientX-r.left)*pad.width/r.width, y:(e.clientY-r.top)*pad.height/r.height }; };
+    pad.addEventListener('pointerdown', e=>{
+      drawing = true; dirty = true; pad.setPointerCapture(e.pointerId);
       const p = padPos(e);
-      ctx.beginPath(); ctx.moveTo(p.x, p.y);
+      ctx.beginPath(); ctx.moveTo(p.x,p.y);
       ctx.strokeStyle = erasing ? '#fffef9' : color;
       ctx.lineWidth = erasing ? 34 : 4;
-      ctx.lineTo(p.x + .1, p.y + .1); ctx.stroke();
+      ctx.lineTo(p.x+.1,p.y+.1); ctx.stroke();
     });
-    pad.addEventListener('pointermove', e => {
-      if(!drawing) return;
-      const p = padPos(e);
-      ctx.lineTo(p.x, p.y); ctx.stroke();
-    });
-    ['pointerup','pointercancel','pointerleave'].forEach(ev =>
-      pad.addEventListener(ev, () => { drawing = false; }));
-
-    document.getElementById('padTools').addEventListener('click', e => {
+    pad.addEventListener('pointermove', e=>{ if(!drawing) return; const p = padPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); });
+    ['pointerup','pointercancel','pointerleave'].forEach(ev => pad.addEventListener(ev, ()=>{ drawing = false; }));
+    document.getElementById('padTools').addEventListener('click', e=>{
       const sw = e.target.closest('.swatch');
-      if(sw){
-        color = sw.dataset.c; erasing = false;
-        document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('on', s === sw));
-      }
+      if(sw){ color = sw.dataset.c; erasing = false;
+        document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('on', s===sw)); }
     });
-    document.getElementById('padErase').addEventListener('click', () => { erasing = true; });
+    document.getElementById('padErase').addEventListener('click', ()=>{ erasing = true; });
     document.getElementById('padClear').addEventListener('click', clearPad);
 
     /* ---- 쓰기 ---- */
     function openForm(entry){
-      editingId = entry ? entry.id : null;
-      writeTitle.textContent = entry ? '일지 고치기' : '새 일지';
+      editing = entry || null;
+      document.getElementById('writeTitle').textContent = entry ? '일지 고치기' : '새 일지';
       fillSelects();
-      fDate.value = entry ? entry.date : new Date().toISOString().slice(0,10);
-      fProject.value = entry ? entry.project : (filter === '전체' ? fProject.options[0]?.value : filter);
+      fDate.value = entry ? entry.log_date : new Date().toISOString().slice(0,10);
+      if(entry) fProject.value = entry.project;
+      else if(filter !== '전체') fProject.value = filter;
       fDid.value = entry ? entry.did : '';
       fFeel.value = entry ? entry.feel : '';
-      fAreas.querySelectorAll('input').forEach(i =>
-        i.checked = entry ? (entry.areas || []).includes(i.value) : false);
+      fAreas.querySelectorAll('input').forEach(i=> i.checked = entry ? arr(entry.areas).includes(i.value) : false);
       const wx = entry ? entry.weather : '🌤';
-      fWeather.querySelectorAll('input').forEach(i => i.checked = (i.value === wx));
-      [fAreas, fWeather].forEach(box => box.querySelectorAll('label').forEach(l =>
+      fWeather.querySelectorAll('input').forEach(i=> i.checked = (i.value === wx));
+      [fAreas,fWeather].forEach(box => box.querySelectorAll('label').forEach(l=>
         l.classList.toggle('on', l.querySelector('input').checked)));
       clearPad();
-      if(entry && entry.art){
+      if(entry && entry.art_url){
         const img = new Image();
-        img.onload = () => { ctx.drawImage(img, 0, 0, pad.width, pad.height); dirty = true; };
-        img.src = entry.art;
+        img.crossOrigin = 'anonymous';
+        img.onload = ()=>{ ctx.drawImage(img,0,0,pad.width,pad.height); dirty = false; };
+        img.src = entry.art_url;
       }
       showWrite();
-      writeView.scrollIntoView({block:'nearest'});
     }
 
-    document.getElementById('newEntry').addEventListener('click', () => openForm(null));
-    document.getElementById('cancelEntry').addEventListener('click', () => { showDeck(); render(); });
+    newBtn.addEventListener('click', ()=> openForm(null));
+    document.getElementById('cancelEntry').addEventListener('click', ()=>{ showDeck(); render(); });
 
-    document.getElementById('saveEntry').addEventListener('click', async () => {
+    document.getElementById('saveEntry').addEventListener('click', async ()=>{
+      if(!store.session){ alert('먼저 관리자로 로그인해 주세요.'); return; }
       const did = fDid.value.trim();
       if(!did){ fDid.focus(); alert('한 일을 한 줄만 적어 주세요.'); return; }
-      const areas = [...fAreas.querySelectorAll('input:checked')].map(i => i.value);
-      const entry = {
-        id: editingId || 'log-' + Date.now().toString(36),
-        project: fProject.value,
-        date: fDate.value || new Date().toISOString().slice(0,10),
-        weather: fWeather.querySelector('input:checked').value,
-        areas,
-        did,
-        feel: fFeel.value.trim(),
-        art: dirty ? pad.toDataURL('image/webp', 0.7) : (editingId ? (logs.find(l=>l.id===editingId)||{}).art || '' : '')
-      };
-      logs = [entry, ...logs.filter(l => l.id !== entry.id)];
-      const ok = await store.save(logs);
-      if(!ok) alert('이 환경에서는 저장이 안 돼요. ⤓ 버튼으로 내보내 두세요.');
-      filter = entry.project;
-      projSel.value = filter;
-      cursor = 0;
-      showDeck();
-      render();
-    });
 
-    /* ---- 내보내기 ---- */
-    document.getElementById('exportLogs').addEventListener('click', () => {
-      if(!logs.length){ alert('내보낼 일지가 없어요.'); return; }
-      const text = 'const SEED_LOGS = ' + JSON.stringify(logs, null, 2) + ';';
-      const url = URL.createObjectURL(new Blob([text], {type:'text/plain'}));
-      const a = document.createElement('a');
-      a.href = url; a.download = 'project-logs.txt'; a.click();
-      URL.revokeObjectURL(url);
-    });
-
-    document.getElementById('publishLogsBtn').addEventListener('click', async () => {
-      if(!logs.length){ alert('올릴 일지가 없어요.'); return; }
-      if(!window.publishLogs){ alert('편집 기능을 찾지 못했어요.'); return; }
-      if(!confirm(logs.length + '개의 일지를 사이트에 올릴까요? 방문자에게도 보이게 됩니다.')) return;
+      const btn = document.getElementById('saveEntry');
+      btn.disabled = true; btn.textContent = '저장하는 중…';
+      let uploadedPath = null;
       try{
-        await window.publishLogs(logs);
-        alert('올렸습니다. 1분 뒤 사이트에 반영됩니다.');
+        let art_url = editing ? editing.art_url : null;
+        if(dirty){
+          const blob = await new Promise(r => pad.toBlob(r, 'image/webp', 0.75));
+          const path = `logs/${Date.now()}-${Math.random().toString(36).slice(2,7)}.webp`;
+          const { error } = await sb.storage.from(STORAGE_BUCKET).upload(path, blob);
+          if(error) throw new Error('그림을 올리지 못했습니다 · ' + error.message);
+          uploadedPath = path;
+          art_url = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path).data.publicUrl;
+        }
+
+        const payload = {
+          project: fProject.value,
+          log_date: fDate.value || new Date().toISOString().slice(0,10),
+          weather: fWeather.querySelector('input:checked').value,
+          areas: [...fAreas.querySelectorAll('input:checked')].map(i=>i.value),
+          did,
+          feel: fFeel.value.trim(),
+          art_url
+        };
+        const res = editing
+          ? await sb.from('logs').update(payload).eq('id', editing.id)
+          : await sb.from('logs').insert(payload);
+        if(res.error) throw res.error;
+
+        await loadAll();
+        filter = payload.project; cursor = 0;
+        fillSelects();
+        showDeck(); render();
       }catch(e){
-        alert('올리지 못했습니다.\n\n' + e.message);
+        if(uploadedPath) await sb.storage.from(STORAGE_BUCKET).remove([uploadedPath]);
+        alert('저장하지 못했습니다.\n\n' + (e.message || ''));
       }
+      btn.disabled = false; btn.textContent = '일지 붙이기';
     });
 
     fillSelects();
-    window.openDiary = open;
   })();
   </script>
-
-
-  <div class="edit-bar" id="editBar">
-    <b>편집 모드</b>
-    <span class="msg" id="editMsg">글자를 눌러 고치세요</span>
-    <button id="editSave" class="go">저장</button>
-    <button id="editToken">토큰</button>
-    <button id="editExit">끝내기</button>
-  </div>
 
   <script>
-  /* ===================================================================
-     편집 모드 — 주소 뒤에 ?edit 를 붙이면 켜집니다.
-     글자를 직접 고치고 저장을 누르면 GitHub의 index.html에 반영됩니다.
-     =================================================================== */
-  (function(){
-    const TOKEN_KEY = "yj-gh-token";
-    const BRANCH = "main";
-    const FILE = "index.html";
-
-    // 저장할 GitHub 저장소 — 주소가 바뀌어도(vercel.app 등) 여기를 보고 저장합니다
-    const OWNER = "JangYurim0607";
-    const REPO  = "jangyurim0607.github.io";
-
-    const EDITABLE = [
-      '.eyebrow','.hero h1','.hero-copy','.btn','.navlinks a','.brand',
-      '.portrait-placeholder strong','.portrait-placeholder small','.mini-stat b','.mini-stat span',
-      '.section-kicker','.section h2','.section-intro',
-      '.glass-box h3','.glass-box p','.tag','.chip-link',
-      '.card-title','.status','.project-desc','.meta small','.meta b','.progress-label',
-      '.plan-box h4','.plan-box li','.plan-status',
-      '.people-title','.person b','.person span',
-      '.subhead','.wip-label','.wip-main h3','.wip-main p','.wip-side h4','.wip-side li',
-      '.paper .year','.paper h3','.paper p','.paper a',
-      '.event .date','.event h3','.event p','.event a',
-      'footer h2','footer p','.footer-links a',
-      '.media span','.video-hint'
-    ].join(',');
-
-    const bar = document.getElementById('editBar');
-    const msg = document.getElementById('editMsg');
-    const btnSave = document.getElementById('editSave');
-    const changed = new Map();   // path -> innerHTML
-    let on = false;
-
-    /* 요소의 위치를 문자열로 만들어 원본 파일에서 같은 자리를 찾습니다 */
-    function pathOf(el){
-      const parts = [];
-      while(el && el.nodeType === 1 && el !== document.body){
-        const p = el.parentElement;
-        if(!p) break;
-        parts.unshift(el.tagName.toLowerCase() + ':nth-child(' + ([...p.children].indexOf(el) + 1) + ')');
-        el = p;
-      }
-      return 'body > ' + parts.join(' > ');
-    }
-
-    function say(t){ msg.textContent = t; }
-
-    function start(){
-      on = true;
-      document.body.classList.add('editing');
-      document.querySelectorAll(EDITABLE).forEach(el => {
-        if(el.closest('.edit-bar') || el.closest('.diary-overlay')) return;
-        el.setAttribute('data-editable','');
-        el.setAttribute('contenteditable','true');
-        el.addEventListener('input', () => {
-          changed.set(pathOf(el), el.innerHTML);
-          say(changed.size + '곳 고침 — 저장 안 됨');
-        });
-        // 편집 중에는 링크를 따라가지 않고 주소를 바꿉니다
-        if(el.tagName === 'A'){
-          el.addEventListener('click', e => {
-            e.preventDefault();
-            if(!e.metaKey && !e.ctrlKey) return;     // cmd+클릭일 때만 주소 편집
-            const url = prompt('이 링크가 열 주소를 넣으세요', el.getAttribute('href') || '');
-            if(url === null) return;
-            el.setAttribute('href', url);
-            changed.set(pathOf(el.parentElement), el.parentElement.innerHTML);
-            say('링크 주소 바꿈 — 저장 안 됨');
-          });
-        }
-      });
-      say('글자를 눌러 고치세요 · 링크 주소는 ⌘+클릭');
-    }
-
-    function stop(){
-      on = false;
-      document.body.classList.remove('editing');
-      document.querySelectorAll('[data-editable]').forEach(el => {
-        el.removeAttribute('contenteditable');
-        el.removeAttribute('data-editable');
-      });
-    }
-
-    /* ---- 토큰 ---- */
-    function getToken(force){
-      let t = localStorage.getItem(TOKEN_KEY);
-      if(t && !force) return t;
-      t = prompt(
-        'GitHub 토큰을 넣어주세요.\n\n' +
-        'github.com → Settings → Developer settings →\n' +
-        'Personal access tokens → Fine-grained tokens 에서\n' +
-        '이 저장소(' + REPO + ')에 Contents: Read and write 권한으로 만드세요.\n\n' +
-        '이 브라우저에만 저장되며 다른 곳으로 나가지 않습니다.',
-        ''
-      );
-      if(t){ localStorage.setItem(TOKEN_KEY, t.trim()); return t.trim(); }
-      return null;
-    }
-
-    /* ---- base64 (한글 안전) ---- */
-    function toB64(str){
-      const bytes = new TextEncoder().encode(str);
-      let out = '';
-      for(let i = 0; i < bytes.length; i += 0x8000){
-        out += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
-      }
-      return btoa(out);
-    }
-    function fromB64(b64){
-      const bin = atob(b64.replace(/\s/g, ''));
-      const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
-      return new TextDecoder().decode(bytes);
-    }
-
-    async function gh(path, opts){
-      const token = getToken();
-      if(!token) throw new Error('토큰이 없습니다');
-      const r = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + path, {
-        ...opts,
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/vnd.github+json',
-          ...(opts && opts.headers)
-        }
-      });
-      if(!r.ok){
-        const t = await r.text();
-        throw new Error(r.status + ' ' + (r.status === 401 || r.status === 403 ? '토큰이 잘못됐거나 권한이 없습니다' : t.slice(0,120)));
-      }
-      return r.json();
-    }
-
-    /* 원본 파일을 받아 바뀐 부분만 갈아끼우고 다시 올립니다 */
-    async function commit(mutate, message){
-      const cur = await gh('/contents/' + FILE + '?ref=' + BRANCH);
-      let src = fromB64(cur.content);
-      src = mutate(src);
-      await gh('/contents/' + FILE, {
-        method: 'PUT',
-        body: JSON.stringify({
-          message: message,
-          content: toB64(src),
-          sha: cur.sha,
-          branch: BRANCH
-        })
-      });
-    }
-
-    async function save(){
-      if(!changed.size){ say('바뀐 게 없습니다'); return; }
-      btnSave.disabled = true;
-      say('저장하는 중…');
-      try{
-        const n = changed.size;
-        await commit(src => {
-          const doc = new DOMParser().parseFromString(src, 'text/html');
-          let hit = 0;
-          changed.forEach((html, path) => {
-            const t = doc.querySelector(path);
-            if(t){ t.innerHTML = html; hit++; }
-          });
-          if(!hit) throw new Error('원본에서 고칠 자리를 못 찾았습니다');
-          return '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
-        }, '내용 수정 ' + n + '곳');
-        changed.clear();
-        say('저장 완료 · 1분 뒤 반영됩니다');
-      }catch(e){
-        say('실패: ' + e.message);
-        alert('저장하지 못했습니다.\n\n' + e.message);
-      }
-      btnSave.disabled = false;
-    }
-
-    btnSave.addEventListener('click', save);
-    document.getElementById('editExit').addEventListener('click', () => {
-      if(changed.size && !confirm('저장 안 된 수정이 ' + changed.size + '곳 있습니다. 그냥 나갈까요?')) return;
-      stop();
-      location.href = location.pathname;
-    });
-    document.getElementById('editToken').addEventListener('click', () => {
-      getToken(true); say('토큰을 새로 저장했습니다');
-    });
-    window.addEventListener('beforeunload', e => {
-      if(on && changed.size){ e.preventDefault(); e.returnValue = ''; }
-    });
-
-    /* 일지를 사이트에 올리는 기능 — 편집 토큰을 그대로 씁니다 */
-    window.publishLogs = async function(logs){
-      await commit(src => {
-        const head = 'const SEED_LOGS = [';
-        const i = src.indexOf(head);
-        const j = src.indexOf('\n  ];', i);
-        if(i < 0 || j < 0) throw new Error('일지 자리를 찾지 못했습니다');
-        const body = logs.map(l => '    ' + JSON.stringify(l)).join(',\n');
-        return src.slice(0, i + head.length) + '\n' + body + src.slice(j);
-      }, '일지 ' + logs.length + '개 올림');
-    };
-
-    if(new URLSearchParams(location.search).has('edit')) start();
-  })();
+    loadAll();
   </script>
-
 </body>
 </html>

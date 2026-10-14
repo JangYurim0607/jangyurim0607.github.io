@@ -375,12 +375,14 @@
     body.theme-games { background:linear-gradient(145deg,#fbfff9 0%,#ebf8e6 45%,#dcf2d5 100%); }
     body.theme-papers { background:linear-gradient(145deg,#f9fdff 0%,#e8f6ff 45%,#d8efff 100%); }
     body.theme-showcase { background:linear-gradient(145deg,#fdfbff 0%,#f1eaff 45%,#e6dbff 100%); }
+    body.theme-assignments { background:linear-gradient(145deg,#fffaf6 0%,#ffeede 45%,#ffe2cb 100%); }
 
     body.page-mode .section.about,
     body.page-mode .section.research,
     body.page-mode .section.games,
     body.page-mode .section.papers,
-    body.page-mode .section.showcase { background:transparent; border-top:0; }
+    body.page-mode .section.showcase,
+    body.page-mode .section.assignments { background:transparent; border-top:0; }
 
     body.page-mode nav {
       position:fixed;
@@ -846,7 +848,8 @@
     body.theme-research .section.active-section,
     body.theme-games   .section.active-section,
     body.theme-papers  .section.active-section,
-    body.theme-showcase .section.active-section{
+    body.theme-showcase .section.active-section,
+    body.theme-assignments .section.active-section{
       background:
         radial-gradient(circle at 84% 8%, rgba(255,248,232,.5), transparent 24%),
         radial-gradient(circle at 10% 20%, rgba(255,226,240,.3), transparent 30%),
@@ -892,6 +895,7 @@
         <a href="#games">오락 게임</a>
         <a href="#papers">논문</a>
         <a href="#showcase">전시·발표</a>
+        <a href="#assignments">과제</a>
         <a href="#diary" data-diary>일지</a>
       </div>
     </nav>
@@ -1031,6 +1035,23 @@
       </div>
 
       <div class="timeline" id="events-list"></div>
+    </div>
+  </section>
+
+  <section id="assignments" class="section assignments">
+    <div class="wrap">
+      <a class="page-back" href="#home">← 홈으로</a>
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">06 · Assignments</div>
+          <h2>과제</h2>
+        </div>
+        <p class="section-intro">
+          수업에서 주차별로 만든 과제 결과물을 모아두었습니다.
+        </p>
+      </div>
+
+      <div class="project-grid" id="assignments-grid"></div>
     </div>
   </section>
 
@@ -1299,6 +1320,36 @@
     role:'기획 · 프롬프트 설계', meta_label:'Platform', meta_value:'Web (PC/모바일)', progress:100,
     links:[{label:'플레이하기',url:'https://coffee-delivery-game-week3-bookstor.vercel.app'},{label:'GitHub',url:'https://github.com/JangYurim0607/coffee-delivery-game-week3-bookstore'}]
   };
+
+  /* ===== 과제 (정적 목록) — 새 과제는 이 배열에 한 줄씩 추가하세요 ===== */
+  const ASSIGNMENTS = [
+    { week:'2주차', title:'포트폴리오 사이트 만들기',
+      description:'지금 보고 계신 포트폴리오 사이트입니다. 연구용·오락 게임, 논문, 전시·발표, 일지를 한곳에 모았습니다.',
+      tags:['HTML','CSS','JavaScript','Supabase','Vercel'],
+      links:[{label:'사이트 보기',url:'https://yurim-portfolio-azure.vercel.app'},{label:'GitHub',url:'https://github.com/JangYurim0607/jangyurim0607.github.io'}] },
+    { week:'3주차', title:'똑딱이의 원고 대작전',
+      description:'숲속 동물마을의 서점 주인 딱따구리 똑딱이가 작가들의 집을 돌며 원고를 받아오는 브라우저 게임. Claude Code로 제작했습니다.',
+      tags:['HTML5 Canvas','Claude Code','Web'],
+      links:[{label:'플레이하기',url:'https://coffee-delivery-game-week3-bookstor.vercel.app'},{label:'GitHub',url:'https://github.com/JangYurim0607/coffee-delivery-game-week3-bookstore'}] }
+  ];
+
+  function renderAssignments(){
+    const el = document.getElementById('assignments-grid');
+    if(!el) return;
+    el.innerHTML = ASSIGNMENTS.map(a => `
+      <article class="project-card">
+        <div class="card-body">
+          <div class="card-top">
+            <h3 class="card-title">${esc(a.title)}</h3>
+            <span class="status done">${esc(a.week)}</span>
+          </div>
+          <p class="project-desc">${esc(a.description)}</p>
+          <div class="tagrow">${a.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+          <div class="links">${a.links.map(l=>`<a class="chip-link" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>
+        </div>
+      </article>`).join('');
+  }
+  renderAssignments();
 
   function renderProjects(){
     [['research','research-grid'],['entertainment','games-grid']].forEach(([kind,id])=>{

@@ -1,0 +1,14 @@
+# 환경 변수 / 비밀 키
+.env
+.env.*
+!.env.example
+
+# OS / 에디터
+.DS_Store
+.vscode/
+.idea/
+
+# 빌드 / 의존성
+node_modules/
+dist/
+.vercel/

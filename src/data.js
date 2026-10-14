@@ -1,0 +1,228 @@
+  /* ===================================================================
+     Supabase에서 내용을 불러와 화면에 그립니다
+     =================================================================== */
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const arr = v => Array.isArray(v) ? v : [];
+
+  function stateBox(el, kind, title, sub){
+    el.innerHTML = `<div class="state-msg ${kind === 'err' ? 'err' : ''}"><b>${esc(title)}</b><span>${esc(sub||'')}</span></div>`;
+  }
+
+  function mediaBlock(p){
+    if(p.youtube_url){
+      const id = (p.youtube_url.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([\w-]{11})/) || [])[1];
+      if(id) return `<div class="media"><iframe src="https://www.youtube.com/embed/${id}" title="${esc(p.title)}" allowfullscreen></iframe></div>`;
+    }
+    if(p.video_url) return `<div class="media"><video src="${esc(p.video_url)}" controls playsinline style="width:100%;height:100%;object-fit:cover"></video></div>`;
+    if(p.cover_url) return `<div class="media"><img src="${esc(p.cover_url)}" alt="${esc(p.title)}" style="width:100%;height:100%;object-fit:cover" onerror="this.remove()"></div>`;
+    return `<div class="media"><span>이미지 또는 영상이 아직 없습니다</span></div>`;
+  }
+
+  function projectCard(p){
+    const links = arr(p.links).map(l =>
+      `<a class="chip-link" href="${esc(l.url||'#')}" target="_blank" rel="noopener">${esc(l.label||'링크')}</a>`).join('');
+    const notes = arr(p.notes);
+    const notesBlock = notes.length ? `
+      <div class="plan-box">
+        ${p.notes_title ? `<h4>${esc(p.notes_title)}</h4>` : ''}
+        <ul>${notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
+        ${p.notes_badge ? `<span class="plan-status">${esc(p.notes_badge)}</span>` : ''}
+      </div>` : '';
+
+    return `
+      <article class="project-card" data-status="${esc(p.status)}">
+        ${mediaBlock(p)}
+        <div class="card-body">
+          <div class="card-top">
+            <h3 class="card-title">${esc(p.title)}</h3>
+            <span class="status ${esc(p.status)}">${esc(p.status_label || p.status)}</span>
+          </div>
+          ${p.description ? `<p class="project-desc">${esc(p.description)}</p>` : ''}
+          <div class="tagrow">${arr(p.tags).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+          <div class="meta">
+            <div><small>Role</small><b>${esc(p.role||'—')}</b></div>
+            <div><small>${esc(p.meta_label||'Status')}</small><b>${esc(p.meta_value||'—')}</b></div>
+          </div>
+          <div class="progress-row">
+            <div class="progress"><span style="width:${Number(p.progress)||0}%"></span></div>
+            <div class="progress-label">${Number(p.progress)||0}%</div>
+          </div>
+          ${links ? `<div class="links">${links}</div>` : '<div class="links"></div>'}
+          ${notesBlock}
+        </div>
+      </article>`;
+  }
+
+  const STATIC_GAME = {
+    kind:'entertainment', status:'done', status_label:'개발 완료',
+    title:'똑딱이의 원고 대작전',
+    description:'숲속 동물마을의 서점 주인 딱따구리 똑딱이가 작가들의 집을 돌며 원고를 받아오는 브라우저 게임. Claude Code로 제작한 HTML 단일 파일 게임입니다.',
+    tags:['HTML5 Canvas','Claude Code','Web'],
+    role:'기획 · 프롬프트 설계', meta_label:'Platform', meta_value:'Web (PC/모바일)', progress:100,
+    links:[{label:'플레이하기',url:'https://coffee-delivery-game-week3-bookstor.vercel.app'},{label:'GitHub',url:'https://github.com/JangYurim0607/coffee-delivery-game-week3-bookstore'}]
+  };
+
+  /* ===== 과제 (정적 목록) — 새 과제는 이 배열에 한 줄씩 추가하세요 ===== */
+  const ASSIGNMENTS = [
+    { week:'2주차', title:'포트폴리오 사이트 만들기',
+      description:'지금 보고 계신 포트폴리오 사이트입니다. 연구용·오락 게임, 논문, 전시·발표, 일지를 한곳에 모았습니다.',
+      tags:['HTML','CSS','JavaScript','Supabase','Vercel'],
+      links:[{label:'사이트 보기',url:'https://yurim-portfolio-azure.vercel.app'},{label:'GitHub',url:'https://github.com/JangYurim0607/jangyurim0607.github.io'}] },
+    { week:'3주차', title:'똑딱이의 원고 대작전',
+      description:'숲속 동물마을의 서점 주인 딱따구리 똑딱이가 작가들의 집을 돌며 원고를 받아오는 브라우저 게임. Claude Code로 제작했습니다.',
+      tags:['HTML5 Canvas','Claude Code','Web'],
+      links:[{label:'플레이하기',url:'https://coffee-delivery-game-week3-bookstor.vercel.app'},{label:'GitHub',url:'https://github.com/JangYurim0607/coffee-delivery-game-week3-bookstore'}] },
+    { week:'3주차', title:'달빛 커피 배달단',
+      description:'프롬프트 구조화 실습으로 만든 별빛타운 커피 배달 경영 게임. 주문을 받고, 직접 만들고, 두 발로 배달해 4주 뒤 카페 랭킹 1위를 노립니다.',
+      tags:['HTML','Claude Code','프롬프트 구조화'],
+      links:[{label:'GitHub',url:'https://github.com/JangYurim0607/coffee-delivery-game-week3-moonlight'}] }
+  ];
+
+  function renderAssignments(){
+    const el = document.getElementById('assignments-grid');
+    if(!el) return;
+    el.innerHTML = ASSIGNMENTS.map(a => `
+      <article class="project-card">
+        <div class="card-body">
+          <div class="card-top">
+            <h3 class="card-title">${esc(a.title)}</h3>
+            <span class="status done">${esc(a.week)}</span>
+          </div>
+          <p class="project-desc">${esc(a.description)}</p>
+          <div class="tagrow">${a.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+          <div class="links">${a.links.map(l=>`<a class="chip-link" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>
+        </div>
+      </article>`).join('');
+  }
+  renderAssignments();
+
+  function renderProjects(){
+    [['research','research-grid'],['entertainment','games-grid']].forEach(([kind,id])=>{
+      const el = document.getElementById(id);
+      const list = store.projects.filter(p => p.kind === kind);
+      if(kind === 'entertainment') list.push(STATIC_GAME);
+      if(!list.length){
+        stateBox(el, 'empty', '아직 등록된 게임이 없습니다', '관리자 화면에서 추가할 수 있습니다');
+        return;
+      }
+      el.innerHTML = list.map(projectCard).join('');
+    });
+    if(window.attachDiaryButtons) window.attachDiaryButtons();
+  }
+
+  function renderPapers(){
+    const wipEl = document.getElementById('papers-wip');
+    const pubEl = document.getElementById('papers-pub');
+    const wip = store.papers.filter(p => p.state === 'wip');
+    const pub = store.papers.filter(p => p.state === 'published');
+
+    wipEl.innerHTML = wip.length ? `<div class="subhead">쓰는 중</div>` + wip.map(p=>`
+      <article class="wip">
+        <div class="wip-main">
+          <span class="wip-label">집필 중${p.year ? ' · ' + esc(p.year) : ''}</span>
+          <h3>${esc(p.title)}</h3>
+          ${p.abstract ? `<p>${esc(p.abstract)}</p>` : ''}
+          <div class="tagrow">${arr(p.tags).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+          <div class="progress-row">
+            <div class="progress"><span style="width:${Number(p.progress)||0}%"></span></div>
+            <div class="progress-label">${Number(p.progress)||0}%</div>
+          </div>
+        </div>
+        <div class="wip-side">
+          <h4>진행 상황</h4>
+          <ol>${arr(p.steps).map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
+        </div>
+      </article>`).join('') : '';
+
+    pubEl.innerHTML = pub.length
+      ? `<div class="subhead">등재 · 게재</div><div class="paper-list">` + pub.map(p=>`
+          <article class="paper">
+            <div class="year">${esc(p.year)}</div>
+            <div><h3>${esc(p.title)}</h3><p>${esc(p.authors_venue)}</p></div>
+            ${p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">Paper ↗</a>` : '<span></span>'}
+          </article>`).join('') + `</div>`
+      : (wip.length ? '' : `<div class="paper-list"><div class="state-msg"><b>아직 등록된 논문이 없습니다</b><span>관리자 화면에서 추가할 수 있습니다</span></div></div>`);
+  }
+
+  function renderEvents(){
+    const el = document.getElementById('events-list');
+    if(!store.events.length){
+      stateBox(el, 'empty', '아직 등록된 전시·발표가 없습니다', '관리자 화면에서 추가할 수 있습니다');
+      return;
+    }
+    el.innerHTML = store.events.map(e=>`
+      <article class="event">
+        <div class="date">${esc(e.date_label)}</div>
+        <div><h3>${esc(e.title)}</h3><p>${esc(e.description)}</p></div>
+        ${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">View ↗</a>` : '<span></span>'}
+      </article>`).join('');
+  }
+
+  function renderProfile(){
+    const p = store.profile;
+    if(!p) return;
+    document.getElementById('pEyebrow').textContent = p.eyebrow || '';
+    document.title = (p.headline ? p.headline.replace(/\s+/g,' ') + ' — ' : '') + 'Yurim Jang';
+
+    const head = (p.headline || '').split('\n');
+    document.getElementById('pHeadline').innerHTML = head.length > 1
+      ? `<span>${esc(head[0])}</span><br>${esc(head.slice(1).join(' '))}`
+      : esc(p.headline || '');
+    document.getElementById('pSubline').textContent = p.subline || '';
+    document.getElementById('pBio').textContent = p.bio || '';
+
+    document.getElementById('pSkills').innerHTML = arr(p.skills).map(s=>`<span class="tag">${esc(s)}</span>`).join('');
+    document.getElementById('pTools').innerHTML  = arr(p.tools ).map(s=>`<span class="tag">${esc(s)}</span>`).join('');
+
+    const links = arr(p.links);
+    document.getElementById('pLinks').innerHTML = links.map(l=>
+      `<a class="chip-link" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
+    document.getElementById('fLinks').innerHTML =
+      (p.email ? `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>` : '') +
+      links.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join('');
+
+    if(p.photo_url){
+      document.getElementById('pPhoto').innerHTML =
+        `<img src="${esc(p.photo_url)}" alt="프로필 사진" style="width:100%;height:100%;object-fit:cover;border-radius:22px">`;
+    }
+
+    const research = store.projects.filter(x=>x.kind==='research').length;
+    const pub = store.papers.filter(x=>x.state==='published').length;
+    const wip = store.papers.filter(x=>x.state==='wip').length;
+    document.getElementById('pStats').innerHTML = `
+      <div class="mini-stat"><b>${research}</b><span>연구용 게임</span></div>
+      <div class="mini-stat"><b>${pub}</b><span>등재 논문</span></div>
+      <div class="mini-stat"><b>${wip}</b><span>집필 중</span></div>`;
+  }
+
+  async function loadAll(){
+    ['research-grid','games-grid','events-list'].forEach(id =>
+      stateBox(document.getElementById(id), 'load', '불러오는 중…', ''));
+
+    try{
+      const [pf, pj, pp, ev, lg] = await Promise.all([
+        sb.from('profile').select('*').eq('id',1).maybeSingle(),
+        sb.from('projects').select('*').order('sort_order').order('created_at'),
+        sb.from('papers').select('*').order('sort_order').order('created_at'),
+        sb.from('events').select('*').order('sort_order').order('created_at'),
+        sb.from('logs').select('*').order('log_date', {ascending:false})
+      ]);
+      const err = [pf,pj,pp,ev,lg].find(r => r.error);
+      if(err) throw err.error;
+
+      store.profile  = pf.data;
+      store.projects = pj.data || [];
+      store.papers   = pp.data || [];
+      store.events   = ev.data || [];
+      store.logs     = lg.data || [];
+
+      renderProfile(); renderProjects(); renderPapers(); renderEvents();
+      if(window.refreshDiary) window.refreshDiary();
+    }catch(e){
+      ['research-grid','games-grid','events-list'].forEach(id =>
+        stateBox(document.getElementById(id), 'err', '내용을 불러오지 못했습니다',
+          '데이터베이스 연결을 확인해 주세요 · ' + (e.message || '')));
+      document.getElementById('pBio').textContent = '내용을 불러오지 못했습니다.';
+      console.error(e);
+    }
+  }

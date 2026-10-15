@@ -77,6 +77,11 @@
       tags:['HTML','Claude Code','프롬프트 구조화'],
       links:[{label:'GitHub',url:'https://github.com/JangYurim0607/coffee-delivery-game-week3-moonlight'}] }
     ,
+    { week:'6주차', title:'송민서 학생 게임 똑같이 만들기',
+      description:'송민서 학생의 커피 배달 게임(달동네 커피) 결과물을 프롬프트만으로 똑같이 재현하는 과제입니다. 시스템 프롬프트와 사용자 프롬프트를 고쳐 가며 만들었고, 최종 프롬프트로 두 번 생성한 결과가 상대방 테스트 8개를 모두 통과하고 비교 항목 38개가 모두 일치했습니다.',
+      tags:['프롬프트 엔지니어링','Claude Code','HTML5','재현 실험'],
+      links:[{label:'플레이하기',url:'https://yurim-portfolio-azure.vercel.app/%EC%86%A1%EB%AF%BC%EC%84%9C.html'},{label:'송민서.html',url:'https://github.com/JangYurim0607/jangyurim0607.github.io/blob/main/%EC%86%A1%EB%AF%BC%EC%84%9C.html'},{label:'프롬프트와 과정(md)',url:'https://github.com/JangYurim0607/jangyurim0607.github.io/blob/main/assignments/week6/%EC%86%A1%EB%AF%BC%EC%84%9C.md'}] },
+    ,
     { week:'6주차', title:'스킬 만들기: 로블록스 숏츠 키워드 분석 + 스토리보드',
       description:'같은 과제(로블록스 숏츠 키워드 분석 PDF와 3편짜리 스토리보드 PDF)를 스킬 없이(A) 한 번, 오픈소스 스킬 7개와 직접 만든 한국어 스킬 1개를 묶은 패키지로(B) 한 번 만들어 비교했습니다. 프롬프트는 md, 결과물은 PDF로 올렸습니다.',
       tags:['Claude Skills','프롬프트(md)','키워드 분석','PDF','A/B 비교'],

@@ -82,7 +82,7 @@
       tags:['프롬프트 엔지니어링','Claude Code','HTML5','재현 실험'],
       links:[{label:'플레이하기',url:'https://yurim-portfolio-azure.vercel.app/%EC%86%A1%EB%AF%BC%EC%84%9C.html'},{label:'송민서.html',url:'https://github.com/JangYurim0607/jangyurim0607.github.io/blob/main/%EC%86%A1%EB%AF%BC%EC%84%9C.html'},{label:'프롬프트와 과정(md)',url:'https://github.com/JangYurim0607/jangyurim0607.github.io/blob/main/assignments/week6/%EC%86%A1%EB%AF%BC%EC%84%9C.md'}] },
     ,
-    { week:'6주차', title:'스킬 만들기: 로블록스 숏츠 키워드 분석 + 스토리보드',
+    { week:'7주차', title:'스킬 만들기: 로블록스 숏츠 키워드 분석 + 스토리보드',
       description:'같은 과제(로블록스 숏츠 키워드 분석 PDF와 3편짜리 스토리보드 PDF)를 스킬 없이(A) 한 번, 오픈소스 스킬 7개와 직접 만든 한국어 스킬 1개를 묶은 패키지로(B) 한 번 만들어 비교했습니다. 프롬프트는 md, 결과물은 PDF로 올렸습니다.',
       tags:['Claude Skills','프롬프트(md)','키워드 분석','PDF','A/B 비교'],
       links:[{label:'GitHub',url:'https://github.com/JangYurim0607/week6_skills_package'},{label:'A 키워드 분석(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/A_baseline/output/keyword_analysis.pdf'},{label:'A 스토리보드(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/A_baseline/output/storyboard.pdf'},{label:'B 키워드 분석(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/B_skills/output/keyword_analysis.pdf'},{label:'B 스토리보드(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/B_skills/output/storyboard.pdf'},{label:'A 프롬프트(md)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/A_baseline/prompt.md'},{label:'B 프롬프트(md)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/B_skills/prompt.md'},{label:'A/B 비교(md)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/compare/COMPARISON.md'}] }

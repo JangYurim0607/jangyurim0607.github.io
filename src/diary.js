@@ -41,7 +41,7 @@
     /* 프로젝트 카드마다 일지 버튼 */
     window.attachDiaryButtons = function(){
       document.querySelectorAll('.project-card').forEach(card=>{
-        if(card.querySelector('.diary-open')) return;
+        if(card.querySelector('.diary-open') || card.closest('#assignments-grid')) return;
         const name = card.querySelector('.card-title').textContent.trim();
         const links = card.querySelector('.links');
         if(!links) return;

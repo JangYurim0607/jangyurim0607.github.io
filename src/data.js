@@ -80,11 +80,7 @@
     { week:'6주차', title:'스킬 만들기: 로블록스 숏츠 키워드 분석 + 스토리보드',
       description:'같은 과제(로블록스 숏츠 키워드 분석 PDF와 3편짜리 스토리보드 PDF)를 스킬 없이(A) 한 번, 오픈소스 스킬 7개와 직접 만든 한국어 스킬 1개를 묶은 패키지로(B) 한 번 만들어 비교했습니다. 프롬프트는 md, 결과물은 PDF로 올렸습니다.',
       tags:['Claude Skills','프롬프트(md)','키워드 분석','PDF','A/B 비교'],
-      links:[{label:'GitHub',url:'https://github.com/JangYurim0607/week6_skills_package'},{label:'A 키워드 분석(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/A_baseline/output/keyword_analysis.pdf'},{label:'A 스토리보드(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/A_baseline/output/storyboard.pdf'},{label:'B 키워드 분석(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/B_skills/output/keyword_analysis.pdf'},{label:'B 스토리보드(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/B_skills/output/storyboard.pdf'},{label:'A 프롬프트(md)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/A_baseline/prompt.md'},{label:'B 프롬프트(md)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/B_skills/prompt.md'},{label:'A/B 비교(md)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/compare/COMPARISON.md'}] },
-    { week:'7주차', title:'Eye Can Do It 발표: 시선 추적 안구운동 게임',
-      description:'웹캠 시선 추적으로 안구운동을 하는 Unity 게임 Eye Can Do It의 7주차 발표입니다. ICEC 2026 발표 후기, 파일럿 연구(대학생 22명) 결과, 앞으로의 맵·레벨 설계와 보정 개선 계획, 그리고 스토리·메뉴 조작·점수 표시 방식에 대한 의견 질문 3개를 다뤘습니다.',
-      tags:['Unity','시선 추적','Serious Game','발표 자료'],
-      links:[] }
+      links:[{label:'GitHub',url:'https://github.com/JangYurim0607/week6_skills_package'},{label:'A 키워드 분석(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/A_baseline/output/keyword_analysis.pdf'},{label:'A 스토리보드(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/A_baseline/output/storyboard.pdf'},{label:'B 키워드 분석(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/B_skills/output/keyword_analysis.pdf'},{label:'B 스토리보드(PDF)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/B_skills/output/storyboard.pdf'},{label:'A 프롬프트(md)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/A_baseline/prompt.md'},{label:'B 프롬프트(md)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/B_skills/prompt.md'},{label:'A/B 비교(md)',url:'https://github.com/JangYurim0607/week6_skills_package/blob/main/compare/COMPARISON.md'}] }
   ];
 
   function renderAssignments(){

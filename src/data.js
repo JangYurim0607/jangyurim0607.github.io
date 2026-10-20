@@ -75,7 +75,7 @@
     { week:'5주차', title:'달빛 커피 배달단',
       description:'Week3 커피 배달 게임 고도화 과제(5주차 과제). 프롬프트 구조화 실습으로 만든 별빛타운 커피 배달 경영 게임. 주문을 받고, 직접 만들고, 두 발로 배달해 4주 뒤 카페 랭킹 1위를 노립니다.',
       tags:['HTML','Claude Code','프롬프트 구조화'],
-      links:[{label:'GitHub',url:'https://github.com/JangYurim0607/coffee-delivery-game-week3-moonlight'}] }
+      links:[{label:'플레이하기',url:'https://yurim-portfolio-azure.vercel.app/moonlight-coffee.html'},{label:'GitHub',url:'https://github.com/JangYurim0607/coffee-delivery-game-week3-moonlight'}] }
     ,
     { week:'6주차', title:'송민서 학생 게임 똑같이 만들기',
       description:'송민서 학생의 커피 배달 게임(달동네 커피) 결과물을 프롬프트만으로 똑같이 재현하는 과제입니다. 시스템 프롬프트와 사용자 프롬프트를 고쳐 가며 만들었고, 최종 프롬프트로 두 번 생성한 결과가 상대방 테스트 8개를 모두 통과하고 비교 항목 38개가 모두 일치했습니다.',

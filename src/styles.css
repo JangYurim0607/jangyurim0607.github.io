@@ -1015,7 +1015,12 @@
       nav{ border-radius:0 }
       .hero{ padding-top:48px }
       .hero-card{ max-width:none }
+      .portrait-placeholder{ aspect-ratio:16/9 }
       .desk-icons{ justify-content:center }
+    }
+    @media (min-width:700px) and (max-width:860px){
+      .hero{ grid-template-columns:1.25fr .75fr;align-items:start }
+      .hero-card .portrait-placeholder{ aspect-ratio:1/1 }
     }
     @media (max-width:520px){
       .hero h1{ font-size:30px;text-shadow:3px 3px 0 var(--plum), 6px 6px 0 var(--ink) }

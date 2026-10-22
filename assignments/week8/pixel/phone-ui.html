@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone UI — Time Out!</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  @font-face{font-family:"NeoDunggeunmo";src:url("../../../assets/fonts/neodgm.woff2") format("woff2")}
+  :root{--ink:#1E1A33;--plum:#3F3563;--silver:#E6E8EE;--silver-3:#8E94A3;--pink:#EBB9CB;--muted:#4E4A66}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#2a2640}
+  body{display:grid;place-items:center;min-height:100vh;font-family:"NeoDunggeunmo",monospace;font-size:16px;color:var(--ink);-webkit-font-smoothing:none}
+  .phone{
+    width:393px;height:852px;position:relative;overflow:hidden;
+    background:#3FA9F5 url("../../../assets/pixel/wallpaper.png") center bottom / cover no-repeat;
+    image-rendering:pixelated;border:4px solid var(--ink);
+  }
+  .status{
+    height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 22px 0 26px;
+    font-family:"VT323",monospace;font-size:24px;color:#fff;text-shadow:2px 2px 0 var(--ink);
+  }
+  .status .bars{display:flex;gap:3px;align-items:flex-end}
+  .status .bars i{display:block;width:5px;background:#fff;box-shadow:2px 2px 0 var(--ink)}
+  .status .bat{width:28px;height:14px;border:2px solid #fff;box-shadow:2px 2px 0 var(--ink);margin-left:8px;position:relative}
+  .status .bat::after{content:"";position:absolute;inset:2px 6px 2px 2px;background:#fff}
+  .win{background:var(--silver);border:3px solid var(--ink);box-shadow:inset -3px -3px 0 var(--silver-3),inset 3px 3px 0 #fff,6px 6px 0 var(--ink)}
+  .bar{display:flex;justify-content:space-between;align-items:center;background:var(--plum);color:#fff;border-bottom:3px solid var(--ink);
+    font-family:"Press Start 2P",monospace;font-size:9px;padding:7px 7px 7px 10px}
+  .bar span:last-child{display:flex;gap:3px}
+  .bar i{width:14px;height:12px;background:var(--silver);border:2px solid var(--ink)}
+  .bar i:last-child{background:var(--pink)}
+  .widget{margin:14px 18px 0}
+  .widget .body{padding:16px 16px 18px}
+  .widget h1{margin:0 0 10px;font-family:"Press Start 2P",monospace;font-weight:400;font-size:30px;line-height:1.25;color:#fff;
+    text-shadow:3px 3px 0 var(--plum),6px 6px 0 var(--ink)}
+  .widget p{margin:0;color:var(--muted)}
+  .widget .row{display:flex;gap:8px;margin-top:14px}
+  .chip{border:2px solid var(--ink);background:#fff;padding:0 8px;box-shadow:3px 3px 0 var(--ink)}
+  .chip.pink{background:var(--pink)}
+  .apps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 4px;padding:30px 12px 0}
+  .app{display:flex;flex-direction:column;align-items:center;gap:6px;color:#fff;text-align:center;line-height:1.25}
+  .app .ic{width:62px;height:62px;display:grid;place-items:center;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.55)}
+  .app img{width:44px;height:44px;filter:drop-shadow(3px 3px 0 rgba(30,26,51,.55))}
+  .app span{text-shadow:2px 2px 0 var(--ink)}
+  .app.sel .ic{border:2px dashed #fff;background:rgba(63,53,99,.55)}
+  .cursor{position:absolute;width:24px;height:38px;background:url("../../../assets/pixel/cursor.svg") no-repeat;left:136px;top:470px}
+  .dock{position:absolute;left:14px;right:14px;bottom:30px;display:flex;justify-content:space-around;padding:10px 6px}
+  .dock img{width:44px;height:44px}
+  .home{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:134px;height:6px;background:var(--ink)}
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="status">
+      <span>9:41</span>
+      <span class="bars"><i style="height:6px"></i><i style="height:10px"></i><i style="height:14px"></i><i style="height:18px"></i><span class="bat"></span></span>
+    </div>
+
+    <div class="win widget">
+      <div class="bar"><span>TIME_OUT.EXE</span><span><i></i><i></i><i></i></span></div>
+      <div class="body">
+        <h1>Time Out!</h1>
+        <p>제 시간도 같이 도둑맞고 있습니다.</p>
+        <div class="row"><span class="chip pink">▶ 게임</span><span class="chip">논문</span><span class="chip">과제</span></div>
+      </div>
+    </div>
+
+    <div class="apps">
+      <div class="app"><div class="ic"><img src="../../../assets/pixel/person.svg" alt=""></div><span>소개</span></div>
+      <div class="app sel"><div class="ic"><img src="../../../assets/pixel/folder.svg" alt=""></div><span>연구용<br>게임</span></div>
+      <div class="app"><div class="ic"><img src="../../../assets/pixel/gamepad.svg" alt=""></div><span>오락<br>게임</span></div>
+      <div class="app"><div class="ic"><img src="../../../assets/pixel/paper.svg" alt=""></div><span>논문</span></div>
+      <div class="app"><div class="ic"><img src="../../../assets/pixel/star.svg" alt=""></div><span>전시·발표</span></div>
+      <div class="app"><div class="ic"><img src="../../../assets/pixel/folder-blue.svg" alt=""></div><span>과제</span></div>
+      <div class="app"><div class="ic"><img src="../../../assets/pixel/notebook.svg" alt=""></div><span>일지</span></div>
+    </div>
+    <div class="cursor" aria-hidden="true"></div>
+
+    <div class="win dock">
+      <img src="../../../assets/pixel/person.svg" alt="소개">
+      <img src="../../../assets/pixel/folder.svg" alt="연구용 게임">
+      <img src="../../../assets/pixel/folder-blue.svg" alt="과제">
+      <img src="../../../assets/pixel/notebook.svg" alt="일지">
+    </div>
+    <div class="home"></div>
+  </div>
+</body>
+</html>

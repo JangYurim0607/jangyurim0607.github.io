@@ -39,29 +39,36 @@ Minimal logo mark for a game designer and researcher named Yurim Jang. A single 
 
 ## 4. 명함 2장 (AI 이미지 생성 + Figma, 90×50mm 비율, PNG @2x)
 
-요청한 방향(2차 수정 반영):
+요청한 방향(최종 수정까지 반영):
 
 > 1. 도트 스타일. 명함 자체가 노트북의 앞면·뒷면이다. 노트북이 명함을 꽉 채우고 배경은 없어야 한다. 앞면은 키보드 없이 모니터만, 뒷면은 그냥 뒷면. 노트북 색은 실버
 > 2. 인적 정보: 성균관대학교 앵커사업단 PM / 성균관대학교 게임디자인학과 박사과정 / 전화번호 / 이메일 / 포트폴리오 사이트 QR코드, 그 밑에 '더보기'라는 단어를 버튼처럼
-> 3. 뒷면: 햄스터, 친칠라, 스타듀밸리, 심즈, 마인크래프트, 배틀그라운드, 롤토체스, 성균관대학교 로고(가운데 가장 크게) 도트 스티커가 여기저기 붙어 있음
+> 3. 앞면 화면은 윈도우 정석 배경화면처럼 파란 하늘과 초원. 각 인적 사항 왼쪽에 바탕화면 아이콘 같은 폴더·전화·이메일 아이콘. 마우스 커서가 '더보기' 버튼 위에 올라가 있음. 한글 폰트도 도트 디자인과 어울리게
+> 4. 뒷면: 햄스터, 친칠라, 스타듀밸리, 심즈, 마인크래프트, 배틀그라운드, 롤토체스, 성균관대학교 로고(가운데 가장 크게) 도트 스티커가 여기저기 붙어 있음
 
-### 앞면: 명함을 꽉 채운 실버 모니터
+### 앞면: 실버 모니터 속 바탕화면
 
-키보드를 기울여 넣은 시안도 만들었지만, 최종 앞면은 모니터만 남겼다. 은색 베젤이 명함 네 변을 두르고 안쪽은 전부 화면이다.
+명함 전체가 실버 모니터이고, 화면 안은 컴퓨터 바탕화면처럼 꾸몄다.
 
-Figma `generate_image`(gpt-image-2.5-sunburst)에 넣은 프롬프트:
+1) 모니터. Figma `generate_image`(gpt-image-2.5-sunburst)에 넣은 프롬프트:
 
 ```
 16-bit pixel art of the display of a silver laptop, straight-on front view, that completely fills a wide rectangular image edge to edge like a full-bleed business card. ONLY the monitor: no keyboard, no hinge, no base, no stand. The silhouette is exactly the image rectangle: NO background anywhere, no white, no desk, no shadow, no empty or rounded corners. A brushed-silver aluminum bezel (light silver #E6E8EE / #C9CDD6 with dark grey #5A5F6B pixel outlines) runs along all four image edges, slightly thicker at the bottom, with a tiny webcam dot at the top center. Inside the bezel is a very large EMPTY dark navy (#1E1A33) screen with faint horizontal scanlines and nothing on it — no text, no icons, no UI. Clean pixel art, no logos, no watermark.
 ```
 
-생성된 이미지 네 모서리에 둥글게 남은 흰 픽셀은 Figma 이미지 자르기(CROP)로 6px씩 잘라 냈다.
+2) 바탕화면(파란 하늘과 초원). 특정 사진을 베끼지 않고 새로 그리게 했다. `generate_image`(gemini-3.1-flash-image):
 
-이미지 생성 모델은 한글과 전화번호를 자주 틀리게 그린다. 그래서 인적 정보는 Figma에서 비워 둔 화면 위에 텍스트로 얹었다.
-- 폰트: Press Start 2P(라벨), VT323(전화·이메일), DotumChe(한글)
-- 내용: ▶ PLAYER PROFILE / 장유림 YURIM JANG / 소속 2줄 / TEL·MAIL
-- QR: 포트폴리오 주소로 실제 생성한 QR(segno)을 사각형 도형으로 그려 넣었다. 내보낸 이미지에서 모듈 841칸이 원본과 모두 일치하는지 확인했다
-- QR 아래에 도트 버튼 모양의 '▶ 더보기'
+```
+16-bit pixel art desktop wallpaper, wide landscape, full frame with no border: a bright saturated blue sky with a few soft fluffy white clouds, and one big smooth rolling bright green grassy hill sweeping across the lower 40% of the image with a gentle curve, lush meadow texture in pixel dithering. Classic, calm, cheerful computer desktop wallpaper mood. Simple composition, nothing else: no trees, no people, no buildings, no text, no icons, no UI, no logos, no watermark.
+```
+
+3) Figma에서 얹은 것
+- 한글 도트 폰트: Figma에는 한글 도트 폰트가 없었다. 굴림을 작게 렌더링해서 픽셀로 바꿔 봤지만 획이 뭉개졌다. 그래서 오픈소스(OFL) 한글 도트 폰트 **Neo둥근모**로 16px 비트맵을 만들고, 픽셀 하나하나를 벡터 사각형으로 바꿔 2~3배 키웠다. 영문과 숫자는 VT323, Press Start 2P를 썼다.
+- 아이콘: 16×16 픽셀 격자로 직접 그렸다. 이름은 사람, 앵커사업단은 노란 폴더, 박사과정은 학사모, 전화는 휴대폰, 이메일은 편지봉투 아이콘이다.
+- 글자와 아이콘에는 바탕화면 아이콘 라벨처럼 2px 남색 픽셀 그림자를 넣었다.
+- QR 아래 '▶ 더보기' 버튼에 클래식 화살표 마우스 커서(12×19 픽셀)가 올라가 있다.
+- QR: 포트폴리오 주소로 만든 실제 QR을 사각형 도형으로 넣었다. 내보낸 이미지에서 모듈 841칸이 원본과 모두 일치했다.
+- 생성된 모니터 이미지 네 모서리에 둥글게 남은 흰 픽셀은 이미지 자르기(CROP)로 6px씩 잘라 냈다.
 
 ### 뒷면: 명함을 꽉 채운 실버 덮개와 스티커
 
@@ -73,7 +80,7 @@ Figma `generate_image`(gpt-image-2.5-sunburst)에 넣은 프롬프트:
 
 가운데 성균관대 스티커는 AI가 은행잎과 SKKU 글자로 해석해서 그린 것이다. 공식 로고 파일은 쓰지 않았다. 배틀그라운드는 3레벨 헬멧·프라이팬·보급상자로, 롤토체스는 황금 육각 타일과 펭구 꼬마 전설이로 표현했다.
 
-이전 시안(1차 Figma 디자인, 2차 라벤더 도트 모니터, 3차 배경 있는 실버 노트북, 4차 키보드가 기울어진 노트북)은 Figma 파일에 '(이전)' 표시로 남겨 두었다.
+이전 시안(1차 Figma 디자인, 2차 라벤더 도트 모니터, 3차 배경 있는 실버 노트북, 4차 키보드가 기울어진 노트북, 5차 빈 화면의 모니터)은 Figma 파일에 '(이전)' 표시로 남겨 두었다.
 
 ## 5. 브로슈어 1장 (A4, PDF)
 

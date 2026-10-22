@@ -108,8 +108,14 @@ Minimal logo mark for a game designer and researcher named Yurim Jang. A single 
 - 홈 큰 제목을 "Time Out!"으로 고정
 
 피그마에 반영한 방법
-- 무료(Starter) 요금제의 Figma MCP 호출 한도(월 20회)를 다 써서, 개편 뒤에는 Claude Code에서 피그마 파일을 직접 고칠 수 없었다.
-- 그래서 개편한 실제 사이트를 모바일(390px)·아이패드(834px) 폭으로 캡처해 레이아웃 1·2를 만들었다. Phone UI(393×852, 바탕화면 아이콘이 앱처럼 놓인 홈 화면)와 도트 브로슈어(A4)는 사이트와 같은 에셋으로 HTML을 짜서 렌더링했다.
-- 이 네 장을 Chrome의 Figma 웹에서 새 페이지 "03 도트 리디자인 (사이트 개편 반영)"에 배치했다. 피그마 파일 이름도 "8주차 과제"로 고쳤다.
+- 무료(Starter) 요금제의 Figma MCP 호출 한도(월 20회)를 다 써서, 개편 뒤에는 MCP로 피그마 파일을 고칠 수 없었다.
+- 대신 Chrome에서 연 Figma 웹 편집기의 디자인 API(`figma` 객체)로 스크립트를 실행해 편집 가능한 레이어로 다시 만들었다.
+  - 한글은 Figma에 Neo둥근모가 없어서, Neo둥근모 16px 비트맵을 픽셀 벡터로 바꾼 데이터(`assignments/week8/pixel/figma-text.json`)를 사이트에 올려 두고 Figma에서 불러왔다. 영문은 Press Start 2P, VT323 텍스트 레이어다.
+  - 색은 `Pixel Tokens` 변수 컬렉션으로 묶었고, 창 제목줄(WinBar, 제목 텍스트 속성), 버튼 4종, 바탕화면 아이콘 7종은 컴포넌트로 만들어 레이아웃에서 인스턴스로 썼다.
+- 01 레이아웃 도안: Components · 도트 공통 부품 / Layout 1 · Mobile Web (390, 홈 바탕화면 + 과제 페이지) / Layout 2 · iPad (834, 홈 + 연구용 게임 페이지) / Layout 3 · Phone UI (393×852, 바탕화면 아이콘 홈 화면)
+- 02 로고 · 명함 · 브로슈어: 브로슈어를 도트 버전(A4)으로 새로 만들었다. 1.5배 크기로 짠 뒤 A4로 줄여서 도트 글자가 인쇄 크기에 맞게 했다. 브로슈어와 명함 QR은 Figma 안에서 다시 스캔해 포트폴리오 주소가 나오는지 확인했다.
+- 03 참고 · 실제 사이트 캡처: 개편한 실제 사이트를 모바일·아이패드 폭으로 캡처한 이미지
+- 00 이전 파스텔 시안 (보관): 처음 만든 파스텔 레이아웃·브로슈어와 이전 명함 시안들
+- 피그마 파일 이름도 "8주차 과제"로 고쳤다.
 - 이전 파스텔 버전 레이아웃·브로슈어는 `assignments/week8/v1/`에 남겨 두었다.
 - Phone UI와 브로슈어 원본 HTML: `assignments/week8/pixel/phone-ui.html`, `assignments/week8/pixel/brochure.html`

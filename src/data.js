@@ -177,13 +177,8 @@
     const p = store.profile;
     if(!p) return;
     document.getElementById('pEyebrow').textContent = p.eyebrow || '';
-    document.title = (p.headline ? p.headline.replace(/\s+/g,' ') + ' — ' : '') + 'Yurim Jang';
-
-    const head = (p.headline || '').split('\n');
-    document.getElementById('pHeadline').innerHTML = head.length > 1
-      ? `<span>${esc(head[0])}</span><br>${esc(head.slice(1).join(' '))}`
-      : esc(p.headline || '');
-    document.getElementById('pSubline').textContent = p.subline || '';
+    // 큰 제목 "Time Out!" 은 도트 디자인의 일부라 index.html 에 고정해 두었습니다
+    if(p.subline) document.getElementById('pSubline').textContent = p.subline;
     document.getElementById('pBio').textContent = p.bio || '';
 
     document.getElementById('pSkills').innerHTML = arr(p.skills).map(s=>`<span class="tag">${esc(s)}</span>`).join('');

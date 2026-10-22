@@ -34,6 +34,14 @@
       });
     });
 
+    document.querySelectorAll('.desk-icon').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        if(a.hasAttribute('data-diary')){ window.openDiary && window.openDiary('전체'); return; }
+        showSection(a.getAttribute('href').slice(1));
+      });
+    });
+
     document.querySelectorAll('.page-back').forEach(a=>{
       a.addEventListener('click', e=>{ e.preventDefault(); showHome(); });
     });

@@ -4,10 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="시간 가는 줄 모르는 게임을 만들고, 왜 그런지 연구합니다. 게임 개발자 겸 연구자 Yurim Jang의 포트폴리오" />
-  <title>Yurim Jang — Game & Research Portfolio</title>
+  <title>Time Out! — Yurim Jang</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Gowun+Batang:wght@400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="./assets/fonts/neodgm.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./src/styles.css" />
 </head>
 <body class="home-mode">
@@ -27,25 +28,41 @@
     </nav>
 
     <div class="wrap hero">
-      <div>
-        <div class="eyebrow" id="pEyebrow">장유림 포트폴리오 · 게임 개발과 연구</div>
-        <h1 id="pHeadline"><span>당신의 시간을</span><br>훔치겠습니다.</h1>
-        <p class="hero-copy" id="pSubline">제 시간도 같이 도둑맞고 있습니다.</p>
-        <div class="cta-row">
-          <a class="btn primary" href="#research">연구용 게임 보기 ↘</a>
-          <a class="btn secondary" href="#papers">논문 보기</a>
+      <div class="win hero-win">
+        <div class="win-bar"><span>TIME_OUT.EXE</span><span class="win-btns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="win-body">
+          <div class="eyebrow" id="pEyebrow">장유림 포트폴리오 · 게임 개발과 연구</div>
+          <h1 id="pHeadline">Time Out!</h1>
+          <p class="hero-copy" id="pSubline">제 시간도 같이 도둑맞고 있습니다.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="#research">▶ 연구용 게임 보기</a>
+            <a class="btn secondary" href="#papers">논문 보기</a>
+          </div>
         </div>
       </div>
 
-      <aside class="hero-card">
-        <div class="portrait-placeholder" id="pPhoto">
-          <div>
-            <strong>Profile Image</strong>
-            <small>관리자 화면에서 프로필 사진을 올릴 수 있습니다</small>
+      <aside class="hero-card win">
+        <div class="win-bar"><span>PROFILE.PNG</span><span class="win-btns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="win-body">
+          <div class="portrait-placeholder" id="pPhoto">
+            <div>
+              <strong>Profile Image</strong>
+              <small>관리자 화면에서 프로필 사진을 올릴 수 있습니다</small>
+            </div>
           </div>
+          <div class="mini-stats" id="pStats"></div>
         </div>
-        <div class="mini-stats" id="pStats"></div>
       </aside>
+    </div>
+
+    <div class="wrap desk-icons" aria-label="바로가기">
+      <a class="desk-icon" href="#about"><img src="./assets/pixel/person.svg" alt=""><span>소개</span></a>
+      <a class="desk-icon" href="#research"><img src="./assets/pixel/folder.svg" alt=""><span>연구용 게임</span></a>
+      <a class="desk-icon" href="#games"><img src="./assets/pixel/gamepad.svg" alt=""><span>오락 게임</span></a>
+      <a class="desk-icon" href="#papers"><img src="./assets/pixel/paper.svg" alt=""><span>논문</span></a>
+      <a class="desk-icon" href="#showcase"><img src="./assets/pixel/star.svg" alt=""><span>전시·발표</span></a>
+      <a class="desk-icon" href="#assignments"><img src="./assets/pixel/folder-blue.svg" alt=""><span>과제</span></a>
+      <a class="desk-icon" href="#diary" data-diary><img src="./assets/pixel/notebook.svg" alt=""><span>일지</span></a>
     </div>
   </header>
 

@@ -11,7 +11,7 @@
 HTML, CSS, JavaScript, Supabase(DB·로그인·파일 저장소), Vercel(배포)
 
 ## 디자인
-명함과 같은 도트(픽셀) 바탕화면 테마입니다. 홈 제목은 `index.html` 의 "Time Out!" 입니다.
+명함과 같은 도트(픽셀) 바탕화면 테마입니다. 홈 제목 "Time Out!" 과 소개 한 줄("잼컨을 세상에 제공하기 위한 시간싸움")은 `index.html` 에 있습니다.
 - 한글 도트 폰트: [Neo둥근모](https://github.com/neodgm/neodgm) (SIL Open Font License 1.1) — `assets/fonts/neodgm.woff2`
 - 영문 도트 폰트: Press Start 2P, VT323 (Google Fonts)
 - 바탕화면 이미지·아이콘·커서: `assets/pixel/` (바탕화면은 Figma AI로 생성, 아이콘·커서는 픽셀 격자로 직접 그림)

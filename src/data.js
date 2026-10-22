@@ -102,9 +102,9 @@
     ,
     { week:'8주차', title:'영상 생성: 내가 랜딩페이지를 소개한다 (숏폼)',
       description:'세미나에서 다룬 인물 중심 숏폼입니다. Runway(Seedance 2.5)로 만든 12초 세로(9:16) 원테이크 영상으로, 도트 디자인으로 바꾼 이 포트폴리오 사이트 안에서 인물이 사이트를 소개합니다.',
-      tags:['Runway','Seedance 2.5','9:16 숏폼','원테이크'],
+      tags:['Runway','Seedance 2.5','Reference to Video','Image to Video','Frame to Frame','9:16 숏폼'],
       video:{src:'/assignments/week8/video/landing-shortform.mp4',poster:'/assignments/week8/video/poster.jpg'},
-      links:[{label:'영상 파일(mp4)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week8/video/landing-shortform.mp4'}] }
+      links:[{label:'영상 파일(mp4)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week8/video/landing-shortform.mp4'},{label:'프롬프트(md)',url:'https://github.com/JangYurim0607/jangyurim0607.github.io/blob/main/assignments/week8/video/prompt.md'},{label:'워크플로우 이미지',url:'https://yurim-portfolio-azure.vercel.app/assignments/week8/video/workflow.png'},{label:'워크플로우(웹)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week8/video/workflow.html'}] }
   ];
 
   function renderAssignments(){
@@ -192,8 +192,7 @@
     const p = store.profile;
     if(!p) return;
     document.getElementById('pEyebrow').textContent = p.eyebrow || '';
-    // 큰 제목 "Time Out!" 은 도트 디자인의 일부라 index.html 에 고정해 두었습니다
-    if(p.subline) document.getElementById('pSubline').textContent = p.subline;
+    // 큰 제목 "Time Out!" 과 그 아래 소개 한 줄은 도트 디자인의 일부라 index.html 에 고정해 두었습니다
     document.getElementById('pBio').textContent = p.bio || '';
 
     document.getElementById('pSkills').innerHTML = arr(p.skills).map(s=>`<span class="tag">${esc(s)}</span>`).join('');

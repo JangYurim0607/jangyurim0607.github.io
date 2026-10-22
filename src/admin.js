@@ -5,7 +5,6 @@
     const SCHEMA = {
       profile: { label:'소개', single:true, fields:[
         {k:'eyebrow',  t:'text',     label:'맨 윗줄'},
-        {k:'subline',  t:'text',     label:'제목 아래 한 줄'},
         {k:'bio',      t:'textarea', label:'소개 글'},
         {k:'skills',   t:'list',     label:'관심 분야', hint:'쉼표로 구분'},
         {k:'tools',    t:'list',     label:'사용 툴',   hint:'쉼표로 구분'},

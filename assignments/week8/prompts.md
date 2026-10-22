@@ -41,19 +41,21 @@ Minimal logo mark for a game designer and researcher named Yurim Jang. A single 
 
 요청한 방향(2차 수정 반영):
 
-> 1. 도트 스타일. 명함 자체가 노트북의 앞면·뒷면이다. 노트북이 명함을 꽉 채우고 배경은 없어야 한다. 앞면은 앞에서 살짝 위로 본 모습이라 키보드가 잘리지 않고 기울어져 보인다. 뒷면은 그냥 뒷면. 노트북 색은 실버
+> 1. 도트 스타일. 명함 자체가 노트북의 앞면·뒷면이다. 노트북이 명함을 꽉 채우고 배경은 없어야 한다. 앞면은 키보드 없이 모니터만, 뒷면은 그냥 뒷면. 노트북 색은 실버
 > 2. 인적 정보: 성균관대학교 앵커사업단 PM / 성균관대학교 게임디자인학과 박사과정 / 전화번호 / 이메일 / 포트폴리오 사이트 QR코드, 그 밑에 '더보기'라는 단어를 버튼처럼
 > 3. 뒷면: 햄스터, 친칠라, 스타듀밸리, 심즈, 마인크래프트, 배틀그라운드, 롤토체스, 성균관대학교 로고(가운데 가장 크게) 도트 스티커가 여기저기 붙어 있음
 
-### 앞면: 명함을 꽉 채운 실버 노트북 (키보드는 기울어져 보이게)
+### 앞면: 명함을 꽉 채운 실버 모니터
 
-처음에는 원근을 그대로 살렸더니 키보드 받침이 화면보다 넓어져서 명함 모서리에 배경이 생겼다. 그래서 화면과 키보드 너비를 같게 하고, 키보드 줄의 높이만 앞으로 올수록 커지게 해서 기울어진 느낌을 냈다. 이 버전은 gpt-image 모델이 지시를 더 잘 따랐다.
+키보드를 기울여 넣은 시안도 만들었지만, 최종 앞면은 모니터만 남겼다. 은색 베젤이 명함 네 변을 두르고 안쪽은 전부 화면이다.
 
 Figma `generate_image`(gpt-image-2.5-sunburst)에 넣은 프롬프트:
 
 ```
-16-bit pixel art of an open silver laptop that completely fills a wide rectangular image edge to edge, like a full-bleed business card. The laptop silhouette is exactly the image rectangle: NO background anywhere, no white, no desk, no shadow, no empty corners. Top 60% of the image: the display, its brushed-silver bezel (light silver #E6E8EE / #C9CDD6, dark grey #5A5F6B pixel outlines) touching the top, left and right edges, tiny webcam dot at top center, and a large EMPTY dark navy (#1E1A33) screen with faint scanlines and nothing on it. Bottom 40%: the whole silver keyboard deck seen tilted back from slightly above — the key rows are foreshortened (thin rows near the hinge getting taller toward the front), all keys fully visible in dark grey, a trackpad at the front center — and the deck is EXACTLY as wide as the screen so its left and right sides are the image's left and right edges and its front lip is the image's bottom edge. Nothing is cut off. Clean pixel art, no text, no logos, no watermark.
+16-bit pixel art of the display of a silver laptop, straight-on front view, that completely fills a wide rectangular image edge to edge like a full-bleed business card. ONLY the monitor: no keyboard, no hinge, no base, no stand. The silhouette is exactly the image rectangle: NO background anywhere, no white, no desk, no shadow, no empty or rounded corners. A brushed-silver aluminum bezel (light silver #E6E8EE / #C9CDD6 with dark grey #5A5F6B pixel outlines) runs along all four image edges, slightly thicker at the bottom, with a tiny webcam dot at the top center. Inside the bezel is a very large EMPTY dark navy (#1E1A33) screen with faint horizontal scanlines and nothing on it — no text, no icons, no UI. Clean pixel art, no logos, no watermark.
 ```
+
+생성된 이미지 네 모서리에 둥글게 남은 흰 픽셀은 Figma 이미지 자르기(CROP)로 6px씩 잘라 냈다.
 
 이미지 생성 모델은 한글과 전화번호를 자주 틀리게 그린다. 그래서 인적 정보는 Figma에서 비워 둔 화면 위에 텍스트로 얹었다.
 - 폰트: Press Start 2P(라벨), VT323(전화·이메일), DotumChe(한글)
@@ -71,7 +73,7 @@ Figma `generate_image`(gpt-image-2.5-sunburst)에 넣은 프롬프트:
 
 가운데 성균관대 스티커는 AI가 은행잎과 SKKU 글자로 해석해서 그린 것이다. 공식 로고 파일은 쓰지 않았다. 배틀그라운드는 3레벨 헬멧·프라이팬·보급상자로, 롤토체스는 황금 육각 타일과 펭구 꼬마 전설이로 표현했다.
 
-이전 시안(1차 Figma 디자인, 2차 라벤더 도트 모니터, 3차 배경 있는 실버 노트북)은 Figma 파일에 '(이전)' 표시로 남겨 두었다.
+이전 시안(1차 Figma 디자인, 2차 라벤더 도트 모니터, 3차 배경 있는 실버 노트북, 4차 키보드가 기울어진 노트북)은 Figma 파일에 '(이전)' 표시로 남겨 두었다.
 
 ## 5. 브로슈어 1장 (A4, PDF)
 

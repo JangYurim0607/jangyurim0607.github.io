@@ -119,3 +119,13 @@ Minimal logo mark for a game designer and researcher named Yurim Jang. A single 
 - 피그마 파일 이름도 "8주차 과제"로 고쳤다.
 - 이전 파스텔 버전 레이아웃·브로슈어는 `assignments/week8/v1/`에 남겨 두었다.
 - Phone UI와 브로슈어 원본 HTML: `assignments/week8/pixel/phone-ui.html`, `assignments/week8/pixel/brochure.html`
+
+## 7. 글씨 가독성 보정 · 세로형 명함
+
+> 명함이랑 사이트에서 메인 글씨가 살짝 안보이는 것 같아서 배경 채도나 밝기를 살짝 조절해주고, 같은 포맷으로 세로형 명함도 만들어줘
+
+- 배경화면: 채도 78%, 밝기 84%로 낮췄다. 명함 화면과 사이트 홈 바탕화면(`assets/pixel/wallpaper.png`)에 같은 값을 썼다.
+- 사이트 섹션 페이지의 하늘 단계 색을 한 톤씩 진하게 바꿔서 흰 제목(예: "과제")이 잘 보이게 했다.
+- 명함 앞면은 가로·세로 모두 같은 템플릿([pixel/card/card.html](pixel/card/card.html))에서 뽑는다. Figma 명함에서 아이콘 다섯 개를 16×16 도트로 옮기고, 글씨는 Neo둥근모 32px(이름 48px)로 넣었다. 세로형은 소속·학과 줄을 두 줄로 나눴다. 모니터 테두리는 가로 명함 테두리를 잘라 세로로 이어 붙였고, 웹캠은 위쪽 가운데에 그대로 두었다.
+- 세로형 뒷면: 가로 뒷면 AI 이미지에서 스티커 13장을 흰 테두리 기준으로 오려 내 세로 실버 덮개 위에 다시 배치했다([pixel/card/back_v.py](pixel/card/back_v.py)). SKKU 스티커가 가운데 가장 크게 오고, 위아래로 세 개씩 두 줄이 있다.
+- QR은 가로·세로 둘 다 모듈 841칸이 원본 QR과 모두 일치했다.

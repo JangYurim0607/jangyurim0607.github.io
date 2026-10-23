@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  @font-face{font-family:"NeoDunggeunmo";src:url("neodgm.woff2") format("woff2")}
+  :root{--ink:#1E1A33;--pink:#EBB9CB;--lilac:#B8A4D8;--gold:#F7D154}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:transparent}
+  body{font-family:"NeoDunggeunmo",monospace;-webkit-font-smoothing:none;color:#fff}
+  .card{position:relative;overflow:hidden}
+  .h{width:1080px;height:603px}
+  .v{width:603px;height:1080px}
+  /* 화면: 배경화면 채도·밝기를 낮춰 흰 글씨가 잘 읽히게 */
+  .screen{position:absolute;left:18px;top:24px;overflow:hidden;background:#1d6fb8}
+  .h .screen{width:1042px;height:542px}
+  .v .screen{width:567px;height:1032px}
+  .screen img.wp{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;image-rendering:pixelated;
+    filter:saturate(.78) brightness(.84)}
+  .v .screen img.wp{object-position:58% 50%}
+  .bezel{position:absolute;inset:0;width:100%;height:100%}
+  .info{position:absolute}
+  .h .info{left:68px;top:150px}
+  .v .info{left:40px;top:104px}
+  .row{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
+  .row .ic{width:40px;height:40px;flex:none;filter:drop-shadow(2px 2px 0 rgba(30,26,51,.6))}
+  .row .t{font-size:32px;line-height:40px;white-space:nowrap;text-shadow:2px 2px 0 var(--ink),-1px 0 0 var(--ink),0 -1px 0 var(--ink)}
+  .row.name{margin-bottom:22px}
+  .row.name .ic{margin-top:10px}
+  .row.name .t{font-size:48px;line-height:48px;text-shadow:3px 3px 0 var(--ink),-1px 0 0 var(--ink),0 -1px 0 var(--ink)}
+  .row.name small{display:block;margin-top:6px;font-family:"Press Start 2P",monospace;font-size:12px;line-height:12px;color:var(--gold);text-shadow:2px 2px 0 var(--ink)}
+  .h .row{margin-bottom:18px}
+  .qr{position:absolute;background:#fff;border:4px solid var(--lilac);padding:10px;box-shadow:5px 5px 0 rgba(30,26,51,.55)}
+  .qr img{display:block;width:100%;height:100%}
+  .h .qr{left:802px;top:150px;width:198px;height:198px}
+  .v .qr{left:182px;top:560px;width:240px;height:240px}
+  .btn{position:absolute;width:170px;height:52px;background:var(--pink);border:3px solid #fff;
+    box-shadow:inset -3px -3px 0 #d690aa,5px 5px 0 var(--ink);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;gap:10px;font-size:32px;line-height:1}
+  .btn b{font-size:16px;font-weight:400}
+  .h .btn{left:816px;top:368px}
+  .v .btn{left:217px;top:836px}
+  .cursor{position:absolute;width:36px;height:57px}
+  .h .cursor{left:928px;top:397px}
+  .v .cursor{left:329px;top:865px}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="screen"><img class="wp" src="wallpaper_full.png" alt=""></div>
+  <div class="info">
+    <div class="row name"><img class="ic" src="ic_person.svg" alt=""><div class="t">장유림<small>YURIM JANG</small></div></div>
+    <div class="row"><img class="ic" src="ic_folder.svg" alt=""><div class="t" data-v="성균관대학교<br>앵커사업단 PM">성균관대학교 앵커사업단 PM</div></div>
+    <div class="row"><img class="ic" src="ic_cap.svg" alt=""><div class="t" data-v="성균관대학교 게임디자인학과<br>박사과정">성균관대학교 게임디자인학과 박사과정</div></div>
+    <div class="row"><img class="ic" src="ic_phone.svg" alt=""><div class="t">010-2826-0607</div></div>
+    <div class="row"><img class="ic" src="ic_mail.svg" alt=""><div class="t">itree0607@skku.edu</div></div>
+  </div>
+  <div class="qr"><img src="qr.svg" alt="QR"></div>
+  <div class="btn"><b>▶</b>더보기</div>
+  <img class="cursor" src="cursor.svg" alt="">
+  <img class="bezel" id="bezel" alt="">
+</div>
+<script>
+  const v = location.hash === '#v';
+  const card = document.getElementById('card');
+  card.classList.add(v ? 'v' : 'h');
+  document.getElementById('bezel').src = v ? 'bezel_v.png' : 'bezel_h.png';
+  if (v) document.querySelectorAll('[data-v]').forEach(el => el.innerHTML = el.dataset.v);
+</script>
+</body>
+</html>

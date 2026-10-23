@@ -732,7 +732,7 @@
 
     /* 바탕화면 */
     .home-bg{
-      background:#3FA9F5 url("../assets/pixel/wallpaper.png") center bottom / cover no-repeat;
+      background:#2F86C9 url("../assets/pixel/wallpaper.png") center bottom / cover no-repeat;
       image-rendering:pixelated;
     }
     .home-bg::before, .noise{ display:none }
@@ -855,7 +855,7 @@
     body.theme-about, body.theme-research, body.theme-games,
     body.theme-papers, body.theme-showcase, body.theme-assignments{
       background:
-        linear-gradient(#5DB6FF 0 120px, #78C3FF 120px 240px, #93CFFF 240px 360px, #ADDCFF 360px 480px, var(--sky-2) 480px) fixed;
+        linear-gradient(#3F93DC 0 120px, #529FE2 120px 240px, #66ABE7 240px 360px, #7AB7EB 360px 480px, #8EC3EE 480px) fixed;
     }
     body.theme-about .section.active-section,
     body.theme-research .section.active-section,

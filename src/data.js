@@ -109,7 +109,8 @@
     { week:'9주차 중간 프로젝트', title:'뱁새 발표 앱: 커서를 따라다니며 화면을 발표하는 캐릭터',
       description:'마우스 커서를 따라다니는 뱁새가 커서를 댄 곳을 미리 읽어 두었다가, 클릭하면 청중 앞에서 발표하듯 "~입니다" 발표체로 설명해 주는 데스크톱 앱(Electron + Claude)입니다. 학술적인 내용은 책, 재미있는 내용은 마이크, 중요한 내용은 확성기를 들고 설명하고, 욕설·개인정보는 새소리로 바꿉니다. 더블클릭하면 중단하고, 뱁새를 우클릭하면 마이크를 건네며 청중 질문을 받습니다. 캐릭터는 직접 만든 시트 3장에서 포즈를 잘라 썼습니다.',
       tags:['Electron','Claude API','비전','캐릭터 시트','TTS','발표 앱'],
-      links:[{label:'GitHub',url:'https://github.com/JangYurim0607/baepsae-presenter'},{label:'프롬프트와 과정(md)',url:'https://github.com/JangYurim0607/jangyurim0607.github.io/blob/main/assignments/week9/prompts.md'},{label:'캐릭터 시트(안경)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week9/sheet-glasses.webp'},{label:'캐릭터 시트(마이크)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week9/sheet-mic.webp'},{label:'캐릭터 시트(확성기)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week9/sheet-megaphone.webp'}] }
+      video:{src:'/assignments/week9/demo-30s.mp4',poster:'/assignments/week9/poster.jpg',wide:true},
+      links:[{label:'시연 영상 30초(mp4)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week9/demo-30s.mp4'},{label:'시연 원본 영상(mp4)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week9/demo-original.mp4'},{label:'GitHub',url:'https://github.com/JangYurim0607/baepsae-presenter'},{label:'프롬프트와 과정(md)',url:'https://github.com/JangYurim0607/jangyurim0607.github.io/blob/main/assignments/week9/prompts.md'},{label:'캐릭터 시트(안경)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week9/sheet-glasses.webp'},{label:'캐릭터 시트(마이크)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week9/sheet-mic.webp'},{label:'캐릭터 시트(확성기)',url:'https://yurim-portfolio-azure.vercel.app/assignments/week9/sheet-megaphone.webp'}] }
   ];
 
   function renderAssignments(){
@@ -117,7 +118,7 @@
     if(!el) return;
     el.innerHTML = ASSIGNMENTS.map(a => `
       <article class="project-card">
-        ${a.video ? `<div class="media vertical"><video src="${esc(a.video.src)}" poster="${esc(a.video.poster||'')}" controls playsinline preload="metadata"></video></div>` : ''}
+        ${a.video ? (a.video.wide ? `<div class="media" style="aspect-ratio:auto;background:var(--ink)"><video src="${esc(a.video.src)}" poster="${esc(a.video.poster||'')}" controls playsinline preload="metadata" style="display:block;width:100%;height:auto"></video></div>` : `<div class="media vertical"><video src="${esc(a.video.src)}" poster="${esc(a.video.poster||'')}" controls playsinline preload="metadata"></video></div>`) : ''}
         <div class="card-body">
           <div class="card-top">
             <h3 class="card-title">${esc(a.title)}</h3>
